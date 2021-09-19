@@ -13,6 +13,11 @@
     "test": "tsbb test",
     "coverage": "tsbb test --coverage"
   },
+  "files": [
+    "bin",
+    "lib",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/jaywcjlove/coverage-badges-cli"
