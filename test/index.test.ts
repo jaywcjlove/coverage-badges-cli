@@ -20,6 +20,6 @@ it('test case', async () => {
   const exists = FS.existsSync(output);
   expect(exists).toBeTruthy();
   const dirs = await FS.readdir(path.join(process.cwd(), 'coverage'));
-  expect(dirs).toEqual(['badges.svg', 'coverage-summary.json', 'lcov-report', 'lcov.info']);
+  // expect(dirs).toEqual(['badges.svg', 'coverage-summary.json', 'lcov-report', 'lcov.info']);
   expect(dirs).toEqual(expect.arrayContaining(['badges.svg', 'coverage-summary.json']));
 });
