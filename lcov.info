@@ -22,7 +22,7 @@ DA:28,1
 LF:13
 LH:12
 BRDA:10,0,0,1
-BRDA:10,0,1,1
+BRDA:10,0,1,0
 BRDA:19,1,0,0
 BRDA:19,1,1,5
 BRDA:19,2,0,5
@@ -35,7 +35,7 @@ BRDA:22,4,2,4
 BRDA:27,5,0,0
 BRDA:27,5,1,1
 BRF:13
-BRH:11
+BRH:10
 end_of_record
 TN:
 SF:src/create.ts
