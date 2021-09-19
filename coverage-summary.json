@@ -1,0 +1,5 @@
+{"total": {"lines":{"total":45,"covered":0,"skipped":0,"pct":0},"statements":{"total":45,"covered":0,"skipped":0,"pct":0},"functions":{"total":6,"covered":0,"skipped":0,"pct":0},"branches":{"total":23,"covered":0,"skipped":0,"pct":0}}
+,"/home/runner/work/coverage-badges-cli/coverage-badges-cli/src/badges.ts": {"lines":{"total":13,"covered":0,"skipped":0,"pct":0},"functions":{"total":2,"covered":0,"skipped":0,"pct":0},"statements":{"total":13,"covered":0,"skipped":0,"pct":0},"branches":{"total":13,"covered":0,"skipped":0,"pct":0}}
+,"/home/runner/work/coverage-badges-cli/coverage-badges-cli/src/create.ts": {"lines":{"total":10,"covered":0,"skipped":0,"pct":0},"functions":{"total":1,"covered":0,"skipped":0,"pct":0},"statements":{"total":10,"covered":0,"skipped":0,"pct":0},"branches":{"total":2,"covered":0,"skipped":0,"pct":0}}
+,"/home/runner/work/coverage-badges-cli/coverage-badges-cli/src/index.ts": {"lines":{"total":22,"covered":0,"skipped":0,"pct":0},"functions":{"total":3,"covered":0,"skipped":0,"pct":0},"statements":{"total":22,"covered":0,"skipped":0,"pct":0},"branches":{"total":8,"covered":0,"skipped":0,"pct":0}}
+}
