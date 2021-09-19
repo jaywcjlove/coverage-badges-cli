@@ -1,9 +1,11 @@
-import fs from 'fs';
+import FS from 'fs-extra';
 import path from 'path';
-
-const dirSrc = path.resolve('lib');
+import run from '../src/index'
 
 it('sum test case', async () => {
-  // expect(sum(1, 1)).toEqual(4);
-  // expect(abs(1, 1)).toEqual(2);
+  expect(run()).toBeUndefined();
+  const output = path.join(process.cwd(), 'coverage/badges.svg');
+  expect(FS.existsSync(output)).toBeTruthy();
+  const dirs = await FS.readdir(path.join(process.cwd(), 'coverage'));
+  expect(dirs).toEqual(['badges.svg', 'coverage-summary.json', 'lcov-report', 'lcov.info']);
 });
