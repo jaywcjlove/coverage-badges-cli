@@ -1,6 +1,8 @@
 coverage-badges-cli
 ---
 
+[![Coverage Status](https://jaywcjlove.github.io/coverage-badges-cli/badges.svg)](https://jaywcjlove.github.io/coverage-badges-cli/lcov-report/)
+
 Create coverage badges from coverage reports.
 
 Don't worry about the [coverage.io](https://coveralls.io/) service is down. 
