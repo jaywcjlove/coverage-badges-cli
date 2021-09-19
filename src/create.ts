@@ -25,7 +25,7 @@ export function create(argvs: RunArgvs) {
   const sourcePath = path.resolve(process.cwd(), argvs.source);
   const svgPath = path.resolve(process.cwd(), argvs.output);
   if (!fs.existsSync(sourcePath)) {
-    console.error(
+    console.log(
       `\x1b[31mErr Source Path:\x1b[0m ${path.relative(process.cwd(), sourcePath)}\n`,
       `> please specify the file directory\n`,
       `> \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json`
