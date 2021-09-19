@@ -37,6 +37,6 @@
     "minimist": "1.2.5"
   },
   "devDependencies": {
-    "tsbb": "^3.2.1"
+    "tsbb": "3.2.1"
   }
 }
