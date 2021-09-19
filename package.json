@@ -7,7 +7,7 @@
     "coverage-badges-cli": "bin/cli.js"
   },
   "scripts": {
-    "make-badges": "npm run coverage && node bin/cli",
+    "make-badges": "node bin/cli",
     "watch": "tsbb watch --disable-babel",
     "build": "tsbb build --disable-babel",
     "test": "tsbb test",
