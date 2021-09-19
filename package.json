@@ -3,8 +3,8 @@
   "version": "1.0.2",
   "description": "Create coverage badges from coverage reports.",
   "bin": {
-    "coverage-badges": "bin/cli.js",
-    "coverage-badges-cli": "bin/cli.js"
+    "coverage-badges": "bin/cli",
+    "coverage-badges-cli": "bin/cli"
   },
   "scripts": {
     "make-badges": "node bin/cli",
