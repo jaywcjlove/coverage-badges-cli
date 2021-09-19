@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -120,21 +120,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import fs from 'fs-extra';
 import path from 'path';
 import { RunArgvs } from '.';
@@ -158,10 +158,10 @@ export interface Summary extends Record&lt;string, SummaryItem&gt; {
   total: SummaryItem;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >create(</span>argvs: RunArgvs) {
-  const sourcePath = <span class="cstat-no" title="statement not covered" >path.resolve(process.cwd(), argvs.source);</span>
-  const svgPath = <span class="cstat-no" title="statement not covered" >path.resolve(process.cwd(), argvs.output);</span>
-<span class="cstat-no" title="statement not covered" >  if (!fs.existsSync(sourcePath)) {</span>
+export function create(argvs: RunArgvs) {
+  const sourcePath = path.resolve(process.cwd(), argvs.source);
+  const svgPath = path.resolve(process.cwd(), argvs.output);
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!fs.existsSync(sourcePath)) {
 <span class="cstat-no" title="statement not covered" >    console.error(</span>
       `\x1b[31mErr Source Path:\x1b[0m ${path.relative(process.cwd(), sourcePath)}\n`,
       `&gt; please specify the file directory\n`,
@@ -169,11 +169,11 @@ export function <span class="fstat-no" title="function not covered" >create(</sp
     );
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
-  const source: Summary = <span class="cstat-no" title="statement not covered" >require(sourcePath);</span>
-  const svgStr = <span class="cstat-no" title="statement not covered" >badge(argvs, source);</span>
-<span class="cstat-no" title="statement not covered" >  fs.ensureDirSync(path.dirname(svgPath));</span>
-<span class="cstat-no" title="statement not covered" >  fs.writeFileSync(svgPath, svgStr);</span>
-<span class="cstat-no" title="statement not covered" >  console.log(`\nCoverage Badges: \x1b[32;1m${path.relative(process.cwd(), svgPath)}\x1b[0m\n`);</span>
+  const source: Summary = require(sourcePath);
+  const svgStr = badge(argvs, source);
+  fs.ensureDirSync(path.dirname(svgPath));
+  fs.writeFileSync(svgPath, svgStr);
+  console.log(`\nCoverage Badges: \x1b[32;1m${path.relative(process.cwd(), svgPath)}\x1b[0m\n`);
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -181,7 +181,7 @@ export function <span class="fstat-no" title="function not covered" >create(</sp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Sep 19 2021 20:51:19 GMT+0000 (Coordinated Universal Time)
+                at Sun Sep 19 2021 21:02:43 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="prettify.js"></script>
