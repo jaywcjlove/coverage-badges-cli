@@ -1,6 +1,6 @@
 {
   "name": "coverage-badges-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Create coverage badges from coverage reports.",
   "bin": {
     "coverage-badges": "bin/cli",
