@@ -36,7 +36,7 @@ export default function run() {
 
 
 export function cliHelp() {
-  console.log('\n  Usage: coverage-badges <app-name> [options] [--help|h]');
+  console.log('\n  Usage: coverage-badges [options] [--help|h]');
   console.log('\n  Options:\n');
   console.log('    --version, -v ', 'Show version number');
   console.log('    --help, -h    ', 'Displays help information.');

@@ -69,7 +69,7 @@ jobs:
 ## Command Help
 
 ```bash
-Usage: coverage-badges <app-name> [options] [--help|h]
+Usage: coverage-badges [options] [--help|h]
 
 Options:
 
