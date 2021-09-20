@@ -77,7 +77,7 @@ Options:
   --help, -h     Displays help information.
   --output, -o   Output directory.
   --source, -s   Output directory.
-  --style        plastic | flat | flat-square | for-the-badge | social.
+  --style        Badges style: flat, flat-square.
 
 Example:
 
