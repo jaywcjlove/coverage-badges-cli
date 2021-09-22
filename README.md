@@ -76,14 +76,14 @@ Options:
   --version, -v  Show version number
   --help, -h     Displays help information.
   --output, -o   Output directory.
-  --source, -s   Output directory.
+  --source, -s   The path of the target file "coverage-summary.json".
   --style        Badges style: flat, flat-square.
 
 Example:
 
-  npm coverage-badges --output coverage/badges.svg
-  npm coverage-badges --style plastic
-  npm coverage-badges --source coverage/coverage-summary.json
+  npm coverage-badges-cli --output coverage/badges.svg
+  npm coverage-badges-cli --style plastic
+  npm coverage-badges-cli --source coverage/coverage-summary.json
 ```
 
 ## Development

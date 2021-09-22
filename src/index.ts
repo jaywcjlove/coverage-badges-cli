@@ -41,7 +41,7 @@ export function cliHelp() {
   console.log('    --version, -v ', 'Show version number');
   console.log('    --help, -h    ', 'Displays help information.');
   console.log('    --output, -o  ', 'Output directory.');
-  console.log('    --source, -s  ', 'Output directory.');
+  console.log('    --source, -s  ', 'The path of the target file "coverage-summary.json".');
   console.log('    --style       ', 'Badges style: flat, flat-square.');
 }
 
