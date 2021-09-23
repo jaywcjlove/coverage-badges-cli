@@ -18,6 +18,9 @@ jobs:
     - run: npm run coverage
     - run: npm run make-badges
 
+    - run: npm i markdown-to-html-cli -g
+    - run: markdown-to-html --output coverage/index.html --github-corners https://github.com/jaywcjlove/coverage-badges-cli
+
     - name: Create Tag
       id: create_tag
       uses: jaywcjlove/create-tag-action@v1.2.1
