@@ -10,10 +10,10 @@ export function badge(option: RunArgvs, summary: Summary) {
   const [width, textLength, textX] = sizeData[String(pct).length - 1] || sizeData[0];
   const colorData = {
     '#49c31a': [100],
-    '#97c40f': [99, 90],
-    '#a0a127': [89, 80],
-    '#cba317': [79, 60],
-    '#ce0000': [59, 0],
+    '#97c40f': [99.99, 90],
+    '#a0a127': [89.99, 80],
+    '#cba317': [79.99, 60],
+    '#ce0000': [59.99, 0],
   }
   const color = Object.keys(colorData).find((value: keyof typeof colorData, idx) => {
     if (colorData[value].length === 1 && pct >= colorData[value][0]) {
