@@ -3,6 +3,7 @@ import path from 'path';
 import run from '../src';
 import { badge } from '../src/badges';
 import { create } from '../src/create';
+import { cliHelp, exampleHelp } from '../src';
 
 it('test run case', async () => {
   const summary = path.resolve(process.cwd(), 'coverage/coverage-summary.json');
@@ -66,4 +67,9 @@ it('test badge case', async () => {
 it('test create case', async () => {
   const str = create({ style: 'flat', _: [], source: 'coverage2/coverage-summary.json', output: 'coverage2/svg.svg' });
   expect(str).toBeUndefined();
+});
+
+it('test cliHelp/exampleHelp case', async () => {
+  expect(cliHelp()).toBeUndefined();
+  expect(exampleHelp()).toBeUndefined();
 });
