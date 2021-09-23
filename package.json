@@ -2,6 +2,7 @@
   "name": "coverage-badges-cli",
   "version": "1.0.6",
   "description": "Create coverage badges from coverage reports.",
+  "homepage": "https://jaywcjlove.github.io/coverage-badges-cli/",
   "bin": {
     "coverage-badges": "bin/cli",
     "coverage-badges-cli": "bin/cli"
