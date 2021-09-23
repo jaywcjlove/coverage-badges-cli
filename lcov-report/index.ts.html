@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.73% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/22</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.73% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/22</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -148,21 +148,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import minimist, { ParsedArgs } from 'minimist';
 import { create } from './create';
 &nbsp;
@@ -200,22 +200,22 @@ export default function run() {
 }
 &nbsp;
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >cliHelp(</span>) {
-<span class="cstat-no" title="statement not covered" >  console.log('\n  Usage: coverage-badges [options] [--help|h]');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('\n  Options:\n');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    --version, -v ', 'Show version number');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    --help, -h    ', 'Displays help information.');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    --output, -o  ', 'Output directory.');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    --source, -s  ', 'The path of the target file "coverage-summary.json".');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    --style       ', 'Badges style: flat, flat-square.');</span>
+export function cliHelp() {
+  console.log('\n  Usage: coverage-badges [options] [--help|h]');
+  console.log('\n  Options:\n');
+  console.log('    --version, -v ', 'Show version number');
+  console.log('    --help, -h    ', 'Displays help information.');
+  console.log('    --output, -o  ', 'Output directory.');
+  console.log('    --source, -s  ', 'The path of the target file "coverage-summary.json".');
+  console.log('    --style       ', 'Badges style: flat, flat-square.');
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >exampleHelp(</span>) {
-<span class="cstat-no" title="statement not covered" >  console.log('\n  Example:\n');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--output\x1b[0m coverage/badges.svg');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--style\x1b[0m plastic');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json');</span>
-<span class="cstat-no" title="statement not covered" >  console.log('\n');</span>
+export function exampleHelp() {
+  console.log('\n  Example:\n');
+  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--output\x1b[0m coverage/badges.svg');
+  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--style\x1b[0m plastic');
+  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json');
+  console.log('\n');
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -223,7 +223,7 @@ export function <span class="fstat-no" title="function not covered" >exampleHelp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 22 2021 03:52:36 GMT+0000 (Coordinated Universal Time)
+                at Thu Sep 23 2021 09:43:41 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="prettify.js"></script>
