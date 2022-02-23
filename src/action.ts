@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { setFailed, getInput, info, startGroup, endGroup } from '@actions/core';
+import { setFailed, getInput, setOutput, info, startGroup, endGroup } from '@actions/core';
 import { badge, BadgeOption } from './badges';
 import { Summary } from './create';
 
@@ -24,6 +24,13 @@ import { Summary } from './create';
     endGroup();
     
     const svgStr = badge({ label, style }, sourceData);
+
+    setOutput('svg', svgStr);
+
+    startGroup(`SVG String: \x1b[32;1m${output}\x1b[0m`);
+    info(`${svgStr}`);
+    endGroup();
+
     fs.writeFileSync(output, svgStr);
     info(`\nCreate Coverage Badges: \x1b[32;1m${path.relative(process.cwd(), output)}\x1b[0m\n`);
   } catch (error) {
