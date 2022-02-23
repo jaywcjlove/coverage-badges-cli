@@ -20,7 +20,7 @@ import { Summary } from './create';
     info(`Source Path: \x1b[32;1m${source}\x1b[0m`);
     info(`Output Path: \x1b[32;1m${output}\x1b[0m`);
     
-    const sourceData: Summary = require(source);
+    const sourceData: Summary = fs.readJSONSync(source);
     startGroup(`Source Path: \x1b[32;1m${source}\x1b[0m`);
     info(`${JSON.stringify(sourceData, null, 2)}`);
     endGroup();
