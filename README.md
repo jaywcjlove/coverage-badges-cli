@@ -65,6 +65,10 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
     publish_dir: ./build
 ```
 
+### Output Parameters
+
+svg svg image string: `<svg xmlns....`.
+
 ### Using the command line
 
 ```yml
