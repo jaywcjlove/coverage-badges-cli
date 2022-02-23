@@ -1,4 +1,4 @@
-name: Build & Deploy
+name: CI
 on:
   push:
     branches:
@@ -34,8 +34,7 @@ jobs:
         output: coverage/badges-flat.svg
 
     - name: Create Coverage Badges
-      uses: ./
-      # uses: jaywcjlove/coverage-badges-cli@main
+      uses: jaywcjlove/coverage-badges-cli@main
       with:
         source: coverage/coverage-summary.json
         output: coverage/badges-classic.svg
@@ -46,14 +45,13 @@ jobs:
 
     - name: Create Tag
       id: create_tag
-      uses: jaywcjlove/create-tag-action@v1.2.1
+      uses: jaywcjlove/create-tag-action@v1.3.5
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         package-path: ./package.json
 
     - name: Generate Changelog
       id: changelog
-      uses: jaywcjlove/changelog-generator@v1.4.6
+      uses: jaywcjlove/changelog-generator@v1.4.8
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         head-ref: ${{steps.create_tag.outputs.version}}
