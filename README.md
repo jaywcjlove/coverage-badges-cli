@@ -42,6 +42,9 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 
 ### Input Parameters
 
+![](https://jaywcjlove.github.io/coverage-badges-cli/badges-classic.svg)
+![](https://jaywcjlove.github.io/coverage-badges-cli/badges-flat.svg)
+
 - `source` - The path of the target file "coverage-summary.json".
 - `output` - Output image path.
 - `style` - Badges style: `flat`, `classic`. (default `classic`)
@@ -57,7 +60,7 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 - name: Deploy
   uses: peaceiris/actions-gh-pages@v3
   with:
-    github_token: xxxxxxx
+    github_token: ${{ secrets.GITHUB_TOKEN }}
     publish_dir: ./build
 ```
 
@@ -120,6 +123,14 @@ $ npm i
 $ npm run build
 $ npm run watch
 ```
+
+## See also
+
+- [Github Release Changelog](https://github.com/jaywcjlove/changelog-generator) Generator A GitHub Action that compares the commit differences between two branches
+- [Create Tags From](https://github.com/jaywcjlove/create-tag-action) Auto create tags from commit or package.json.
+- [Github Action Contributors](https://github.com/jaywcjlove/github-action-contributors) Github action generates dynamic image URL for contributor list to display it!
+- [Create Coverage Badges](https://github.com/jaywcjlove/coverage-badges-cli) Create coverage badges from coverage reports. (no 3rd parties servers)
+- [Generated Badges](https://github.com/jaywcjlove/generated-badges) Create a badge using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers)
 
 ## License
 
