@@ -22,6 +22,7 @@ jobs:
     - run: npm run make-badges
     - run: pwd
     - run: ls -al
+    - run: ls -al coverage
 
     - name: Create Coverage Badges
       uses: ./
