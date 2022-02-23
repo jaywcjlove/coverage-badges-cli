@@ -19,6 +19,8 @@ jobs:
     - run: npm install
     - run: npm run build
     - run: npm run coverage
+    - run: pwd
+    - run: ls -al
     - run: npm run make-badges
 
     - name: Create Coverage Badges
