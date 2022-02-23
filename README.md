@@ -7,7 +7,7 @@ coverage-badges-cli
 [![npm version](https://img.shields.io/npm/v/coverage-badges-cli.svg)](https://www.npmjs.com/package/coverage-badges-cli)
 [![Download NPM](https://img.shields.io/npm/dm/coverage-badges-cli.svg?style=flat)](https://www.npmjs.com/package/coverage-badges-cli/)
 
-Create coverage badges from coverage reports.
+Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).
 
 Don't worry about the [coverage.io](https://coveralls.io/) service is down. 
 
@@ -39,6 +39,29 @@ This config creates a coverage badge in a default directory ./badges.
 You can add `![Coverage](./coverage/badges.svg)` to your README.md after the badge creation.
 
 ## Github Actions
+
+### Input Parameters
+
+- `source` - The path of the target file "coverage-summary.json".
+- `output` - Output image path.
+- `style` - Badges style: `flat`, `classic`. (default `classic`)
+
+```yml
+- name: Create Coverage Badges
+  uses: jaywcjlove/coverage-badges-cli@main
+  with:
+    style: flat
+    source: coverage/coverage-summary.json
+    output: coverage/badges.svg
+
+- name: Deploy
+  uses: peaceiris/actions-gh-pages@v3
+  with:
+    github_token: xxxxxxx
+    publish_dir: ./build
+```
+
+### Using the command line
 
 ```yml
 name: Build & Deploy

@@ -1,8 +1,8 @@
 import minimist, { ParsedArgs } from 'minimist';
 import { create } from './create';
+import { BadgeOption } from './badges';
 
-export interface RunArgvs extends ParsedArgs {
-  style?: 'flat' | 'flat-square' //| 'plastic' | 'for-the-badge' | 'social';
+export interface RunArgvs extends ParsedArgs, BadgeOption {
   source?: string;
   version?: string;
   output?: string;
@@ -16,7 +16,7 @@ export default function run() {
       output: 'o',
     },
     default: {
-      style: 'flat',
+      style: 'classic',
       source: 'coverage/coverage-summary.json',
       output: 'coverage/badges.svg',
     },
