@@ -12,6 +12,11 @@ inputs:
     default: coverage/badges.svg
     required: false
 
+  label:
+    description: The left label of the badge, usually static.
+    default: coverage
+    required: false
+
   style:
     description: 'Badges style: flat, classic.'
     default: classic

@@ -47,6 +47,7 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 
 - `source` - The path of the target file "coverage-summary.json".
 - `output` - Output image path.
+- `label` - Output image path.
 - `style` - Badges style: `flat`, `classic`. (default `classic`)
 
 ```yml
