@@ -6,6 +6,8 @@ import { Summary } from './create';
 
 ;(async () => {
   try {
+    const { version } = require('../package.json');
+    info(`coverage-badges-cli v\x1b[32;1m${version}\x1b[0m`);
     const output = path.resolve(process.cwd(), getInput('output') || 'coverage/badges.svg');
     const source = path.resolve(process.cwd(), getInput('source') || 'coverage/coverage-summary.json');
     const label = getInput('label') || 'coverage';
