@@ -4,6 +4,9 @@ on:
     branches:
       - main
 
+env: 
+  CI: false
+
 jobs:
   build-deploy:
     runs-on: ubuntu-18.04
