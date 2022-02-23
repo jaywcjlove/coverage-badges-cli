@@ -21,6 +21,22 @@ jobs:
     - run: npm run coverage
     - run: npm run make-badges
 
+    - name: Create Coverage Badges
+      uses: ./
+      # uses: jaywcjlove/coverage-badges-cli@main
+      with:
+        style: flat
+        source: coverage/coverage-summary.json
+        output: coverage/badges-flat.svg
+
+    - name: Create Coverage Badges
+      uses: ./
+      # uses: jaywcjlove/coverage-badges-cli@main
+      with:
+        source: coverage/coverage-summary.json
+        output: coverage/badges-classic.svg
+
+
     - run: npm i markdown-to-html-cli -g
     - run: markdown-to-html --output coverage/index.html --github-corners https://github.com/jaywcjlove/coverage-badges-cli
 
@@ -39,21 +55,6 @@ jobs:
         head-ref: ${{steps.create_tag.outputs.version}}
         filter-author: (小弟调调™|Renovate Bot)
         filter: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
-
-    - name: Create Coverage Badges
-      uses: ./
-      # uses: jaywcjlove/coverage-badges-cli@main
-      with:
-        style: flat
-        source: coverage/coverage-summary.json
-        output: coverage/badges-flat.svg
-
-    - name: Create Coverage Badges
-      uses: ./
-      # uses: jaywcjlove/coverage-badges-cli@main
-      with:
-        source: coverage/coverage-summary.json
-        output: coverage/badges-classic.svg
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3

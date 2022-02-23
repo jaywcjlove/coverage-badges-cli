@@ -6,7 +6,7 @@ import { Summary } from './create';
 
 try {
   ;(async () => {
-    const output = getInput('output') || 'coverage/badges.svg';
+    const output = path.resolve(getInput('output') || 'coverage/badges.svg');
     const label = getInput('label') || 'coverage';
     const style = (getInput('style') || 'classic') as BadgeOption['style'];
     const source = path.resolve(getInput('source') || 'coverage/coverage-summary.json');
