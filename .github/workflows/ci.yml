@@ -43,7 +43,7 @@ jobs:
         source: coverage/coverage-summary.json
         output: coverage/badges-classic.svg
 
-    - run: echo "${{ steps.coverage_badges.outputs.svg }}"
+    - run: echo '${{ steps.coverage_badges.outputs.svg }}'
 
     - run: npm i markdown-to-html-cli -g
     - run: markdown-to-html --output coverage/index.html --github-corners https://github.com/jaywcjlove/coverage-badges-cli
