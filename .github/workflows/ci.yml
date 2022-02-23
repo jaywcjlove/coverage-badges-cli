@@ -23,6 +23,7 @@ jobs:
     - run: pwd
     - run: ls -al
     - run: ls -al coverage
+    
     - run: cat coverage/coverage-summary.json
 
     - name: Create Coverage Badges
@@ -36,11 +37,13 @@ jobs:
 
     - name: Create Coverage Badges
       uses: jaywcjlove/coverage-badges-cli@main
+      id: coverage_badges
       with:
         label: classic style
         source: coverage/coverage-summary.json
         output: coverage/badges-classic.svg
 
+    - run: echo "${{ steps.coverage_badges.outputs.svg }}"
 
     - run: npm i markdown-to-html-cli -g
     - run: markdown-to-html --output coverage/index.html --github-corners https://github.com/jaywcjlove/coverage-badges-cli
