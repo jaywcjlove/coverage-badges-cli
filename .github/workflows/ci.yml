@@ -30,12 +30,14 @@ jobs:
       # uses: jaywcjlove/coverage-badges-cli@main
       with:
         style: flat
+        label: flat style
         source: coverage/coverage-summary.json
         output: coverage/badges-flat.svg
 
     - name: Create Coverage Badges
       uses: jaywcjlove/coverage-badges-cli@main
       with:
+        label: classic style
         source: coverage/coverage-summary.json
         output: coverage/badges-classic.svg
 
