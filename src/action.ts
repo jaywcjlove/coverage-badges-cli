@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { setFailed, getInput, info } from '@actions/core';
+import { setFailed, getInput, info, error } from '@actions/core';
 import { badge, BadgeOption } from './badges';
 import { Summary } from './create';
 
@@ -12,7 +12,7 @@ try {
     const source = path.resolve(getInput('source') || 'coverage/coverage-summary.json');
     fs.ensureDirSync(path.dirname(output));
     if (!fs.existsSync(source)) {
-      throw new Error(`File \x1b[31m${source}\x1b[0m does not exist.\n please specify the file directory\n\x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json`);
+      error(`File \x1b[31m${source}\x1b[0m does not exist.\n please specify the file directory\n\x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json`);
     }
     info(`\nSource Path: \x1b[32;1m${source}\x1b[0m\n`);
     info(`\nOutput Path: \x1b[32;1m${output}\x1b[0m\n`);
