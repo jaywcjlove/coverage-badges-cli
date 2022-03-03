@@ -54,6 +54,18 @@ jobs:
       with:
         package-path: ./package.json
 
+    - name: get tag version
+      id: tag_version
+      uses: jaywcjlove/changelog-generator@v1.5.0
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        commit_message: ${{steps.tag_version.outputs.tag}} ${{ github.event.head_commit.message }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./coverage
+
     - name: Generate Changelog
       id: changelog
       uses: jaywcjlove/changelog-generator@v1.5.0
@@ -62,13 +74,6 @@ jobs:
         head-ref: ${{steps.create_tag.outputs.version}}
         filter-author: (小弟调调™|Renovate Bot)
         filter: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
-
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./coverage
 
     - name: Create Release
       uses: ncipollo/release-action@v1
@@ -80,12 +85,10 @@ jobs:
         body: |
           [![](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://uiwjs.github.io/npm-unpkg/#/pkg/coverage-badges-cli@${{steps.changelog.outputs.version}}/file/README.md)
 
-          ${{ steps.changelog.outputs.compareurl }}
+          Documentation ${{ steps.changelog.outputs.tag }}: https://raw.githack.com/jaywcjlove/coverage-badges-cli/${{ steps.changelog.outputs.gh-pages-short-hash }}/index.html  
+          Comparing Changes: ${{ steps.changelog.outputs.compareurl }}  
           
           ${{ steps.changelog.outputs.changelog }}
-
-          Document coverage-badges-cli@${{ steps.changelog.outputs.tag }}:
-          https://raw.githack.com/jaywcjlove/coverage-badges-cli/${{ steps.changelog.outputs.gh-pages-short-hash }}/index.html
 
     - run: npm install @jsdevtools/npm-publish -g
     - run: npm-publish --token="${{ secrets.NPM_TOKEN }}" ./package.json
