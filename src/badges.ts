@@ -9,6 +9,9 @@ export type BadgeOption = {
 export function badge(option: BadgeOption, summary: Summary) {
   const { label = 'coverage', style = 'classic' } = option || {}
   const { total } = summary;
+  if (typeof total.statements.pct !== 'number') {
+    total.statements.pct = -1
+  }
   const { pct } = total.statements;
   const colorData = {
     '#49c31a': [100],
@@ -28,7 +31,7 @@ export function badge(option: BadgeOption, summary: Summary) {
   });
   return badgen({
     style, label,
-    status: `${pct}%`,
-    color: color.replace(/^#/, ''),
+    status: `${pct < 0 ? 'Unknown' : `${pct}%`}`,
+    color: (color || 'e5e5e5').replace(/^#/, ''),
   });
 }
