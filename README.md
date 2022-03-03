@@ -26,6 +26,10 @@ $ npm i coverage-badges-cli
     "make-badges": "coverage-badges",
   },
   "jest": {
+    "collectCoverageFrom": [
+      "<rootDir>/packages/**/*.{tsx,ts}",
+      "!**/*.{js,d.ts}"
+    ],
     "coverageReporters": [
       "lcov",
       "json-summary"
