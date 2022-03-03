@@ -44,17 +44,17 @@
     ]
   },
   "dependencies": {
-    "@types/minimist": "1.2.2",
-    "@types/fs-extra": "9.0.13",
-    "fs-extra": "10.0.1",
-    "minimist": "1.2.5",
-    "badgen": "3.2.2"
+    "@types/minimist": "~1.2.2",
+    "@types/fs-extra": "~9.0.13",
+    "fs-extra": "~10.0.1",
+    "minimist": "~1.2.5",
+    "badgen": "~3.2.2"
   },
   "devDependencies": {
-    "@actions/core": "1.6.0",
-    "@kkt/ncc": "1.0.3",
-    "husky": "7.0.4",
-    "lint-staged": "12.3.1",
+    "@actions/core": "~1.6.0",
+    "@kkt/ncc": "~1.0.9",
+    "husky": "~7.0.4",
+    "lint-staged": "~12.3.4",
     "tsbb": "~3.7.0"
   }
 }
