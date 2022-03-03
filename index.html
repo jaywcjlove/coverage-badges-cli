@@ -35,6 +35,10 @@
     <span class="token string-property property">"make-badges"</span><span class="token operator">:</span> <span class="token string">"coverage-badges"</span><span class="token punctuation">,</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token string-property property">"jest"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"collectCoverageFrom"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"&#x3C;rootDir>/packages/**/*.{tsx,ts}"</span><span class="token punctuation">,</span>
+      <span class="token string">"!**/*.{js,d.ts}"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token string-property property">"coverageReporters"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">"lcov"</span><span class="token punctuation">,</span>
       <span class="token string">"json-summary"</span>
@@ -47,6 +51,10 @@
     &#x22;make-badges&#x22;: &#x22;coverage-badges&#x22;,
   },
   &#x22;jest&#x22;: {
+    &#x22;collectCoverageFrom&#x22;: [
+      &#x22;<rootDir>/packages/**/*.{tsx,ts}&#x22;,
+      &#x22;!**/*.{js,d.ts}&#x22;
+    ],
     &#x22;coverageReporters&#x22;: [
       &#x22;lcov&#x22;,
       &#x22;json-summary&#x22;
