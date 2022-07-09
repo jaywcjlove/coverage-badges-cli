@@ -51,7 +51,7 @@
     "badgen": "~3.2.2"
   },
   "devDependencies": {
-    "@actions/core": "~1.6.0",
+    "@actions/core": "~1.9.0",
     "@kkt/ncc": "~1.0.9",
     "husky": "~7.0.4",
     "lint-staged": "~12.3.4",
