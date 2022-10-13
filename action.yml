@@ -27,7 +27,7 @@ outputs:
     description: 'svg image string'
 
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/action.js'
 
 branding:
