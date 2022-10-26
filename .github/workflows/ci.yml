@@ -9,86 +9,86 @@ env:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 14
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-    - run: npm install
-    - run: npm run build
-    - run: npm run coverage
-    - run: npm run make-badges
-    - run: pwd
-    - run: ls -al
-    - run: ls -al coverage
-    
-    - run: cat coverage/coverage-summary.json
+      - run: npm install
+      - run: npm run build
+      - run: npm run coverage
+      - run: npm run make-badges
+      - run: pwd
+      - run: ls -al
+      - run: ls -al coverage
+      
+      - run: cat coverage/coverage-summary.json
 
-    - name: Create Coverage Badges
-      uses: ./
-      # uses: jaywcjlove/coverage-badges-cli@main
-      with:
-        style: flat
-        label: flat style
-        source: coverage/coverage-summary.json
-        output: coverage/badges-flat.svg
+      - name: Create Coverage Badges
+        uses: ./
+        # uses: jaywcjlove/coverage-badges-cli@main
+        with:
+          style: flat
+          label: flat style
+          source: coverage/coverage-summary.json
+          output: coverage/badges-flat.svg
 
-    - name: Create Coverage Badges
-      uses: jaywcjlove/coverage-badges-cli@main
-      id: coverage_badges
-      with:
-        label: classic style
-        source: coverage/coverage-summary.json
-        output: coverage/badges-classic.svg
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@main
+        id: coverage_badges
+        with:
+          label: classic style
+          source: coverage/coverage-summary.json
+          output: coverage/badges-classic.svg
 
-    - run: echo '${{ steps.coverage_badges.outputs.svg }}'
+      - run: echo '${{ steps.coverage_badges.outputs.svg }}'
 
-    - run: npm i markdown-to-html-cli -g
-    - run: markdown-to-html --output coverage/index.html --github-corners https://github.com/jaywcjlove/coverage-badges-cli
+      - run: npm i markdown-to-html-cli -g
+      - run: markdown-to-html --output coverage/index.html --github-corners https://github.com/jaywcjlove/coverage-badges-cli
 
-    - name: Create Tag
-      id: create_tag
-      uses: jaywcjlove/create-tag-action@v1.3.6
-      with:
-        package-path: ./package.json
+      - name: Create Tag
+        id: create_tag
+        uses: jaywcjlove/create-tag-action@v1.3.6
+        with:
+          package-path: ./package.json
 
-    - name: get tag version
-      id: tag_version
-      uses: jaywcjlove/changelog-generator@v1.5.0
+      - name: get tag version
+        id: tag_version
+        uses: jaywcjlove/changelog-generator@v1.5.0
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        commit_message: ${{steps.tag_version.outputs.tag}} ${{ github.event.head_commit.message }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./coverage
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          commit_message: ${{steps.tag_version.outputs.tag}} ${{ github.event.head_commit.message }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./coverage
 
-    - name: Generate Changelog
-      id: changelog
-      uses: jaywcjlove/changelog-generator@v1.5.0
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        head-ref: ${{steps.create_tag.outputs.version}}
-        filter-author: (小弟调调™|Renovate Bot)
-        filter: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
+      - name: Generate Changelog
+        id: changelog
+        uses: jaywcjlove/changelog-generator@v1.5.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          head-ref: ${{steps.create_tag.outputs.version}}
+          filter-author: (小弟调调™|Renovate Bot)
+          filter: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
 
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      if: steps.create_tag.outputs.successful
-      with:
-        name: ${{ steps.create_tag.outputs.version }}
-        tag: ${{ steps.create_tag.outputs.version }}
-        token: ${{ secrets.GITHUB_TOKEN }}
-        body: |
-          [![](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://uiwjs.github.io/npm-unpkg/#/pkg/coverage-badges-cli@${{steps.changelog.outputs.version}}/file/README.md)
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        if: steps.create_tag.outputs.successful
+        with:
+          name: ${{ steps.create_tag.outputs.version }}
+          tag: ${{ steps.create_tag.outputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            [![](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://uiwjs.github.io/npm-unpkg/#/pkg/coverage-badges-cli@${{steps.changelog.outputs.version}}/file/README.md)
 
-          Documentation ${{ steps.changelog.outputs.tag }}: https://raw.githack.com/jaywcjlove/coverage-badges-cli/${{ steps.changelog.outputs.gh-pages-short-hash }}/index.html  
-          Comparing Changes: ${{ steps.changelog.outputs.compareurl }}  
-          
-          ${{ steps.changelog.outputs.changelog }}
+            Documentation ${{ steps.changelog.outputs.tag }}: https://raw.githack.com/jaywcjlove/coverage-badges-cli/${{ steps.changelog.outputs.gh-pages-short-hash }}/index.html  
+            Comparing Changes: ${{ steps.changelog.outputs.compareurl }}  
+            
+            ${{ steps.changelog.outputs.changelog }}
 
-    - run: npm install @jsdevtools/npm-publish -g
-    - run: npm-publish --token="${{ secrets.NPM_TOKEN }}" ./package.json
+      - run: npm install @jsdevtools/npm-publish -g
+      - run: npm-publish --token="${{ secrets.NPM_TOKEN }}" ./package.json
