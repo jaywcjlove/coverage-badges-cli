@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@types/minimist": "~1.2.2",
-    "@types/fs-extra": "~9.0.13",
+    "@types/fs-extra": "~11.0.0",
     "fs-extra": "~11.1.0",
     "minimist": "~1.2.5",
     "badgen": "~3.2.2"
