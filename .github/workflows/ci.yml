@@ -15,6 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
 
       - run: npm install
       - run: npm run build
@@ -90,5 +91,10 @@ jobs:
             
             ${{ steps.changelog.outputs.changelog }}
 
-      - run: npm install @jsdevtools/npm-publish -g
-      - run: npm-publish --token="${{ secrets.NPM_TOKEN }}" ./package.json
+      # - run: npm install @jsdevtools/npm-publish -g
+      # - run: npm-publish --token="${{ secrets.NPM_TOKEN }}" ./package.json
+      - run: npm publish
+        name: 📦 coverage-badges-cli publish to NPM
+        continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
