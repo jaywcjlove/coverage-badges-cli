@@ -2,23 +2,42 @@ import FS from 'fs-extra';
 import path from 'path';
 import run from '../src';
 import { badge } from '../src/badges';
-import { create } from '../src/create';
+import { create, Summary } from '../src/create';
 import { cliHelp, exampleHelp } from '../src';
 
+const mockSummary: Summary = {
+  total: {
+    lines: {
+      total: 60,
+      covered: 30,
+      skipped: 2,
+      pct: 100,
+    },
+    statements: {
+      total: 45,
+      covered: 25,
+      skipped: 0,
+      pct: 85,
+    },
+    functions: {
+      total: 50,
+      covered: 35,
+      skipped: 4,
+      pct: 90,
+    },
+    branches:  {
+      total: 50,
+      covered: 35,
+      skipped: 4,
+      pct: 95,
+    },
+  },
+};
 
 it('test run case', async () => {
   const summary = path.resolve(process.cwd(), 'coverage/coverage-summary.json');
   FS.ensureDirSync(path.dirname(summary));
-  FS.writeJsonSync(summary, {
-    "total": {
-      "statements": {
-        "total": 45,
-        "covered": 25,
-        "skipped": 0,
-        "pct": 55.56
-      },
-    },
-  })
+  FS.writeJsonSync(summary, mockSummary)
   expect(run()).toBeUndefined();
   const output = path.resolve(process.cwd(), 'coverage/badges.svg');
   const exists = FS.existsSync(output);
@@ -28,18 +47,33 @@ it('test run case', async () => {
   expect(dirs).toEqual(expect.arrayContaining(['badges.svg', 'coverage-summary.json']));
 });
 
-it('test badge case', async () => {
-  const str = badge({ style: 'flat' }, {
-    "total": {
-      "statements": {
-        "total": 45,
-        "covered": 25,
-        "skipped": 0,
-        "pct": 100
-      },
-    },
-  } as any);
-  expect(str.indexOf(`<text x="648" y="138" textLength="330">100%</text`) > 0).toBeTruthy();
+it('test badge case - default', async () => {
+  const str = badge({ style: 'flat' }, mockSummary as any);
+  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">85%</text>`) > 0).toBeTruthy();
+  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+});
+
+it('test badge case - statements', async () => {
+  const str = badge({ style: 'flat', type: 'statements' }, mockSummary as any);
+  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">85%</text>`) > 0).toBeTruthy();
+  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+});
+
+it('test badge case - lines', async () => {
+  const str = badge({ style: 'flat', type: 'lines' }, mockSummary as any);
+  expect(str.indexOf(`<text x="648" y="138" textLength="330">100%</text>`) > 0).toBeTruthy();
+  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+});
+
+it('test badge case - functions', async () => {
+  const str = badge({ style: 'flat', type: 'functions' }, mockSummary as any);
+  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">90%</text>`) > 0).toBeTruthy();
+  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+});
+
+it('test badge case - branches', async () => {
+  const str = badge({ style: 'flat', type: 'branches' }, mockSummary as any);
+  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">95%</text>`) > 0).toBeTruthy();
   expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
 });
 

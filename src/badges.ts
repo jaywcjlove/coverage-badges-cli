@@ -4,15 +4,18 @@ import { Summary } from './create';
 export type BadgeOption = {
   label?: string;
   style?: 'flat' | 'classic'
+  type?: SummaryType
 }
 
+export type SummaryType = 'lines' | 'statements' | 'functions' | 'branches';
+
 export function badge(option: BadgeOption, summary: Summary) {
-  const { label = 'coverage', style = 'classic' } = option || {}
+  const { label = 'coverage', style = 'classic', type = 'statements' } = option || {}
   const { total } = summary;
-  if (typeof total.statements.pct !== 'number') {
-    total.statements.pct = -1
+  if (typeof total[type].pct !== 'number') {
+    total[type].pct = -1
   }
-  const { pct } = total.statements;
+  const { pct } = total[type];
   const colorData = {
     '#49c31a': [100],
     '#97c40f': [99.99, 90],
