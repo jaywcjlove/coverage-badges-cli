@@ -48,38 +48,46 @@ it('test run case', async () => {
 });
 
 it('test badge case - default', async () => {
-  const str = badge({ style: 'flat' }, mockSummary as any);
-  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">85%</text>`) > 0).toBeTruthy();
-  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+  const str = badge({ style: 'flat', status: '85%' }, mockSummary as any);
+
+  expect(str.indexOf(`<text x="648" y="138" textLength="260">85%</text>`) > 0).toBeTruthy();
+  expect(str.indexOf(`<text x="50" y="138" textLength="503">coverage</text>`) > 0).toBeTruthy();
 });
 
 it('test badge case - statements', async () => {
-  const str = badge({ style: 'flat', type: 'statements' }, mockSummary as any);
-  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">85%</text>`) > 0).toBeTruthy();
-  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+  const str = badge({ style: 'flat', status: '85%', type: 'statements' }, mockSummary as any);
+
+  expect(str.indexOf(`<text x="648" y="138" textLength="260">85%</text>`) > 0).toBeTruthy();
 });
 
 it('test badge case - lines', async () => {
-  const str = badge({ style: 'flat', type: 'lines' }, mockSummary as any);
+  const str = badge({ style: 'flat', status: '100%', type: 'lines' }, mockSummary as any);
+
   expect(str.indexOf(`<text x="648" y="138" textLength="330">100%</text>`) > 0).toBeTruthy();
-  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
 });
 
 it('test badge case - functions', async () => {
-  const str = badge({ style: 'flat', type: 'functions' }, mockSummary as any);
-  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">90%</text>`) > 0).toBeTruthy();
-  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+  const str = badge({ style: 'flat', status: '90%', type: 'functions' }, mockSummary as any);
+
+  expect(str.indexOf(`<text x="648" y="138" textLength="260">90%</text>`) > 0).toBeTruthy();
 });
 
 it('test badge case - branches', async () => {
-  const str = badge({ style: 'flat', type: 'branches' }, mockSummary as any);
-  expect(str.indexOf(`<text x="658" y="148" textLength="260" fill="#000" opacity="0.1">95%</text>`) > 0).toBeTruthy();
-  expect(str.indexOf(`<text x="60" y="148" textLength="503" fill="#000" opacity="0.1">coverage</text>`) > 0).toBeTruthy();
+  const str = badge({ style: 'flat', status: '95%', type: 'branches' }, mockSummary as any);
+
+  expect(str.indexOf(`<text x="648" y="138" textLength="260">95%</text>`) > 0).toBeTruthy();
+});
+
+it('test badge case - custom label', async () => {
+  const customLabel = "Custon Label";
+  const str = badge({ style: 'flat', status: '85%', label: customLabel }, mockSummary as any);
+
+  expect(str.indexOf(`<text x="50" y="138" textLength="715">${customLabel}</text>`) > 0).toBeTruthy();
 });
 
 console.log = jest.fn();
 it('test create case', async () => {
-  const str = create({ style: 'flat', _: [], source: 'coverage2/coverage-summary.json', output: 'coverage2/svg.svg' });
+  const str = create({ style: 'flat', status: '85%', _: [], source: 'coverage2/coverage-summary.json', output: 'coverage2/svg.svg' });
 
   // @ts-ignore
   expect(console.log.mock.calls[0][0]).toBe('\x1b[31mErr Source Path:\x1b[0m coverage2/coverage-summary.json\n');
