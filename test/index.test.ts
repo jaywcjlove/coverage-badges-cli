@@ -85,6 +85,14 @@ it('test badge case - custom label', async () => {
   expect(str.indexOf(`<text x="50" y="138" textLength="715">${customLabel}</text>`) > 0).toBeTruthy();
 });
 
+it('test badge case - custom icon', async () => {
+  const customIcon = "./test/sample-logo.svg";
+  const processedIconString = `<image x="40" y="35" width="130" height="132" xlink:href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' baseProfile='tiny' overflow='visible' version='1.2' viewBox='0 0 256 257.5'%3e%3ccircle cx='128' cy='128.8' r='120' fill='none' stroke='black' stroke-miterlimit='10' stroke-width='14'/%3e%3c/svg%3e"/>`;
+  const str = badge({ style: 'flat', status: '85%', icon: customIcon }, mockSummary as any);
+
+  expect(str.indexOf(processedIconString) > 0).toBeTruthy();
+});
+
 console.log = jest.fn();
 it('test create case', async () => {
   const str = create({ style: 'flat', status: '85%', _: [], source: 'coverage2/coverage-summary.json', output: 'coverage2/svg.svg' });
