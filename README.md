@@ -9,7 +9,7 @@ coverage-badges-cli
 
 Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).
 
-Don't worry about the [coverage.io](https://coveralls.io/) service is down. 
+Don't worry about the [coverage.io](https://coveralls.io/) service is down.
 
 ## Install
 
@@ -52,7 +52,9 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 - `source` - The path of the target file "coverage-summary.json".
 - `output` - Output image path.
 - `label` - The left label of the badge, usually static (default `coverage`).
-- `style` - Badges style: `flat`, `classic` (default `classic`). 
+- `style` - Badges style: `flat`, `classic` (default `classic`).
+- `type` - Coverage report type: `lines`, `statements`, `functions`, `branches` (default `statements`)
+- `icon` - Path to icon file
 
 ```yml
 - name: Create Coverage Badges
@@ -117,12 +119,16 @@ Options:
   --output, -o   Output directory.
   --source, -s   The path of the target file "coverage-summary.json".
   --style        Badges style: flat, flat-square.
+  --type         Coverage type: lines, statements, functions, branches.
+  --icon         Path to icon file
 
 Example:
 
   npm coverage-badges-cli --output coverage/badges.svg
   npm coverage-badges-cli --style plastic
   npm coverage-badges-cli --source coverage/coverage-summary.json
+  npm coverage-badges-cli --type lines
+  npm coverage-badges-cli --icon my-icon.svg
 ```
 
 ## Development
