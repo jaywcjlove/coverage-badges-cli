@@ -4,14 +4,19 @@ import svgToTinyDataUri from 'mini-svg-data-uri';
 import { Summary } from './create';
 
 // Copied from `badgen` because it's not exported
-type StyleOption = 'flat' | 'classic';
-interface BadgenOptions {
+export type StyleOption = 'flat' | 'classic';
+
+export interface BadgenOptions {
   status: string;
   subject?: string;
   color?: string;
   label?: string;
-  style?: 'flat' | 'classic'
+  style?: StyleOption;
   type?: SummaryType
+  labelColor?: string;
+  icon?: string;
+  iconWidth?: number;
+  scale?: number;
 }
 
 export type SummaryType = 'lines' | 'statements' | 'functions' | 'branches';
