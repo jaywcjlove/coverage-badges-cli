@@ -44,6 +44,13 @@ jobs:
           source: coverage/coverage-summary.json
           output: coverage/badges-classic.svg
 
+      - name: Generate Contributors Images
+        uses: jaywcjlove/github-action-contributors@main
+        with:
+          filter-author: (renovate\[bot\]|renovate-bot|dependabot\[bot\])
+          output: coverage/CONTRIBUTORS.svg
+          avatarSize: 42
+
       - run: echo '${{ steps.coverage_badges.outputs.svg }}'
 
       - run: npm i markdown-to-html-cli -g
