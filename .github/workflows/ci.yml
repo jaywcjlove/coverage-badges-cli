@@ -91,6 +91,12 @@ jobs:
             
             ${{ steps.changelog.outputs.changelog }}
 
+      - name: package.json info
+        uses: jaywcjlove/github-action-package@main
+        with:
+          path: package.json
+          unset: scripts,jest,lint-staged,devDependencies
+
       # - run: npm install @jsdevtools/npm-publish -g
       # - run: npm-publish --token="${{ secrets.NPM_TOKEN }}" ./package.json
       - run: npm publish
