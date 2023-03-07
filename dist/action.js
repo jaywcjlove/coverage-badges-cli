@@ -5202,6 +5202,7 @@ module.exports = {
 
 /***/ }),
 
+
 /***/ 776:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -6882,7 +6883,9 @@ module.exports = _wrapNativeSuper, module.exports.__esModule = true, module.expo
 /***/ ((module) => {
 
 "use strict";
+
 module.exports = JSON.parse('{"name":"coverage-badges-cli","version":"1.0.12","description":"Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).","homepage":"https://jaywcjlove.github.io/coverage-badges-cli/","license":"MIT","bin":{"coverage-badges":"bin/cli","coverage-badges-cli":"bin/cli"},"scripts":{"prepare":"husky install && npm run package","package":"ncc build src/action.ts","make-badges":"node bin/cli","watch":"tsbb watch --disable-babel","build":"tsbb build --disable-babel","test":"tsbb test","coverage":"tsbb test --coverage"},"files":["bin","lib","src"],"repository":{"type":"git","url":"https://github.com/jaywcjlove/coverage-badges-cli"},"keywords":["coverage","coverage-badges","coverage-badges-cli","badges"],"jest":{"coverageReporters":["lcov","json-summary"]},"lint-staged":{"*.ts?(x)":["npm run package"]},"dependencies":{"@types/fs-extra":"~11.0.0","@types/minimist":"~1.2.2","badgen":"~3.2.2","fs-extra":"~11.1.0","mini-svg-data-uri":"^1.4.4","minimist":"~1.2.5"},"devDependencies":{"@actions/core":"~1.10.0","@kkt/ncc":"~1.0.9","husky":"~8.0.0","lint-staged":"~13.1.0","tsbb":"~3.7.0"}}');
+
 
 /***/ })
 
@@ -7316,6 +7319,7 @@ var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 var core = __webpack_require__(7096);
 // EXTERNAL MODULE: ./node_modules/badgen/dist/index.js
 var dist = __webpack_require__(6352);
+
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __webpack_require__(7147);
 // EXTERNAL MODULE: ./node_modules/mini-svg-data-uri/index.js
@@ -7323,6 +7327,7 @@ var mini_svg_data_uri = __webpack_require__(776);
 var mini_svg_data_uri_default = /*#__PURE__*/__webpack_require__.n(mini_svg_data_uri);
 ;// CONCATENATED MODULE: ./src/badges.ts
 var getIconString=function getIconString(path){return (0,external_fs_.readFileSync)(path,'utf8');};function badge(option,summary){var _ref=option||{},_ref$label=_ref.label,label=_ref$label===void 0?'coverage':_ref$label,_ref$style=_ref.style,style=_ref$style===void 0?'classic':_ref$style,_ref$type=_ref.type,type=_ref$type===void 0?'statements':_ref$type;var total=summary.total;if(typeof total[type].pct!=='number'){total[type].pct=-1;}var pct=total[type].pct;var colorData={'#49c31a':[100],'#97c40f':[99.99,90],'#a0a127':[89.99,80],'#cba317':[79.99,60],'#ce0000':[59.99,0]};var color=Object.keys(colorData).find(function(value,idx){if(colorData[value].length===1&&pct>=colorData[value][0]){return true;}if(colorData[value].length===2&&pct<=colorData[value][0]&&pct>=colorData[value][1]){return true;}return false;});var badgenArgs={style:style,label:label,status:"".concat(pct<0?'Unknown':"".concat(pct,"%")),color:(color||'e5e5e5').replace(/^#/,'')};if(option.icon){var svgString=getIconString(option.icon);var svgDataUri=mini_svg_data_uri_default()(svgString);badgenArgs.icon=svgDataUri;}return (0,dist.badgen)(badgenArgs);}
+
 ;// CONCATENATED MODULE: ./src/action.ts
 ;_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(){var _require,version,output,source,label,style,sourceData,svgStr;return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:_context.prev=0;_require=__webpack_require__(4147),version=_require.version;(0,core.info)("coverage-badges-cli v\x1B[32;1m".concat(version,"\x1B[0m"));output=external_path_default().resolve(process.cwd(),(0,core.getInput)('output')||'coverage/badges.svg');source=external_path_default().resolve(process.cwd(),(0,core.getInput)('source')||'coverage/coverage-summary.json');label=(0,core.getInput)('label')||'coverage';style=(0,core.getInput)('style')||'classic';lib_default().ensureDirSync(external_path_default().dirname(output));if(lib_default().existsSync(source)){_context.next=11;break;}(0,core.setFailed)("File \x1B[31m".concat(source,"\x1B[0m does not exist.\n please specify the file directory\n\x1B[35mnpm\x1B[0m coverage-badges-cli \x1B[33m--source\x1B[0m coverage/coverage-summary.json"));return _context.abrupt("return");case 11:(0,core.info)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("Output Path: \x1B[32;1m".concat(output,"\x1B[0m"));sourceData=lib_default().readJSONSync(source);(0,core.startGroup)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("".concat(JSON.stringify(sourceData,null,2)));(0,core.endGroup)();svgStr=badge({label:label,style:style},sourceData);(0,core.setOutput)('svg',svgStr);(0,core.startGroup)("SVG String: \x1B[32;1m".concat(output,"\x1B[0m"));(0,core.info)("".concat(svgStr));(0,core.endGroup)();lib_default().writeFileSync(output,svgStr);(0,core.info)("\nCreate Coverage Badges: \x1B[32;1m".concat(external_path_default().relative(process.cwd(),output),"\x1B[0m\n"));_context.next=29;break;case 26:_context.prev=26;_context.t0=_context["catch"](0);(0,core.setFailed)(_context.t0.message);case 29:case"end":return _context.stop();}},_callee,null,[[0,26]]);}))();
 })();

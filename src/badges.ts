@@ -10,14 +10,12 @@ interface BadgenOptions {
   subject?: string;
   color?: string;
   label?: string;
-  labelColor?: string;
-  style?: StyleOption;
-  icon?: string;
-  iconWidth?: number;
-  scale?: number;
+  style?: 'flat' | 'classic'
+  type?: SummaryType
 }
 
 export type SummaryType = 'lines' | 'statements' | 'functions' | 'branches';
+
 export interface BadgeOption extends BadgenOptions {
   type?: SummaryType;
 }
