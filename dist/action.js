@@ -5202,6 +5202,130 @@ module.exports = {
 
 /***/ }),
 
+
+/***/ 776:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var shorterNames = __webpack_require__(4264);
+var REGEX = {
+  whitespace: /\s+/g,
+  urlHexPairs: /%[\dA-F]{2}/g,
+  quotes: /"/g
+};
+function collapseWhitespace(str) {
+  return str.trim().replace(REGEX.whitespace, ' ');
+}
+function dataURIPayload(string) {
+  return encodeURIComponent(string).replace(REGEX.urlHexPairs, specialHexEncode);
+}
+
+// `#` gets converted to `%23`, so quite a few CSS named colors are shorter than
+// their equivalent URL-encoded hex codes.
+function colorCodeToShorterNames(string) {
+  Object.keys(shorterNames).forEach(function (key) {
+    if (shorterNames[key].test(string)) {
+      string = string.replace(shorterNames[key], key);
+    }
+  });
+  return string;
+}
+function specialHexEncode(match) {
+  switch (match) {
+    // Browsers tolerate these characters, and they're frequent
+    case '%20':
+      return ' ';
+    case '%3D':
+      return '=';
+    case '%3A':
+      return ':';
+    case '%2F':
+      return '/';
+    default:
+      return match.toLowerCase();
+    // compresses better
+  }
+}
+
+function svgToTinyDataUri(svgString) {
+  if (typeof svgString !== 'string') {
+    throw new TypeError('Expected a string, but received ' + typeof svgString);
+  }
+  // Strip the Byte-Order Mark if the SVG has one
+  if (svgString.charCodeAt(0) === 0xfeff) {
+    svgString = svgString.slice(1);
+  }
+  var body = colorCodeToShorterNames(collapseWhitespace(svgString)).replace(REGEX.quotes, "'");
+  return 'data:image/svg+xml,' + dataURIPayload(body);
+}
+svgToTinyDataUri.toSrcset = function toSrcset(svgString) {
+  return svgToTinyDataUri(svgString).replace(/ /g, '%20');
+};
+module.exports = svgToTinyDataUri;
+
+/***/ }),
+
+/***/ 4264:
+/***/ ((module) => {
+
+module.exports = {
+  aqua: /#00ffff(ff)?(?!\w)|#0ff(f)?(?!\w)/gi,
+  azure: /#f0ffff(ff)?(?!\w)/gi,
+  beige: /#f5f5dc(ff)?(?!\w)/gi,
+  bisque: /#ffe4c4(ff)?(?!\w)/gi,
+  black: /#000000(ff)?(?!\w)|#000(f)?(?!\w)/gi,
+  blue: /#0000ff(ff)?(?!\w)|#00f(f)?(?!\w)/gi,
+  brown: /#a52a2a(ff)?(?!\w)/gi,
+  coral: /#ff7f50(ff)?(?!\w)/gi,
+  cornsilk: /#fff8dc(ff)?(?!\w)/gi,
+  crimson: /#dc143c(ff)?(?!\w)/gi,
+  cyan: /#00ffff(ff)?(?!\w)|#0ff(f)?(?!\w)/gi,
+  darkblue: /#00008b(ff)?(?!\w)/gi,
+  darkcyan: /#008b8b(ff)?(?!\w)/gi,
+  darkgrey: /#a9a9a9(ff)?(?!\w)/gi,
+  darkred: /#8b0000(ff)?(?!\w)/gi,
+  deeppink: /#ff1493(ff)?(?!\w)/gi,
+  dimgrey: /#696969(ff)?(?!\w)/gi,
+  gold: /#ffd700(ff)?(?!\w)/gi,
+  green: /#008000(ff)?(?!\w)/gi,
+  grey: /#808080(ff)?(?!\w)/gi,
+  honeydew: /#f0fff0(ff)?(?!\w)/gi,
+  hotpink: /#ff69b4(ff)?(?!\w)/gi,
+  indigo: /#4b0082(ff)?(?!\w)/gi,
+  ivory: /#fffff0(ff)?(?!\w)/gi,
+  khaki: /#f0e68c(ff)?(?!\w)/gi,
+  lavender: /#e6e6fa(ff)?(?!\w)/gi,
+  lime: /#00ff00(ff)?(?!\w)|#0f0(f)?(?!\w)/gi,
+  linen: /#faf0e6(ff)?(?!\w)/gi,
+  maroon: /#800000(ff)?(?!\w)/gi,
+  moccasin: /#ffe4b5(ff)?(?!\w)/gi,
+  navy: /#000080(ff)?(?!\w)/gi,
+  oldlace: /#fdf5e6(ff)?(?!\w)/gi,
+  olive: /#808000(ff)?(?!\w)/gi,
+  orange: /#ffa500(ff)?(?!\w)/gi,
+  orchid: /#da70d6(ff)?(?!\w)/gi,
+  peru: /#cd853f(ff)?(?!\w)/gi,
+  pink: /#ffc0cb(ff)?(?!\w)/gi,
+  plum: /#dda0dd(ff)?(?!\w)/gi,
+  purple: /#800080(ff)?(?!\w)/gi,
+  red: /#ff0000(ff)?(?!\w)|#f00(f)?(?!\w)/gi,
+  salmon: /#fa8072(ff)?(?!\w)/gi,
+  seagreen: /#2e8b57(ff)?(?!\w)/gi,
+  seashell: /#fff5ee(ff)?(?!\w)/gi,
+  sienna: /#a0522d(ff)?(?!\w)/gi,
+  silver: /#c0c0c0(ff)?(?!\w)/gi,
+  skyblue: /#87ceeb(ff)?(?!\w)/gi,
+  snow: /#fffafa(ff)?(?!\w)/gi,
+  tan: /#d2b48c(ff)?(?!\w)/gi,
+  teal: /#008080(ff)?(?!\w)/gi,
+  thistle: /#d8bfd8(ff)?(?!\w)/gi,
+  tomato: /#ff6347(ff)?(?!\w)/gi,
+  violet: /#ee82ee(ff)?(?!\w)/gi,
+  wheat: /#f5deb3(ff)?(?!\w)/gi,
+  white: /#ffffff(ff)?(?!\w)|#fff(f)?(?!\w)/gi
+};
+
+/***/ }),
+
 /***/ 7548:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -6759,7 +6883,9 @@ module.exports = _wrapNativeSuper, module.exports.__esModule = true, module.expo
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"coverage-badges-cli","version":"1.0.12","description":"Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).","homepage":"https://jaywcjlove.github.io/coverage-badges-cli/","license":"MIT","bin":{"coverage-badges":"bin/cli","coverage-badges-cli":"bin/cli"},"scripts":{"prepare":"husky install && npm run package","package":"ncc build src/action.ts","make-badges":"node bin/cli","watch":"tsbb watch --disable-babel","build":"tsbb build --disable-babel","test":"tsbb test","coverage":"tsbb test --coverage"},"files":["bin","lib","src"],"repository":{"type":"git","url":"https://github.com/jaywcjlove/coverage-badges-cli"},"keywords":["coverage","coverage-badges","coverage-badges-cli","badges"],"jest":{"coverageReporters":["lcov","json-summary"]},"lint-staged":{"*.ts?(x)":["npm run package"]},"dependencies":{"@types/minimist":"~1.2.2","@types/fs-extra":"~11.0.0","fs-extra":"~11.1.0","minimist":"~1.2.5","badgen":"~3.2.2"},"devDependencies":{"@actions/core":"~1.10.0","@kkt/ncc":"~1.0.9","husky":"~8.0.0","lint-staged":"~13.1.0","tsbb":"~3.7.0"}}');
+
+module.exports = JSON.parse('{"name":"coverage-badges-cli","version":"1.0.12","description":"Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).","homepage":"https://jaywcjlove.github.io/coverage-badges-cli/","license":"MIT","bin":{"coverage-badges":"bin/cli","coverage-badges-cli":"bin/cli"},"scripts":{"prepare":"husky install && npm run package","package":"ncc build src/action.ts","make-badges":"node bin/cli","watch":"tsbb watch --disable-babel","build":"tsbb build --disable-babel","test":"tsbb test","coverage":"tsbb test --coverage"},"files":["bin","lib","src"],"repository":{"type":"git","url":"https://github.com/jaywcjlove/coverage-badges-cli"},"keywords":["coverage","coverage-badges","coverage-badges-cli","badges"],"jest":{"coverageReporters":["lcov","json-summary"]},"lint-staged":{"*.ts?(x)":["npm run package"]},"dependencies":{"@types/fs-extra":"~11.0.0","@types/minimist":"~1.2.2","badgen":"~3.2.2","fs-extra":"~11.1.0","mini-svg-data-uri":"^1.4.4","minimist":"~1.2.5"},"devDependencies":{"@actions/core":"~1.10.0","@kkt/ncc":"~1.0.9","husky":"~8.0.0","lint-staged":"~13.1.0","tsbb":"~3.7.0"}}');
+
 
 /***/ })
 
@@ -7193,8 +7319,15 @@ var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 var core = __webpack_require__(7096);
 // EXTERNAL MODULE: ./node_modules/badgen/dist/index.js
 var dist = __webpack_require__(6352);
+
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __webpack_require__(7147);
+// EXTERNAL MODULE: ./node_modules/mini-svg-data-uri/index.js
+var mini_svg_data_uri = __webpack_require__(776);
+var mini_svg_data_uri_default = /*#__PURE__*/__webpack_require__.n(mini_svg_data_uri);
 ;// CONCATENATED MODULE: ./src/badges.ts
-function badge(option,summary){var _ref=option||{},_ref$label=_ref.label,label=_ref$label===void 0?'coverage':_ref$label,_ref$style=_ref.style,style=_ref$style===void 0?'classic':_ref$style,_ref$type=_ref.type,type=_ref$type===void 0?'statements':_ref$type;var total=summary.total;if(typeof total[type].pct!=='number'){total[type].pct=-1;}var pct=total[type].pct;var colorData={'#49c31a':[100],'#97c40f':[99.99,90],'#a0a127':[89.99,80],'#cba317':[79.99,60],'#ce0000':[59.99,0]};var color=Object.keys(colorData).find(function(value,idx){if(colorData[value].length===1&&pct>=colorData[value][0]){return true;}if(colorData[value].length===2&&pct<=colorData[value][0]&&pct>=colorData[value][1]){return true;}return false;});return (0,dist.badgen)({style:style,label:label,status:"".concat(pct<0?'Unknown':"".concat(pct,"%")),color:(color||'e5e5e5').replace(/^#/,'')});}
+var getIconString=function getIconString(path){return (0,external_fs_.readFileSync)(path,'utf8');};function badge(option,summary){var _ref=option||{},_ref$label=_ref.label,label=_ref$label===void 0?'coverage':_ref$label,_ref$style=_ref.style,style=_ref$style===void 0?'classic':_ref$style,_ref$type=_ref.type,type=_ref$type===void 0?'statements':_ref$type;var total=summary.total;if(typeof total[type].pct!=='number'){total[type].pct=-1;}var pct=total[type].pct;var colorData={'#49c31a':[100],'#97c40f':[99.99,90],'#a0a127':[89.99,80],'#cba317':[79.99,60],'#ce0000':[59.99,0]};var color=Object.keys(colorData).find(function(value,idx){if(colorData[value].length===1&&pct>=colorData[value][0]){return true;}if(colorData[value].length===2&&pct<=colorData[value][0]&&pct>=colorData[value][1]){return true;}return false;});var badgenArgs={style:style,label:label,status:"".concat(pct<0?'Unknown':"".concat(pct,"%")),color:(color||'e5e5e5').replace(/^#/,'')};if(option.icon){var svgString=getIconString(option.icon);var svgDataUri=mini_svg_data_uri_default()(svgString);badgenArgs.icon=svgDataUri;}return (0,dist.badgen)(badgenArgs);}
+
 ;// CONCATENATED MODULE: ./src/action.ts
 ;_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(){var _require,version,output,source,label,style,sourceData,svgStr;return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:_context.prev=0;_require=__webpack_require__(4147),version=_require.version;(0,core.info)("coverage-badges-cli v\x1B[32;1m".concat(version,"\x1B[0m"));output=external_path_default().resolve(process.cwd(),(0,core.getInput)('output')||'coverage/badges.svg');source=external_path_default().resolve(process.cwd(),(0,core.getInput)('source')||'coverage/coverage-summary.json');label=(0,core.getInput)('label')||'coverage';style=(0,core.getInput)('style')||'classic';lib_default().ensureDirSync(external_path_default().dirname(output));if(lib_default().existsSync(source)){_context.next=11;break;}(0,core.setFailed)("File \x1B[31m".concat(source,"\x1B[0m does not exist.\n please specify the file directory\n\x1B[35mnpm\x1B[0m coverage-badges-cli \x1B[33m--source\x1B[0m coverage/coverage-summary.json"));return _context.abrupt("return");case 11:(0,core.info)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("Output Path: \x1B[32;1m".concat(output,"\x1B[0m"));sourceData=lib_default().readJSONSync(source);(0,core.startGroup)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("".concat(JSON.stringify(sourceData,null,2)));(0,core.endGroup)();svgStr=badge({label:label,style:style},sourceData);(0,core.setOutput)('svg',svgStr);(0,core.startGroup)("SVG String: \x1B[32;1m".concat(output,"\x1B[0m"));(0,core.info)("".concat(svgStr));(0,core.endGroup)();lib_default().writeFileSync(output,svgStr);(0,core.info)("\nCreate Coverage Badges: \x1B[32;1m".concat(external_path_default().relative(process.cwd(),output),"\x1B[0m\n"));_context.next=29;break;case 26:_context.prev=26;_context.t0=_context["catch"](0);(0,core.setFailed)(_context.t0.message);case 29:case"end":return _context.stop();}},_callee,null,[[0,26]]);}))();
 })();
