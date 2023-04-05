@@ -2,7 +2,7 @@ import minimist, { ParsedArgs } from 'minimist';
 import { create } from './create';
 import { BadgeOption } from './badges';
 
-export interface RunArgvs extends ParsedArgs, BadgeOption {
+export interface RunArgvs extends ParsedArgs, Partial<BadgeOption> {
   source?: string;
   version?: string;
   output?: string;

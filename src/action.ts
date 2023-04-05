@@ -25,7 +25,7 @@ import { Summary } from './create';
     info(`${JSON.stringify(sourceData, null, 2)}`);
     endGroup();
     
-    const svgStr = badge({ label, style }, sourceData);
+    const svgStr = badge({ label, style } as BadgeOption, sourceData);
 
     setOutput('svg', svgStr);
 

@@ -1,6 +1,6 @@
 {
   "name": "coverage-badges-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).",
   "homepage": "https://jaywcjlove.github.io/coverage-badges-cli/",
   "license": "MIT",
@@ -12,8 +12,8 @@
     "prepare": "husky install && npm run package",
     "package": "ncc build src/action.ts",
     "make-badges": "node bin/cli",
-    "watch": "tsbb watch --disable-babel",
-    "build": "tsbb build --disable-babel",
+    "watch": "tsbb watch",
+    "build": "tsbb build",
     "test": "tsbb test",
     "coverage": "tsbb test --coverage"
   },
@@ -38,6 +38,9 @@
       "json-summary"
     ]
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "lint-staged": {
     "*.ts?(x)": [
       "npm run package"
@@ -52,10 +55,10 @@
     "minimist": "~1.2.5"
   },
   "devDependencies": {
-    "@actions/core": "~1.10.0",
-    "@kkt/ncc": "~1.0.9",
-    "husky": "~8.0.0",
-    "lint-staged": "~13.1.0",
-    "tsbb": "~3.7.0"
+    "@actions/core": "^1.10.0",
+    "@kkt/ncc": "^1.0.15",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "tsbb": "^4.1.3"
   }
 }

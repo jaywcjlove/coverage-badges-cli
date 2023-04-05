@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { RunArgvs } from '.';
-import { badge } from './badges';
+import { badge, BadgenOptions } from './badges';
 
 export type SummaryTotal = {
   total: number;
@@ -33,7 +33,7 @@ export function create(argvs: RunArgvs) {
     return;
   }
   const source: Summary = require(sourcePath);
-  const svgStr = badge(argvs, source);
+  const svgStr = badge(argvs as BadgenOptions, source);
   fs.ensureDirSync(path.dirname(svgPath));
   fs.writeFileSync(svgPath, svgStr);
   console.log(`\nCoverage Badges: \x1b[32;1m${path.relative(process.cwd(), svgPath)}\x1b[0m\n`);
