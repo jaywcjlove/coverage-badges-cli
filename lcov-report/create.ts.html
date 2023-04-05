@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -126,25 +126,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import fs from 'fs-extra';
 import path from 'path';
 import { RunArgvs } from '.';
-import { badge } from './badges';
+import { badge, BadgenOptions } from './badges';
 &nbsp;
 export type SummaryTotal = {
   total: number;
@@ -164,22 +164,22 @@ export interface Summary extends Record&lt;string, SummaryItem&gt; {
   total: SummaryItem;
 }
 &nbsp;
-export function create(argvs: RunArgvs) {
-  const sourcePath = path.resolve(process.cwd(), argvs.source);
-  const svgPath = path.resolve(process.cwd(), argvs.output);
-  if (!fs.existsSync(sourcePath)) {
-    console.log(
+export function <span class="fstat-no" title="function not covered" >create(</span>argvs: RunArgvs) {
+  const sourcePath = <span class="cstat-no" title="statement not covered" >path.resolve(process.cwd(), argvs.source);</span>
+  const svgPath = <span class="cstat-no" title="statement not covered" >path.resolve(process.cwd(), argvs.output);</span>
+<span class="cstat-no" title="statement not covered" >  if (!fs.existsSync(sourcePath)) {</span>
+<span class="cstat-no" title="statement not covered" >    console.log(</span>
       `\x1b[31mErr Source Path:\x1b[0m ${path.relative(process.cwd(), sourcePath)}\n`,
       `&gt; please specify the file directory\n`,
       `&gt; \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json`
     );
-    return;
+<span class="cstat-no" title="statement not covered" >    return;</span>
   }
-  const source: Summary = require(sourcePath);
-  const svgStr = badge(argvs, source);
-  fs.ensureDirSync(path.dirname(svgPath));
-  fs.writeFileSync(svgPath, svgStr);
-  console.log(`\nCoverage Badges: \x1b[32;1m${path.relative(process.cwd(), svgPath)}\x1b[0m\n`);
+  const source: Summary = <span class="cstat-no" title="statement not covered" >require(sourcePath);</span>
+  const svgStr = <span class="cstat-no" title="statement not covered" >badge(argvs as BadgenOptions, source);</span>
+<span class="cstat-no" title="statement not covered" >  fs.ensureDirSync(path.dirname(svgPath));</span>
+<span class="cstat-no" title="statement not covered" >  fs.writeFileSync(svgPath, svgStr);</span>
+<span class="cstat-no" title="statement not covered" >  console.log(`\nCoverage Badges: \x1b[32;1m${path.relative(process.cwd(), svgPath)}\x1b[0m\n`);</span>
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -187,7 +187,7 @@ export function create(argvs: RunArgvs) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-07T01:27:33.341Z
+                at 2023-04-05T15:09:07.572Z
             </div>
         <script src="prettify.js"></script>
         <script>
