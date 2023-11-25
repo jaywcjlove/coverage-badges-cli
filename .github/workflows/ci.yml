@@ -69,6 +69,12 @@ jobs:
           source: coverage/coverage-summary.json
           output: dist/badges-classic.svg
 
+      - name: Create Defalut Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@main
+        with:
+          source: coverage/coverage-summary.json
+          output: dist/badges.svg
+
       - name: Generate Contributors Images
         uses: jaywcjlove/github-action-contributors@main
         with:
