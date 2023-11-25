@@ -1,4 +1,4 @@
-name: 'Create Custom Coverage Badges'
+name: 'Create Coverage Badges'
 author: 'Kenny Wong'
 description: 'Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).'
 inputs:
