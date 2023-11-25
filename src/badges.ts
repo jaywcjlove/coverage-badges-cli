@@ -29,7 +29,7 @@ const getIconString = (path: string) => {
 export function badge(option: BadgeOption, summary: object) {
   const { label = 'coverage', style = 'classic', jsonPath = 'totals.summary' } = option || {}
   let pct: any = summary;
-  jsonPath.split(".").forEach(key => pct[key]);
+  jsonPath.split(".").forEach(key => pct = pct[key]);
   if (typeof pct !== 'number') {
     throw new Error(`${jsonPath} evaluates to ${JSON.stringify(pct)} and is not a suitable path in the JSON coverage data`);
   }
