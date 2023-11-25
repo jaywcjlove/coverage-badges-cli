@@ -1,6 +1,6 @@
 {
   "name": "coverage-badges-cli",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).",
   "homepage": "https://jaywcjlove.github.io/coverage-badges-cli/",
   "license": "MIT",
