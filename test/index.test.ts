@@ -55,25 +55,25 @@ it('test badge case - default', async () => {
 });
 
 it('test badge case - statements', async () => {
-  const str = badge({ style: 'flat', status: '85%', type: 'statements' }, mockSummary as any);
+  const str = badge({ style: 'flat', status: '85%', jsonPath: 'total.statements.pct' }, mockSummary as any);
 
   expect(str.indexOf(`<text x="648" y="138" textLength="260">85%</text>`) > 0).toBeTruthy();
 });
 
 it('test badge case - lines', async () => {
-  const str = badge({ style: 'flat', status: '100%', type: 'lines' }, mockSummary as any);
+  const str = badge({ style: 'flat', status: '100%', jsonPath: 'total.lines.pct' }, mockSummary as any);
 
   expect(str.indexOf(`<text x="648" y="138" textLength="330">100%</text>`) > 0).toBeTruthy();
 });
 
 it('test badge case - functions', async () => {
-  const str = badge({ style: 'flat', status: '90%', type: 'functions' }, mockSummary as any);
+  const str = badge({ style: 'flat', status: '90%', jsonPath: 'total.functions.pct' }, mockSummary as any);
 
   expect(str.indexOf(`<text x="648" y="138" textLength="260">90%</text>`) > 0).toBeTruthy();
 });
 
 it('test badge case - branches', async () => {
-  const str = badge({ style: 'flat', status: '95%', type: 'branches' }, mockSummary as any);
+  const str = badge({ style: 'flat', status: '95%', jsonPath: 'total.branches.pct' }, mockSummary as any);
 
   expect(str.indexOf(`<text x="648" y="138" textLength="260">95%</text>`) > 0).toBeTruthy();
 });

@@ -27,7 +27,7 @@ const getIconString = (path: string) => {
 
 
 export function badge(option: BadgeOption, summary: object) {
-  const { label = 'coverage', style = 'classic', jsonPath = 'totals.summary' } = option || {}
+  const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct' } = option || {}
   let pct: any = summary;
   jsonPath.split(".").forEach(key => pct = pct[key]);
   if (typeof pct !== 'number') {
