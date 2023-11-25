@@ -31,7 +31,7 @@ export function badge(option: BadgeOption, summary: object) {
   let pct: any = summary;
   jsonPath.split(".").forEach(key => pct[key]);
   if (typeof pct !== 'number') {
-    throw new Error(`${jsonPath} evaluates to ${pct} and is not a suitable path in the JSON coverage data`);
+    throw new Error(`${jsonPath} evaluates to ${JSON.stringify(pct)} and is not a suitable path in the JSON coverage data`);
   }
   const colorData = {
     '#49c31a': [100],
