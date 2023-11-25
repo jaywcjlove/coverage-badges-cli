@@ -2,6 +2,7 @@ coverage-badges-cli
 ===
 <!--rehype:style=display: flex; height: 230px; align-items: center; justify-content: center; font-size: 38px;-->
 
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-048754?logo=buymeacoffee)](https://jaywcjlove.github.io/#/sponsor)
 [![Build & Deploy](https://github.com/jaywcjlove/coverage-badges-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/jaywcjlove/coverage-badges-cli/actions/workflows/ci.yml)
 [![Coverage Status](https://jaywcjlove.github.io/coverage-badges-cli/badges.svg)](https://jaywcjlove.github.io/coverage-badges-cli/lcov-report/)
 [![npm version](https://img.shields.io/npm/v/coverage-badges-cli.svg)](https://www.npmjs.com/package/coverage-badges-cli)
