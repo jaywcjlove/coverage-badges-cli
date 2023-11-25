@@ -53,7 +53,8 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 - `output` - Output image path.
 - `label` - The left label of the badge, usually static (default `coverage`).
 - `style` - Badges style: `flat`, `classic` (default `classic`).
-- `type` - Coverage report type: `lines`, `statements`, `functions`, `branches` (default `statements`)
+- ~~`type`~~ - (No longer supported after v1.2.0) Coverage report type: `lines`, `statements`, `functions`, `branches` (default `statements`)
+- `jsonPath` - Path to the coverage percentage number to be used in the badge
 - `icon` - Path to icon file
 
 ```yml
