@@ -2,10 +2,10 @@ import FS from 'fs-extra';
 import path from 'path';
 import run from '../src';
 import { badge } from '../src/badges';
-import { create, Summary } from '../src/create';
+import { create } from '../src/create';
 import { cliHelp, exampleHelp } from '../src';
 
-const mockSummary: Summary = {
+const mockSummary = {
   total: {
     lines: {
       total: 60,
@@ -85,11 +85,11 @@ it('test badge case - custom label', async () => {
   expect(str.indexOf(`<text x="50" y="138" textLength="715">${customLabel}</text>`) > 0).toBeTruthy();
 });
 
-it.skip('test badge case - custom icon', async () => {
+it('test badge case - custom icon', async () => {
   const customIcon = "./test/sample-logo.svg";
-  const processedIconString = `<image x="40" y="35" width="130" height="132" xlink:href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' baseProfile='tiny' overflow='visible' version='1.2' viewBox='0 0 256 257.5'%3e%3ccircle cx='128' cy='128.8' r='120' fill='none' stroke='black' stroke-miterlimit='10' stroke-width='14'/%3e%3c/svg%3e"/>`;
+  const processedIconString = `<image x="40" y="35" width="130" height="132" xlink:href="data:image/svg+xml,%3csvg xmlns=&apos;http://www.w3.org/2000/svg&apos; xml:space=&apos;preserve&apos; baseProfile=&apos;tiny&apos; overflow=&apos;visible&apos; version=&apos;1.2&apos; viewBox=&apos;0 0 256 257.5&apos;%3e%3ccircle cx=&apos;128&apos; cy=&apos;128.8&apos; r=&apos;120&apos; fill=&apos;none&apos; stroke=&apos;black&apos; stroke-miterlimit=&apos;10&apos; stroke-width=&apos;14&apos;/%3e%3c/svg%3e"/>`;
+  // const processedIconString = `<image x="40" y="35" width="130" height="132" xlink:href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' baseProfile='tiny' overflow='visible' version='1.2' viewBox='0 0 256 257.5'%3e%3ccircle cx='128' cy='128.8' r='120' fill='none' stroke='black' stroke-miterlimit='10' stroke-width='14'/%3e%3c/svg%3e"/>`;
   const str = badge({ style: 'flat', status: '85%', icon: customIcon }, mockSummary as any);
-
   expect(str.indexOf(processedIconString) > 0).toBeTruthy();
 });
 
