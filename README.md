@@ -63,6 +63,7 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
     style: flat
     source: coverage/coverage-summary.json
     output: coverage/badges.svg
+    jsonPath: totals.percent_covered
 
 - name: Deploy
   uses: peaceiris/actions-gh-pages@v3

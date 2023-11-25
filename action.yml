@@ -1,4 +1,4 @@
-name: 'Create Coverage Badges'
+name: 'Create Custom Coverage Badges'
 author: 'Kenny Wong'
 description: 'Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).'
 inputs:
@@ -20,6 +20,11 @@ inputs:
   style:
     description: 'Badges style: flat, classic.'
     default: classic
+    required: false
+
+  jsonPath:
+    description: 'Path to the coverage percentage number to be used in the badge'
+    default: total.lines.pct
     required: false
 
 outputs:
