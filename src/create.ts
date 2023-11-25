@@ -3,24 +3,6 @@ import path from 'path';
 import { RunArgvs } from '.';
 import { badge, BadgenOptions } from './badges';
 
-export type SummaryTotal = {
-  total: number;
-  covered: number;
-  skipped: number;
-  pct: number;
-}
-
-export type SummaryItem = {
-  lines: SummaryTotal;
-  statements: SummaryTotal;
-  functions: SummaryTotal;
-  branches: SummaryTotal;
-}
-
-export interface Summary extends Record<string, SummaryItem> {
-  total: SummaryItem;
-}
-
 export function create(argvs: RunArgvs) {
   const sourcePath = path.resolve(process.cwd(), argvs.source);
   const svgPath = path.resolve(process.cwd(), argvs.output);
@@ -32,7 +14,7 @@ export function create(argvs: RunArgvs) {
     );
     return;
   }
-  const source: Summary = require(sourcePath);
+  const source: object = require(sourcePath);
   const svgStr = badge(argvs as BadgenOptions, source);
   fs.ensureDirSync(path.dirname(svgPath));
   fs.writeFileSync(svgPath, svgStr);

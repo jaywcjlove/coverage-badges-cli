@@ -12,17 +12,14 @@ export interface BadgenOptions {
   color?: string;
   label?: string;
   style?: StyleOption;
-  type?: SummaryType
+  jsonPath?: string;
   labelColor?: string;
   icon?: string;
   iconWidth?: number;
   scale?: number;
 }
 
-export type SummaryType = 'lines' | 'statements' | 'functions' | 'branches';
-
 export interface BadgeOption extends BadgenOptions {
-  type?: SummaryType;
 }
 
 const getIconString = (path: string) => {
@@ -31,12 +28,12 @@ const getIconString = (path: string) => {
 
 
 export function badge(option: BadgeOption, summary: Summary) {
-  const { label = 'coverage', style = 'classic', type = 'statements' } = option || {}
-  const { total } = summary;
-  if (typeof total[type].pct !== 'number') {
-    total[type].pct = -1
+  const { label = 'coverage', style = 'classic', jsonPath = 'totals.summary' } = option || {}
+  let pct: any = summary;
+  jsonPath.split(".").forEach(key => pct[key]);
+  if (typeof pct !== 'number') {
+    throw new Error(`${jsonPath} evaluates to ${pct} and is not a suitable path in the JSON coverage data`);
   }
-  const { pct } = total[type];
   const colorData = {
     '#49c31a': [100],
     '#97c40f': [99.99, 90],
