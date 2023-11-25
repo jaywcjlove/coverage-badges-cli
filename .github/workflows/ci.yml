@@ -49,7 +49,7 @@ jobs:
       - run: npm install idoc@1.27.2 -g
       - run: idoc
       - run: cp -rp coverage/lcov-report dist
-      
+
       - run: cat coverage/coverage-summary.json
 
       - name: Create Coverage Badges
@@ -97,7 +97,7 @@ jobs:
         with:
           commit_message: ${{steps.tag_version.outputs.tag}} ${{ github.event.head_commit.message }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage
+          publish_dir: ./dist
 
       - name: Generate Changelog
         id: changelog
