@@ -6,6 +6,7 @@ export interface RunArgvs extends ParsedArgs, Partial<BadgeOption> {
   source?: string;
   version?: string;
   output?: string;
+  jsonPath?: string;
 }
 
 export default function run() {
@@ -19,6 +20,7 @@ export default function run() {
       style: 'classic',
       source: 'coverage/coverage-summary.json',
       output: 'coverage/badges.svg',
+      jsonPath: 'totals.percent_covered',
     },
   });
   if (argvs.h || argvs.help) {
