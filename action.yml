@@ -22,6 +22,11 @@ inputs:
     default: classic
     required: false
 
+  jsonPath:
+    description: 'Path to the coverage percentage number to be used in the badge'
+    default: totals.percentage_covered
+    required: false
+
 outputs:
   svg:
     description: 'svg image string'
