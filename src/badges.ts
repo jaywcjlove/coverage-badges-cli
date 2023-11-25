@@ -1,7 +1,6 @@
 import { badgen } from 'badgen';
 import { readFileSync } from 'fs';
 import svgToTinyDataUri from 'mini-svg-data-uri';
-import { Summary } from './create';
 
 // Copied from `badgen` because it's not exported
 export type StyleOption = 'flat' | 'classic';
@@ -27,7 +26,7 @@ const getIconString = (path: string) => {
 }
 
 
-export function badge(option: BadgeOption, summary: Summary) {
+export function badge(option: BadgeOption, summary: object) {
   const { label = 'coverage', style = 'classic', jsonPath = 'totals.summary' } = option || {}
   let pct: any = summary;
   jsonPath.split(".").forEach(key => pct[key]);
