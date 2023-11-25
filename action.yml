@@ -24,7 +24,7 @@ inputs:
 
   jsonPath:
     description: 'Path to the coverage percentage number to be used in the badge'
-    default: totals.percentage_covered
+    default: total.lines.pct
     required: false
 
 outputs:

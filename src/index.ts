@@ -20,7 +20,7 @@ export default function run() {
       style: 'classic',
       source: 'coverage/coverage-summary.json',
       output: 'coverage/badges.svg',
-      jsonPath: 'totals.percent_covered',
+      jsonPath: 'total.lines.pct',
     },
   });
   if (argvs.h || argvs.help) {
