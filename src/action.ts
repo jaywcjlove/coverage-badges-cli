@@ -10,6 +10,7 @@ import { badge, BadgeOption } from './badges';
     const output = path.resolve(process.cwd(), getInput('output') || 'coverage/badges.svg');
     const source = path.resolve(process.cwd(), getInput('source') || 'coverage/coverage-summary.json');
     const label = getInput('label') || 'coverage';
+    const jsonPath = getInput('jsonPath') || 'total.statements.pct';
     const style = (getInput('style') || 'classic') as BadgeOption['style'];
     fs.ensureDirSync(path.dirname(output));
     if (!fs.existsSync(source)) {
@@ -24,7 +25,7 @@ import { badge, BadgeOption } from './badges';
     info(`${JSON.stringify(sourceData, null, 2)}`);
     endGroup();
     
-    const svgStr = badge({ label, style } as BadgeOption, sourceData);
+    const svgStr = badge({ label, style, jsonPath } as BadgeOption, sourceData);
 
     setOutput('svg', svgStr);
 
