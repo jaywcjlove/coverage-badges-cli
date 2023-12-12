@@ -1,6 +1,7 @@
 import { badgen } from 'badgen';
 import { readFileSync } from 'fs';
 import svgToTinyDataUri from 'mini-svg-data-uri';
+import get from 'lodash.get';
 
 // Copied from `badgen` because it's not exported
 export type StyleOption = 'flat' | 'classic';
@@ -29,7 +30,7 @@ const getIconString = (path: string) => {
 export function badge(option: BadgeOption, summary: object) {
   const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct' } = option || {}
   let pct: any = summary;
-  jsonPath.split(".").forEach(key => pct = pct[key]);
+  pct = get(summary, jsonPath, 0);
   if (typeof pct !== 'number') {
     throw new Error(`${jsonPath} evaluates to ${JSON.stringify(pct)} and is not a suitable path in the JSON coverage data`);
   }

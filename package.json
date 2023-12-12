@@ -52,12 +52,14 @@
     "@types/minimist": "~1.2.2",
     "badgen": "~3.2.2",
     "fs-extra": "~11.1.0",
+    "lodash.get": "^4.4.2",
     "mini-svg-data-uri": "^1.4.4",
     "minimist": "~1.2.5"
   },
   "devDependencies": {
     "@actions/core": "^1.10.0",
     "@kkt/ncc": "^1.0.15",
+    "@types/lodash.get": "^4.4.9",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "tsbb": "^4.1.3"
