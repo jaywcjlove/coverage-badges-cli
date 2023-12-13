@@ -31,6 +31,11 @@ export function badge(option: BadgeOption, summary: object) {
   const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct' } = option || {}
   let pct: any = summary;
   pct = get(summary, jsonPath, 0);
+
+  if (!isNaN(Number(pct))) {
+    pct = Number(pct);
+  }
+
   if (typeof pct !== 'number') {
     throw new Error(`${jsonPath} evaluates to ${JSON.stringify(pct)} and is not a suitable path in the JSON coverage data`);
   }
