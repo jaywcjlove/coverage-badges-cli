@@ -196,14 +196,15 @@ jobs:
 </span><span class="code-line line-number" line="9">  <span class="token parameter variable">--style</span>        Badges style: flat, flat-square.
 </span><span class="code-line line-number" line="10">  <span class="token parameter variable">--type</span>         Coverage type: lines, statements, functions, branches.
 </span><span class="code-line line-number" line="11">  <span class="token parameter variable">--icon</span>         Path to icon <span class="token function">file</span>
-</span><span class="code-line line-number" line="12">
-</span><span class="code-line line-number" line="13">Example:
-</span><span class="code-line line-number" line="14">
-</span><span class="code-line line-number" line="15">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--output</span> coverage/badges.svg
-</span><span class="code-line line-number" line="16">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--style</span> plastic
-</span><span class="code-line line-number" line="17">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--source</span> coverage/coverage-summary.json
-</span><span class="code-line line-number" line="18">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--type</span> lines
-</span><span class="code-line line-number" line="19">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--icon</span> my-icon.svg
+</span><span class="code-line line-number" line="12">  <span class="token parameter variable">--label</span>        The left label of the badge, usually static <span class="token punctuation">(</span>default <span class="token variable"><span class="token variable">`</span>coverage<span class="token variable">`</span></span><span class="token punctuation">)</span>.
+</span><span class="code-line line-number" line="13">
+</span><span class="code-line line-number" line="14">Example:
+</span><span class="code-line line-number" line="15">
+</span><span class="code-line line-number" line="16">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--output</span> coverage/badges.svg
+</span><span class="code-line line-number" line="17">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--style</span> plastic
+</span><span class="code-line line-number" line="18">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--source</span> coverage/coverage-summary.json
+</span><span class="code-line line-number" line="19">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--type</span> lines
+</span><span class="code-line line-number" line="20">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--icon</span> my-icon.svg
 </span></code><input type="hidden" value="Usage: coverage-badges [options] [--help|h]
 
 Options:
@@ -215,6 +216,7 @@ Options:
   --style        Badges style: flat, flat-square.
   --type         Coverage type: lines, statements, functions, branches.
   --icon         Path to icon file
+  --label        The left label of the badge, usually static (default &#x60;coverage&#x60;).
 
 Example:
 
