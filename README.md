@@ -124,6 +124,7 @@ Options:
   --style        Badges style: flat, flat-square.
   --type         Coverage type: lines, statements, functions, branches.
   --icon         Path to icon file
+  --label        The left label of the badge, usually static (default `coverage`).
 
 Example:
 
