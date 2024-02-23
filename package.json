@@ -10,7 +10,7 @@
     "coverage-badges-cli": "bin/cli"
   },
   "scripts": {
-    "prepare": "husky install && npm run package",
+    "prepare": "husky && npm run package",
     "package": "ncc build src/action.ts",
     "make-badges": "node bin/cli",
     "watch": "tsbb watch",
@@ -40,7 +40,8 @@
     ]
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=v20.11.0",
+    "npm": ">=10.2.4"
   },
   "lint-staged": {
     "*.ts?(x)": [
@@ -51,7 +52,7 @@
     "@types/fs-extra": "~11.0.0",
     "@types/minimist": "~1.2.2",
     "badgen": "~3.2.2",
-    "fs-extra": "~11.1.0",
+    "fs-extra": "~11.2.0",
     "lodash.get": "^4.4.2",
     "mini-svg-data-uri": "^1.4.4",
     "minimist": "~1.2.5"
@@ -60,8 +61,8 @@
     "@actions/core": "^1.10.0",
     "@kkt/ncc": "^1.0.15",
     "@types/lodash.get": "^4.4.9",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "tsbb": "^4.1.3"
   }
 }
