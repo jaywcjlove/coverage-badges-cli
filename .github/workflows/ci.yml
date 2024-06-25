@@ -47,7 +47,7 @@ jobs:
           
           EOF
   
-      - run: npm install idoc@1.27.2 -g
+      - run: npm install idoc@1 -g
       - run: idoc
       - run: cp -rp coverage/lcov-report dist
 
@@ -119,6 +119,7 @@ jobs:
         uses: ncipollo/release-action@v1
         if: steps.create_tag.outputs.successful
         with:
+          allowUpdates: true
           name: ${{ steps.create_tag.outputs.version }}
           tag: ${{ steps.create_tag.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
