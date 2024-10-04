@@ -11,12 +11,16 @@ var _classCallCheck = (__webpack_require__(7383)["default"]);
 var _createClass = (__webpack_require__(4579)["default"]);
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
 } : function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
   o[k2] = m[k];
@@ -32,7 +36,7 @@ var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? fun
 var __importStar = this && this.__importStar || function (mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
   __setModuleDefault(result, mod);
   return result;
 };
@@ -100,10 +104,10 @@ var Command = /*#__PURE__*/function () {
   }]);
 }();
 function escapeData(s) {
-  return utils_1.toCommandValue(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+  return (0, utils_1.toCommandValue)(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
 }
 function escapeProperty(s) {
-  return utils_1.toCommandValue(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A').replace(/:/g, '%3A').replace(/,/g, '%2C');
+  return (0, utils_1.toCommandValue)(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A').replace(/:/g, '%3A').replace(/,/g, '%2C');
 }
 //# sourceMappingURL=command.js.map
 
@@ -118,12 +122,16 @@ function escapeProperty(s) {
 var _regeneratorRuntime = (__webpack_require__(4633)["default"]);
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
 } : function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
   o[k2] = m[k];
@@ -139,7 +147,7 @@ var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? fun
 var __importStar = this && this.__importStar || function (mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
   __setModuleDefault(result, mod);
   return result;
 };
@@ -173,7 +181,7 @@ var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, gene
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
+exports.platform = exports.toPlatformPath = exports.toWin32Path = exports.toPosixPath = exports.markdownSummary = exports.summary = exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
 var command_1 = __webpack_require__(1818);
 var file_command_1 = __webpack_require__(7369);
 var utils_1 = __webpack_require__(6230);
@@ -193,7 +201,7 @@ var ExitCode;
    * A code indicating that the action was a failure
    */
   ExitCode[ExitCode["Failure"] = 1] = "Failure";
-})(ExitCode = exports.ExitCode || (exports.ExitCode = {}));
+})(ExitCode || (exports.ExitCode = ExitCode = {}));
 //-----------------------------------------------------------------------
 // Variables
 //-----------------------------------------------------------------------
@@ -204,13 +212,13 @@ var ExitCode;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function exportVariable(name, val) {
-  var convertedVal = utils_1.toCommandValue(val);
+  var convertedVal = (0, utils_1.toCommandValue)(val);
   process.env[name] = convertedVal;
   var filePath = process.env['GITHUB_ENV'] || '';
   if (filePath) {
-    return file_command_1.issueFileCommand('ENV', file_command_1.prepareKeyValueMessage(name, val));
+    return (0, file_command_1.issueFileCommand)('ENV', (0, file_command_1.prepareKeyValueMessage)(name, val));
   }
-  command_1.issueCommand('set-env', {
+  (0, command_1.issueCommand)('set-env', {
     name: name
   }, convertedVal);
 }
@@ -220,7 +228,7 @@ exports.exportVariable = exportVariable;
  * @param secret value of the secret
  */
 function setSecret(secret) {
-  command_1.issueCommand('add-mask', {}, secret);
+  (0, command_1.issueCommand)('add-mask', {}, secret);
 }
 exports.setSecret = setSecret;
 /**
@@ -230,9 +238,9 @@ exports.setSecret = setSecret;
 function addPath(inputPath) {
   var filePath = process.env['GITHUB_PATH'] || '';
   if (filePath) {
-    file_command_1.issueFileCommand('PATH', inputPath);
+    (0, file_command_1.issueFileCommand)('PATH', inputPath);
   } else {
-    command_1.issueCommand('add-path', {}, inputPath);
+    (0, command_1.issueCommand)('add-path', {}, inputPath);
   }
   process.env['PATH'] = "".concat(inputPath).concat(path.delimiter).concat(process.env['PATH']);
 }
@@ -306,12 +314,12 @@ exports.getBooleanInput = getBooleanInput;
 function setOutput(name, value) {
   var filePath = process.env['GITHUB_OUTPUT'] || '';
   if (filePath) {
-    return file_command_1.issueFileCommand('OUTPUT', file_command_1.prepareKeyValueMessage(name, value));
+    return (0, file_command_1.issueFileCommand)('OUTPUT', (0, file_command_1.prepareKeyValueMessage)(name, value));
   }
   process.stdout.write(os.EOL);
-  command_1.issueCommand('set-output', {
+  (0, command_1.issueCommand)('set-output', {
     name: name
-  }, utils_1.toCommandValue(value));
+  }, (0, utils_1.toCommandValue)(value));
 }
 exports.setOutput = setOutput;
 /**
@@ -320,7 +328,7 @@ exports.setOutput = setOutput;
  *
  */
 function setCommandEcho(enabled) {
-  command_1.issue('echo', enabled ? 'on' : 'off');
+  (0, command_1.issue)('echo', enabled ? 'on' : 'off');
 }
 exports.setCommandEcho = setCommandEcho;
 //-----------------------------------------------------------------------
@@ -351,7 +359,7 @@ exports.isDebug = isDebug;
  * @param message debug message
  */
 function debug(message) {
-  command_1.issueCommand('debug', {}, message);
+  (0, command_1.issueCommand)('debug', {}, message);
 }
 exports.debug = debug;
 /**
@@ -361,7 +369,7 @@ exports.debug = debug;
  */
 function error(message) {
   var properties = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  command_1.issueCommand('error', utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+  (0, command_1.issueCommand)('error', (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
 }
 exports.error = error;
 /**
@@ -371,7 +379,7 @@ exports.error = error;
  */
 function warning(message) {
   var properties = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  command_1.issueCommand('warning', utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+  (0, command_1.issueCommand)('warning', (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
 }
 exports.warning = warning;
 /**
@@ -381,7 +389,7 @@ exports.warning = warning;
  */
 function notice(message) {
   var properties = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  command_1.issueCommand('notice', utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+  (0, command_1.issueCommand)('notice', (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
 }
 exports.notice = notice;
 /**
@@ -400,14 +408,14 @@ exports.info = info;
  * @param name The name of the output group
  */
 function startGroup(name) {
-  command_1.issue('group', name);
+  (0, command_1.issue)('group', name);
 }
 exports.startGroup = startGroup;
 /**
  * End an output group.
  */
 function endGroup() {
-  command_1.issue('endgroup');
+  (0, command_1.issue)('endgroup');
 }
 exports.endGroup = endGroup;
 /**
@@ -457,11 +465,11 @@ exports.group = group;
 function saveState(name, value) {
   var filePath = process.env['GITHUB_STATE'] || '';
   if (filePath) {
-    return file_command_1.issueFileCommand('STATE', file_command_1.prepareKeyValueMessage(name, value));
+    return (0, file_command_1.issueFileCommand)('STATE', (0, file_command_1.prepareKeyValueMessage)(name, value));
   }
-  command_1.issueCommand('save-state', {
+  (0, command_1.issueCommand)('save-state', {
     name: name
-  }, utils_1.toCommandValue(value));
+  }, (0, utils_1.toCommandValue)(value));
 }
 exports.saveState = saveState;
 /**
@@ -533,6 +541,10 @@ Object.defineProperty(exports, "toPlatformPath", ({
     return path_utils_1.toPlatformPath;
   }
 }));
+/**
+ * Platform utilities exports
+ */
+exports.platform = __importStar(__webpack_require__(1056));
 //# sourceMappingURL=core.js.map
 
 /***/ }),
@@ -546,12 +558,16 @@ Object.defineProperty(exports, "toPlatformPath", ({
 // For internal use, subject to change.
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
 } : function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
   o[k2] = m[k];
@@ -567,7 +583,7 @@ var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? fun
 var __importStar = this && this.__importStar || function (mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
   __setModuleDefault(result, mod);
   return result;
 };
@@ -579,7 +595,6 @@ exports.prepareKeyValueMessage = exports.issueFileCommand = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 var fs = __importStar(__webpack_require__(9896));
 var os = __importStar(__webpack_require__(857));
-var uuid_1 = __webpack_require__(3730);
 var utils_1 = __webpack_require__(6230);
 function issueFileCommand(command, message) {
   var filePath = process.env["GITHUB_".concat(command)];
@@ -589,14 +604,14 @@ function issueFileCommand(command, message) {
   if (!fs.existsSync(filePath)) {
     throw new Error("Missing file at path: ".concat(filePath));
   }
-  fs.appendFileSync(filePath, "".concat(utils_1.toCommandValue(message)).concat(os.EOL), {
+  fs.appendFileSync(filePath, "".concat((0, utils_1.toCommandValue)(message)).concat(os.EOL), {
     encoding: 'utf8'
   });
 }
 exports.issueFileCommand = issueFileCommand;
 function prepareKeyValueMessage(key, value) {
-  var delimiter = "ghadelimiter_".concat(uuid_1.v4());
-  var convertedValue = utils_1.toCommandValue(value);
+  var delimiter = "ghadelimiter_".concat(crypto.randomUUID());
+  var convertedValue = (0, utils_1.toCommandValue)(value);
   // These should realistically never happen, but just in case someone finds a
   // way to exploit uuid generation let's not allow keys or values that contain
   // the delimiter.
@@ -735,12 +750,12 @@ var OidcClient = /*#__PURE__*/function () {
                 encodedAudience = encodeURIComponent(audience);
                 id_token_url = "".concat(id_token_url, "&audience=").concat(encodedAudience);
               }
-              core_1.debug("ID token url is ".concat(id_token_url));
+              (0, core_1.debug)("ID token url is ".concat(id_token_url));
               _context2.next = 6;
               return OidcClient.getCall(id_token_url);
             case 6:
               id_token = _context2.sent;
-              core_1.setSecret(id_token);
+              (0, core_1.setSecret)(id_token);
               return _context2.abrupt("return", id_token);
             case 11:
               _context2.prev = 11;
@@ -768,12 +783,16 @@ exports.OidcClient = OidcClient;
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
 } : function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
   o[k2] = m[k];
@@ -789,7 +808,7 @@ var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? fun
 var __importStar = this && this.__importStar || function (mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
   __setModuleDefault(result, mod);
   return result;
 };
@@ -833,6 +852,203 @@ function toPlatformPath(pth) {
 }
 exports.toPlatformPath = toPlatformPath;
 //# sourceMappingURL=path-utils.js.map
+
+/***/ }),
+
+/***/ 1056:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _slicedToArray = (__webpack_require__(5715)["default"]);
+var _regeneratorRuntime = (__webpack_require__(4633)["default"]);
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getDetails = exports.isLinux = exports.isMacOS = exports.isWindows = exports.arch = exports.platform = void 0;
+var os_1 = __importDefault(__webpack_require__(857));
+var exec = __importStar(__webpack_require__(332));
+var getWindowsInfo = function getWindowsInfo() {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _yield$exec$getExecOu, version, _yield$exec$getExecOu2, name;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return exec.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Version"', undefined, {
+            silent: true
+          });
+        case 2:
+          _yield$exec$getExecOu = _context.sent;
+          version = _yield$exec$getExecOu.stdout;
+          _context.next = 6;
+          return exec.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Caption"', undefined, {
+            silent: true
+          });
+        case 6:
+          _yield$exec$getExecOu2 = _context.sent;
+          name = _yield$exec$getExecOu2.stdout;
+          return _context.abrupt("return", {
+            name: name.trim(),
+            version: version.trim()
+          });
+        case 9:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+};
+var getMacOsInfo = function getMacOsInfo() {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var _a, _b, _c, _d, _yield$exec$getExecOu3, stdout, version, name;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return exec.getExecOutput('sw_vers', undefined, {
+            silent: true
+          });
+        case 2:
+          _yield$exec$getExecOu3 = _context2.sent;
+          stdout = _yield$exec$getExecOu3.stdout;
+          version = (_b = (_a = stdout.match(/ProductVersion:\s*(.+)/)) === null || _a === void 0 ? void 0 : _a[1]) !== null && _b !== void 0 ? _b : '';
+          name = (_d = (_c = stdout.match(/ProductName:\s*(.+)/)) === null || _c === void 0 ? void 0 : _c[1]) !== null && _d !== void 0 ? _d : '';
+          return _context2.abrupt("return", {
+            name: name,
+            version: version
+          });
+        case 7:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+};
+var getLinuxInfo = function getLinuxInfo() {
+  return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var _yield$exec$getExecOu4, stdout, _stdout$trim$split, _stdout$trim$split2, name, version;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.next = 2;
+          return exec.getExecOutput('lsb_release', ['-i', '-r', '-s'], {
+            silent: true
+          });
+        case 2:
+          _yield$exec$getExecOu4 = _context3.sent;
+          stdout = _yield$exec$getExecOu4.stdout;
+          _stdout$trim$split = stdout.trim().split('\n'), _stdout$trim$split2 = _slicedToArray(_stdout$trim$split, 2), name = _stdout$trim$split2[0], version = _stdout$trim$split2[1];
+          return _context3.abrupt("return", {
+            name: name,
+            version: version
+          });
+        case 6:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+};
+exports.platform = os_1["default"].platform();
+exports.arch = os_1["default"].arch();
+exports.isWindows = exports.platform === 'win32';
+exports.isMacOS = exports.platform === 'darwin';
+exports.isLinux = exports.platform === 'linux';
+function getDetails() {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.t0 = Object;
+          _context4.t1 = Object;
+          _context4.t2 = {};
+          _context4.next = 5;
+          return exports.isWindows ? getWindowsInfo() : exports.isMacOS ? getMacOsInfo() : getLinuxInfo();
+        case 5:
+          _context4.t3 = _context4.sent;
+          _context4.t4 = _context4.t1.assign.call(_context4.t1, _context4.t2, _context4.t3);
+          _context4.t5 = {
+            platform: exports.platform,
+            arch: exports.arch,
+            isWindows: exports.isWindows,
+            isMacOS: exports.isMacOS,
+            isLinux: exports.isLinux
+          };
+          return _context4.abrupt("return", _context4.t0.assign.call(_context4.t0, _context4.t4, _context4.t5));
+        case 9:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+}
+exports.getDetails = getDetails;
+//# sourceMappingURL=platform.js.map
 
 /***/ }),
 
@@ -1315,6 +1531,933 @@ exports.toCommandProperties = toCommandProperties;
 
 /***/ }),
 
+/***/ 332:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _regeneratorRuntime = (__webpack_require__(4633)["default"]);
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getExecOutput = exports.exec = void 0;
+var string_decoder_1 = __webpack_require__(3193);
+var tr = __importStar(__webpack_require__(6865));
+/**
+ * Exec a command.
+ * Output will be streamed to the live console.
+ * Returns promise with return code
+ *
+ * @param     commandLine        command to execute (can include additional args). Must be correctly escaped.
+ * @param     args               optional arguments for tool. Escaping is handled by the lib.
+ * @param     options            optional exec options.  See ExecOptions
+ * @returns   Promise<number>    exit code
+ */
+function exec(commandLine, args, options) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var commandArgs, toolPath, runner;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          commandArgs = tr.argStringToArray(commandLine);
+          if (!(commandArgs.length === 0)) {
+            _context.next = 3;
+            break;
+          }
+          throw new Error("Parameter 'commandLine' cannot be null or empty.");
+        case 3:
+          // Path to tool to execute should be first arg
+          toolPath = commandArgs[0];
+          args = commandArgs.slice(1).concat(args || []);
+          runner = new tr.ToolRunner(toolPath, args, options);
+          return _context.abrupt("return", runner.exec());
+        case 7:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+}
+exports.exec = exec;
+/**
+ * Exec a command and get the output.
+ * Output will be streamed to the live console.
+ * Returns promise with the exit code and collected stdout and stderr
+ *
+ * @param     commandLine           command to execute (can include additional args). Must be correctly escaped.
+ * @param     args                  optional arguments for tool. Escaping is handled by the lib.
+ * @param     options               optional exec options.  See ExecOptions
+ * @returns   Promise<ExecOutput>   exit code, stdout, and stderr
+ */
+function getExecOutput(commandLine, args, options) {
+  var _a, _b;
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var stdout, stderr, stdoutDecoder, stderrDecoder, originalStdoutListener, originalStdErrListener, stdErrListener, stdOutListener, listeners, exitCode;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          stdout = '';
+          stderr = ''; //Using string decoder covers the case where a mult-byte character is split
+          stdoutDecoder = new string_decoder_1.StringDecoder('utf8');
+          stderrDecoder = new string_decoder_1.StringDecoder('utf8');
+          originalStdoutListener = (_a = options === null || options === void 0 ? void 0 : options.listeners) === null || _a === void 0 ? void 0 : _a.stdout;
+          originalStdErrListener = (_b = options === null || options === void 0 ? void 0 : options.listeners) === null || _b === void 0 ? void 0 : _b.stderr;
+          stdErrListener = function stdErrListener(data) {
+            stderr += stderrDecoder.write(data);
+            if (originalStdErrListener) {
+              originalStdErrListener(data);
+            }
+          };
+          stdOutListener = function stdOutListener(data) {
+            stdout += stdoutDecoder.write(data);
+            if (originalStdoutListener) {
+              originalStdoutListener(data);
+            }
+          };
+          listeners = Object.assign(Object.assign({}, options === null || options === void 0 ? void 0 : options.listeners), {
+            stdout: stdOutListener,
+            stderr: stdErrListener
+          });
+          _context2.next = 11;
+          return exec(commandLine, args, Object.assign(Object.assign({}, options), {
+            listeners: listeners
+          }));
+        case 11:
+          exitCode = _context2.sent;
+          //flush any remaining characters
+          stdout += stdoutDecoder.end();
+          stderr += stderrDecoder.end();
+          return _context2.abrupt("return", {
+            exitCode: exitCode,
+            stdout: stdout,
+            stderr: stderr
+          });
+        case 15:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+}
+exports.getExecOutput = getExecOutput;
+//# sourceMappingURL=exec.js.map
+
+/***/ }),
+
+/***/ 6865:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _regeneratorRuntime = (__webpack_require__(4633)["default"]);
+var _createForOfIteratorHelper = (__webpack_require__(883)["default"]);
+var _classCallCheck = (__webpack_require__(7383)["default"]);
+var _createClass = (__webpack_require__(4579)["default"]);
+var _callSuper = (__webpack_require__(8336)["default"]);
+var _inherits = (__webpack_require__(9511)["default"]);
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.argStringToArray = exports.ToolRunner = void 0;
+var os = __importStar(__webpack_require__(857));
+var events = __importStar(__webpack_require__(4434));
+var child = __importStar(__webpack_require__(5317));
+var path = __importStar(__webpack_require__(6928));
+var io = __importStar(__webpack_require__(8090));
+var ioUtil = __importStar(__webpack_require__(2255));
+var timers_1 = __webpack_require__(3557);
+/* eslint-disable @typescript-eslint/unbound-method */
+var IS_WINDOWS = process.platform === 'win32';
+/*
+ * Class for running command line tools. Handles quoting and arg parsing in a platform agnostic way.
+ */
+var ToolRunner = /*#__PURE__*/function (_events$EventEmitter) {
+  function ToolRunner(toolPath, args, options) {
+    var _this;
+    _classCallCheck(this, ToolRunner);
+    _this = _callSuper(this, ToolRunner);
+    if (!toolPath) {
+      throw new Error("Parameter 'toolPath' cannot be null or empty.");
+    }
+    _this.toolPath = toolPath;
+    _this.args = args || [];
+    _this.options = options || {};
+    return _this;
+  }
+  _inherits(ToolRunner, _events$EventEmitter);
+  return _createClass(ToolRunner, [{
+    key: "_debug",
+    value: function _debug(message) {
+      if (this.options.listeners && this.options.listeners.debug) {
+        this.options.listeners.debug(message);
+      }
+    }
+  }, {
+    key: "_getCommandString",
+    value: function _getCommandString(options, noPrefix) {
+      var toolPath = this._getSpawnFileName();
+      var args = this._getSpawnArgs(options);
+      var cmd = noPrefix ? '' : '[command]'; // omit prefix when piped to a second tool
+      if (IS_WINDOWS) {
+        // Windows + cmd file
+        if (this._isCmdFile()) {
+          cmd += toolPath;
+          var _iterator = _createForOfIteratorHelper(args),
+            _step;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var a = _step.value;
+              cmd += " ".concat(a);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+        // Windows + verbatim
+        else if (options.windowsVerbatimArguments) {
+          cmd += "\"".concat(toolPath, "\"");
+          var _iterator2 = _createForOfIteratorHelper(args),
+            _step2;
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var _a = _step2.value;
+              cmd += " ".concat(_a);
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+        }
+        // Windows (regular)
+        else {
+          cmd += this._windowsQuoteCmdArg(toolPath);
+          var _iterator3 = _createForOfIteratorHelper(args),
+            _step3;
+          try {
+            for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+              var _a2 = _step3.value;
+              cmd += " ".concat(this._windowsQuoteCmdArg(_a2));
+            }
+          } catch (err) {
+            _iterator3.e(err);
+          } finally {
+            _iterator3.f();
+          }
+        }
+      } else {
+        // OSX/Linux - this can likely be improved with some form of quoting.
+        // creating processes on Unix is fundamentally different than Windows.
+        // on Unix, execvp() takes an arg array.
+        cmd += toolPath;
+        var _iterator4 = _createForOfIteratorHelper(args),
+          _step4;
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var _a3 = _step4.value;
+            cmd += " ".concat(_a3);
+          }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
+        }
+      }
+      return cmd;
+    }
+  }, {
+    key: "_processLineBuffer",
+    value: function _processLineBuffer(data, strBuffer, onLine) {
+      try {
+        var s = strBuffer + data.toString();
+        var n = s.indexOf(os.EOL);
+        while (n > -1) {
+          var line = s.substring(0, n);
+          onLine(line);
+          // the rest of the string ...
+          s = s.substring(n + os.EOL.length);
+          n = s.indexOf(os.EOL);
+        }
+        return s;
+      } catch (err) {
+        // streaming lines to console is best effort.  Don't fail a build.
+        this._debug("error processing line. Failed with error ".concat(err));
+        return '';
+      }
+    }
+  }, {
+    key: "_getSpawnFileName",
+    value: function _getSpawnFileName() {
+      if (IS_WINDOWS) {
+        if (this._isCmdFile()) {
+          return process.env['COMSPEC'] || 'cmd.exe';
+        }
+      }
+      return this.toolPath;
+    }
+  }, {
+    key: "_getSpawnArgs",
+    value: function _getSpawnArgs(options) {
+      if (IS_WINDOWS) {
+        if (this._isCmdFile()) {
+          var argline = "/D /S /C \"".concat(this._windowsQuoteCmdArg(this.toolPath));
+          var _iterator5 = _createForOfIteratorHelper(this.args),
+            _step5;
+          try {
+            for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+              var a = _step5.value;
+              argline += ' ';
+              argline += options.windowsVerbatimArguments ? a : this._windowsQuoteCmdArg(a);
+            }
+          } catch (err) {
+            _iterator5.e(err);
+          } finally {
+            _iterator5.f();
+          }
+          argline += '"';
+          return [argline];
+        }
+      }
+      return this.args;
+    }
+  }, {
+    key: "_endsWith",
+    value: function _endsWith(str, end) {
+      return str.endsWith(end);
+    }
+  }, {
+    key: "_isCmdFile",
+    value: function _isCmdFile() {
+      var upperToolPath = this.toolPath.toUpperCase();
+      return this._endsWith(upperToolPath, '.CMD') || this._endsWith(upperToolPath, '.BAT');
+    }
+  }, {
+    key: "_windowsQuoteCmdArg",
+    value: function _windowsQuoteCmdArg(arg) {
+      // for .exe, apply the normal quoting rules that libuv applies
+      if (!this._isCmdFile()) {
+        return this._uvQuoteCmdArg(arg);
+      }
+      // otherwise apply quoting rules specific to the cmd.exe command line parser.
+      // the libuv rules are generic and are not designed specifically for cmd.exe
+      // command line parser.
+      //
+      // for a detailed description of the cmd.exe command line parser, refer to
+      // http://stackoverflow.com/questions/4094699/how-does-the-windows-command-interpreter-cmd-exe-parse-scripts/7970912#7970912
+      // need quotes for empty arg
+      if (!arg) {
+        return '""';
+      }
+      // determine whether the arg needs to be quoted
+      var cmdSpecialChars = [' ', '\t', '&', '(', ')', '[', ']', '{', '}', '^', '=', ';', '!', "'", '+', ',', '`', '~', '|', '<', '>', '"'];
+      var needsQuotes = false;
+      var _iterator6 = _createForOfIteratorHelper(arg),
+        _step6;
+      try {
+        var _loop = function _loop() {
+          var _char = _step6.value;
+          if (cmdSpecialChars.some(function (x) {
+            return x === _char;
+          })) {
+            needsQuotes = true;
+            return 1; // break
+          }
+        };
+        for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+          if (_loop()) break;
+        }
+        // short-circuit if quotes not needed
+      } catch (err) {
+        _iterator6.e(err);
+      } finally {
+        _iterator6.f();
+      }
+      if (!needsQuotes) {
+        return arg;
+      }
+      // the following quoting rules are very similar to the rules that by libuv applies.
+      //
+      // 1) wrap the string in quotes
+      //
+      // 2) double-up quotes - i.e. " => ""
+      //
+      //    this is different from the libuv quoting rules. libuv replaces " with \", which unfortunately
+      //    doesn't work well with a cmd.exe command line.
+      //
+      //    note, replacing " with "" also works well if the arg is passed to a downstream .NET console app.
+      //    for example, the command line:
+      //          foo.exe "myarg:""my val"""
+      //    is parsed by a .NET console app into an arg array:
+      //          [ "myarg:\"my val\"" ]
+      //    which is the same end result when applying libuv quoting rules. although the actual
+      //    command line from libuv quoting rules would look like:
+      //          foo.exe "myarg:\"my val\""
+      //
+      // 3) double-up slashes that precede a quote,
+      //    e.g.  hello \world    => "hello \world"
+      //          hello\"world    => "hello\\""world"
+      //          hello\\"world   => "hello\\\\""world"
+      //          hello world\    => "hello world\\"
+      //
+      //    technically this is not required for a cmd.exe command line, or the batch argument parser.
+      //    the reasons for including this as a .cmd quoting rule are:
+      //
+      //    a) this is optimized for the scenario where the argument is passed from the .cmd file to an
+      //       external program. many programs (e.g. .NET console apps) rely on the slash-doubling rule.
+      //
+      //    b) it's what we've been doing previously (by deferring to node default behavior) and we
+      //       haven't heard any complaints about that aspect.
+      //
+      // note, a weakness of the quoting rules chosen here, is that % is not escaped. in fact, % cannot be
+      // escaped when used on the command line directly - even though within a .cmd file % can be escaped
+      // by using %%.
+      //
+      // the saving grace is, on the command line, %var% is left as-is if var is not defined. this contrasts
+      // the line parsing rules within a .cmd file, where if var is not defined it is replaced with nothing.
+      //
+      // one option that was explored was replacing % with ^% - i.e. %var% => ^%var^%. this hack would
+      // often work, since it is unlikely that var^ would exist, and the ^ character is removed when the
+      // variable is used. the problem, however, is that ^ is not removed when %* is used to pass the args
+      // to an external program.
+      //
+      // an unexplored potential solution for the % escaping problem, is to create a wrapper .cmd file.
+      // % can be escaped within a .cmd file.
+      var reverse = '"';
+      var quoteHit = true;
+      for (var i = arg.length; i > 0; i--) {
+        // walk the string in reverse
+        reverse += arg[i - 1];
+        if (quoteHit && arg[i - 1] === '\\') {
+          reverse += '\\'; // double the slash
+        } else if (arg[i - 1] === '"') {
+          quoteHit = true;
+          reverse += '"'; // double the quote
+        } else {
+          quoteHit = false;
+        }
+      }
+      reverse += '"';
+      return reverse.split('').reverse().join('');
+    }
+  }, {
+    key: "_uvQuoteCmdArg",
+    value: function _uvQuoteCmdArg(arg) {
+      // Tool runner wraps child_process.spawn() and needs to apply the same quoting as
+      // Node in certain cases where the undocumented spawn option windowsVerbatimArguments
+      // is used.
+      //
+      // Since this function is a port of quote_cmd_arg from Node 4.x (technically, lib UV,
+      // see https://github.com/nodejs/node/blob/v4.x/deps/uv/src/win/process.c for details),
+      // pasting copyright notice from Node within this function:
+      //
+      //      Copyright Joyent, Inc. and other Node contributors. All rights reserved.
+      //
+      //      Permission is hereby granted, free of charge, to any person obtaining a copy
+      //      of this software and associated documentation files (the "Software"), to
+      //      deal in the Software without restriction, including without limitation the
+      //      rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+      //      sell copies of the Software, and to permit persons to whom the Software is
+      //      furnished to do so, subject to the following conditions:
+      //
+      //      The above copyright notice and this permission notice shall be included in
+      //      all copies or substantial portions of the Software.
+      //
+      //      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      //      IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+      //      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+      //      AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+      //      LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+      //      FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+      //      IN THE SOFTWARE.
+      if (!arg) {
+        // Need double quotation for empty argument
+        return '""';
+      }
+      if (!arg.includes(' ') && !arg.includes('\t') && !arg.includes('"')) {
+        // No quotation needed
+        return arg;
+      }
+      if (!arg.includes('"') && !arg.includes('\\')) {
+        // No embedded double quotes or backslashes, so I can just wrap
+        // quote marks around the whole thing.
+        return "\"".concat(arg, "\"");
+      }
+      // Expected input/output:
+      //   input : hello"world
+      //   output: "hello\"world"
+      //   input : hello""world
+      //   output: "hello\"\"world"
+      //   input : hello\world
+      //   output: hello\world
+      //   input : hello\\world
+      //   output: hello\\world
+      //   input : hello\"world
+      //   output: "hello\\\"world"
+      //   input : hello\\"world
+      //   output: "hello\\\\\"world"
+      //   input : hello world\
+      //   output: "hello world\\" - note the comment in libuv actually reads "hello world\"
+      //                             but it appears the comment is wrong, it should be "hello world\\"
+      var reverse = '"';
+      var quoteHit = true;
+      for (var i = arg.length; i > 0; i--) {
+        // walk the string in reverse
+        reverse += arg[i - 1];
+        if (quoteHit && arg[i - 1] === '\\') {
+          reverse += '\\';
+        } else if (arg[i - 1] === '"') {
+          quoteHit = true;
+          reverse += '\\';
+        } else {
+          quoteHit = false;
+        }
+      }
+      reverse += '"';
+      return reverse.split('').reverse().join('');
+    }
+  }, {
+    key: "_cloneExecOptions",
+    value: function _cloneExecOptions(options) {
+      options = options || {};
+      var result = {
+        cwd: options.cwd || process.cwd(),
+        env: options.env || process.env,
+        silent: options.silent || false,
+        windowsVerbatimArguments: options.windowsVerbatimArguments || false,
+        failOnStdErr: options.failOnStdErr || false,
+        ignoreReturnCode: options.ignoreReturnCode || false,
+        delay: options.delay || 10000
+      };
+      result.outStream = options.outStream || process.stdout;
+      result.errStream = options.errStream || process.stderr;
+      return result;
+    }
+  }, {
+    key: "_getSpawnOptions",
+    value: function _getSpawnOptions(options, toolPath) {
+      options = options || {};
+      var result = {};
+      result.cwd = options.cwd;
+      result.env = options.env;
+      result['windowsVerbatimArguments'] = options.windowsVerbatimArguments || this._isCmdFile();
+      if (options.windowsVerbatimArguments) {
+        result.argv0 = "\"".concat(toolPath, "\"");
+      }
+      return result;
+    }
+    /**
+     * Exec a tool.
+     * Output will be streamed to the live console.
+     * Returns promise with return code
+     *
+     * @param     tool     path to tool to exec
+     * @param     options  optional exec options.  See ExecOptions
+     * @returns   number
+     */
+  }, {
+    key: "exec",
+    value: function exec() {
+      return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _this2 = this;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              // root the tool path if it is unrooted and contains relative pathing
+              if (!ioUtil.isRooted(this.toolPath) && (this.toolPath.includes('/') || IS_WINDOWS && this.toolPath.includes('\\'))) {
+                // prefer options.cwd if it is specified, however options.cwd may also need to be rooted
+                this.toolPath = path.resolve(process.cwd(), this.options.cwd || process.cwd(), this.toolPath);
+              }
+              // if the tool is only a file name, then resolve it from the PATH
+              // otherwise verify it exists (add extension on Windows if necessary)
+              _context2.next = 3;
+              return io.which(this.toolPath, true);
+            case 3:
+              this.toolPath = _context2.sent;
+              return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                return __awaiter(_this2, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+                  var _this3 = this;
+                  var _iterator7, _step7, arg, optionsNonNull, state, fileName, cp, stdbuffer, errbuffer;
+                  return _regeneratorRuntime().wrap(function _callee$(_context) {
+                    while (1) switch (_context.prev = _context.next) {
+                      case 0:
+                        this._debug("exec tool: ".concat(this.toolPath));
+                        this._debug('arguments:');
+                        _iterator7 = _createForOfIteratorHelper(this.args);
+                        try {
+                          for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+                            arg = _step7.value;
+                            this._debug("   ".concat(arg));
+                          }
+                        } catch (err) {
+                          _iterator7.e(err);
+                        } finally {
+                          _iterator7.f();
+                        }
+                        optionsNonNull = this._cloneExecOptions(this.options);
+                        if (!optionsNonNull.silent && optionsNonNull.outStream) {
+                          optionsNonNull.outStream.write(this._getCommandString(optionsNonNull) + os.EOL);
+                        }
+                        state = new ExecState(optionsNonNull, this.toolPath);
+                        state.on('debug', function (message) {
+                          _this3._debug(message);
+                        });
+                        _context.t0 = this.options.cwd;
+                        if (!_context.t0) {
+                          _context.next = 13;
+                          break;
+                        }
+                        _context.next = 12;
+                        return ioUtil.exists(this.options.cwd);
+                      case 12:
+                        _context.t0 = !_context.sent;
+                      case 13:
+                        if (!_context.t0) {
+                          _context.next = 15;
+                          break;
+                        }
+                        return _context.abrupt("return", reject(new Error("The cwd: ".concat(this.options.cwd, " does not exist!"))));
+                      case 15:
+                        fileName = this._getSpawnFileName();
+                        cp = child.spawn(fileName, this._getSpawnArgs(optionsNonNull), this._getSpawnOptions(this.options, fileName));
+                        stdbuffer = '';
+                        if (cp.stdout) {
+                          cp.stdout.on('data', function (data) {
+                            if (_this3.options.listeners && _this3.options.listeners.stdout) {
+                              _this3.options.listeners.stdout(data);
+                            }
+                            if (!optionsNonNull.silent && optionsNonNull.outStream) {
+                              optionsNonNull.outStream.write(data);
+                            }
+                            stdbuffer = _this3._processLineBuffer(data, stdbuffer, function (line) {
+                              if (_this3.options.listeners && _this3.options.listeners.stdline) {
+                                _this3.options.listeners.stdline(line);
+                              }
+                            });
+                          });
+                        }
+                        errbuffer = '';
+                        if (cp.stderr) {
+                          cp.stderr.on('data', function (data) {
+                            state.processStderr = true;
+                            if (_this3.options.listeners && _this3.options.listeners.stderr) {
+                              _this3.options.listeners.stderr(data);
+                            }
+                            if (!optionsNonNull.silent && optionsNonNull.errStream && optionsNonNull.outStream) {
+                              var s = optionsNonNull.failOnStdErr ? optionsNonNull.errStream : optionsNonNull.outStream;
+                              s.write(data);
+                            }
+                            errbuffer = _this3._processLineBuffer(data, errbuffer, function (line) {
+                              if (_this3.options.listeners && _this3.options.listeners.errline) {
+                                _this3.options.listeners.errline(line);
+                              }
+                            });
+                          });
+                        }
+                        cp.on('error', function (err) {
+                          state.processError = err.message;
+                          state.processExited = true;
+                          state.processClosed = true;
+                          state.CheckComplete();
+                        });
+                        cp.on('exit', function (code) {
+                          state.processExitCode = code;
+                          state.processExited = true;
+                          _this3._debug("Exit code ".concat(code, " received from tool '").concat(_this3.toolPath, "'"));
+                          state.CheckComplete();
+                        });
+                        cp.on('close', function (code) {
+                          state.processExitCode = code;
+                          state.processExited = true;
+                          state.processClosed = true;
+                          _this3._debug("STDIO streams have closed for tool '".concat(_this3.toolPath, "'"));
+                          state.CheckComplete();
+                        });
+                        state.on('done', function (error, exitCode) {
+                          if (stdbuffer.length > 0) {
+                            _this3.emit('stdline', stdbuffer);
+                          }
+                          if (errbuffer.length > 0) {
+                            _this3.emit('errline', errbuffer);
+                          }
+                          cp.removeAllListeners();
+                          if (error) {
+                            reject(error);
+                          } else {
+                            resolve(exitCode);
+                          }
+                        });
+                        if (!this.options.input) {
+                          _context.next = 29;
+                          break;
+                        }
+                        if (cp.stdin) {
+                          _context.next = 28;
+                          break;
+                        }
+                        throw new Error('child process missing stdin');
+                      case 28:
+                        cp.stdin.end(this.options.input);
+                      case 29:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }, _callee, this);
+                }));
+              }));
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+    }
+  }]);
+}(events.EventEmitter);
+exports.ToolRunner = ToolRunner;
+/**
+ * Convert an arg string to an array of args. Handles escaping
+ *
+ * @param    argString   string of arguments
+ * @returns  string[]    array of arguments
+ */
+function argStringToArray(argString) {
+  var args = [];
+  var inQuotes = false;
+  var escaped = false;
+  var arg = '';
+  function append(c) {
+    // we only escape double quotes.
+    if (escaped && c !== '"') {
+      arg += '\\';
+    }
+    arg += c;
+    escaped = false;
+  }
+  for (var i = 0; i < argString.length; i++) {
+    var c = argString.charAt(i);
+    if (c === '"') {
+      if (!escaped) {
+        inQuotes = !inQuotes;
+      } else {
+        append(c);
+      }
+      continue;
+    }
+    if (c === '\\' && escaped) {
+      append(c);
+      continue;
+    }
+    if (c === '\\' && inQuotes) {
+      escaped = true;
+      continue;
+    }
+    if (c === ' ' && !inQuotes) {
+      if (arg.length > 0) {
+        args.push(arg);
+        arg = '';
+      }
+      continue;
+    }
+    append(c);
+  }
+  if (arg.length > 0) {
+    args.push(arg.trim());
+  }
+  return args;
+}
+exports.argStringToArray = argStringToArray;
+var ExecState = /*#__PURE__*/function (_events$EventEmitter2) {
+  function ExecState(options, toolPath) {
+    var _this4;
+    _classCallCheck(this, ExecState);
+    _this4 = _callSuper(this, ExecState);
+    _this4.processClosed = false; // tracks whether the process has exited and stdio is closed
+    _this4.processError = '';
+    _this4.processExitCode = 0;
+    _this4.processExited = false; // tracks whether the process has exited
+    _this4.processStderr = false; // tracks whether stderr was written to
+    _this4.delay = 10000; // 10 seconds
+    _this4.done = false;
+    _this4.timeout = null;
+    if (!toolPath) {
+      throw new Error('toolPath must not be empty');
+    }
+    _this4.options = options;
+    _this4.toolPath = toolPath;
+    if (options.delay) {
+      _this4.delay = options.delay;
+    }
+    return _this4;
+  }
+  _inherits(ExecState, _events$EventEmitter2);
+  return _createClass(ExecState, [{
+    key: "CheckComplete",
+    value: function CheckComplete() {
+      if (this.done) {
+        return;
+      }
+      if (this.processClosed) {
+        this._setResult();
+      } else if (this.processExited) {
+        this.timeout = timers_1.setTimeout(ExecState.HandleTimeout, this.delay, this);
+      }
+    }
+  }, {
+    key: "_debug",
+    value: function _debug(message) {
+      this.emit('debug', message);
+    }
+  }, {
+    key: "_setResult",
+    value: function _setResult() {
+      // determine whether there is an error
+      var error;
+      if (this.processExited) {
+        if (this.processError) {
+          error = new Error("There was an error when attempting to execute the process '".concat(this.toolPath, "'. This may indicate the process failed to start. Error: ").concat(this.processError));
+        } else if (this.processExitCode !== 0 && !this.options.ignoreReturnCode) {
+          error = new Error("The process '".concat(this.toolPath, "' failed with exit code ").concat(this.processExitCode));
+        } else if (this.processStderr && this.options.failOnStdErr) {
+          error = new Error("The process '".concat(this.toolPath, "' failed because one or more lines were written to the STDERR stream"));
+        }
+      }
+      // clear the timeout
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+        this.timeout = null;
+      }
+      this.done = true;
+      this.emit('done', error, this.processExitCode);
+    }
+  }], [{
+    key: "HandleTimeout",
+    value: function HandleTimeout(state) {
+      if (state.done) {
+        return;
+      }
+      if (!state.processClosed && state.processExited) {
+        var message = "The STDIO streams did not close within ".concat(state.delay / 1000, " seconds of the exit event from process '").concat(state.toolPath, "'. This may indicate a child process inherited the STDIO streams and has not yet exited.");
+        state._debug(message);
+      }
+      state._setResult();
+    }
+  }]);
+}(events.EventEmitter); //# sourceMappingURL=toolrunner.js.map
+
+/***/ }),
+
 /***/ 7312:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1621,7 +2764,7 @@ var HttpClientError = /*#__PURE__*/function (_Error) {
   }
   _inherits(HttpClientError, _Error);
   return _createClass(HttpClientError);
-}( /*#__PURE__*/_wrapNativeSuper(Error));
+}(/*#__PURE__*/_wrapNativeSuper(Error));
 exports.HttpClientError = HttpClientError;
 var HttpClientResponse = /*#__PURE__*/function () {
   function HttpClientResponse(message) {
@@ -2356,7 +3499,7 @@ var HttpClient = /*#__PURE__*/function () {
         uri: proxyUrl.href,
         pipelining: !this._keepAlive ? 0 : 1
       }, (proxyUrl.username || proxyUrl.password) && {
-        token: "".concat(proxyUrl.username, ":").concat(proxyUrl.password)
+        token: "Basic ".concat(Buffer.from("".concat(proxyUrl.username, ":").concat(proxyUrl.password)).toString('base64'))
       }));
       this._proxyAgentDispatcher = proxyAgent;
       if (usingSsl && this._ignoreSslError) {
@@ -2493,6 +3636,12 @@ var lowercaseKeys = function lowercaseKeys(obj) {
 "use strict";
 
 
+var _classCallCheck = (__webpack_require__(7383)["default"]);
+var _createClass = (__webpack_require__(4579)["default"]);
+var _callSuper = (__webpack_require__(8336)["default"]);
+var _inherits = (__webpack_require__(9511)["default"]);
+var _superPropGet = (__webpack_require__(9901)["default"]);
+var _wrapNativeSuper = (__webpack_require__(1837)["default"]);
 var _createForOfIteratorHelper = (__webpack_require__(883)["default"]);
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -2512,9 +3661,9 @@ function getProxyUrl(reqUrl) {
   }();
   if (proxyVar) {
     try {
-      return new URL(proxyVar);
+      return new DecodedURL(proxyVar);
     } catch (_a) {
-      if (!proxyVar.startsWith('http://') && !proxyVar.startsWith('https://')) return new URL("http://".concat(proxyVar));
+      if (!proxyVar.startsWith('http://') && !proxyVar.startsWith('https://')) return new DecodedURL("http://".concat(proxyVar));
     }
   } else {
     return undefined;
@@ -2582,7 +3731,998 @@ function isLoopbackAddress(host) {
   var hostLower = host.toLowerCase();
   return hostLower === 'localhost' || hostLower.startsWith('127.') || hostLower.startsWith('[::1]') || hostLower.startsWith('[0:0:0:0:0:0:0:1]');
 }
-//# sourceMappingURL=proxy.js.map
+var DecodedURL = /*#__PURE__*/function (_URL) {
+  function DecodedURL(url, base) {
+    var _this;
+    _classCallCheck(this, DecodedURL);
+    _this = _callSuper(this, DecodedURL, [url, base]);
+    _this._decodedUsername = decodeURIComponent(_superPropGet((_this, DecodedURL), "username", _this, 1));
+    _this._decodedPassword = decodeURIComponent(_superPropGet((_this, DecodedURL), "password", _this, 1));
+    return _this;
+  }
+  _inherits(DecodedURL, _URL);
+  return _createClass(DecodedURL, [{
+    key: "username",
+    get: function get() {
+      return this._decodedUsername;
+    }
+  }, {
+    key: "password",
+    get: function get() {
+      return this._decodedPassword;
+    }
+  }]);
+}(/*#__PURE__*/_wrapNativeSuper(URL)); //# sourceMappingURL=proxy.js.map
+
+/***/ }),
+
+/***/ 2255:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createForOfIteratorHelper = (__webpack_require__(883)["default"]);
+var _regeneratorRuntime = (__webpack_require__(4633)["default"]);
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getCmdPath = exports.tryGetExecutablePath = exports.isRooted = exports.isDirectory = exports.exists = exports.READONLY = exports.UV_FS_O_EXLOCK = exports.IS_WINDOWS = exports.unlink = exports.symlink = exports.stat = exports.rmdir = exports.rm = exports.rename = exports.readlink = exports.readdir = exports.open = exports.mkdir = exports.lstat = exports.copyFile = exports.chmod = void 0;
+var fs = __importStar(__webpack_require__(9896));
+var path = __importStar(__webpack_require__(6928));
+_a = fs.promises
+// export const {open} = 'fs'
+, exports.chmod = _a.chmod, exports.copyFile = _a.copyFile, exports.lstat = _a.lstat, exports.mkdir = _a.mkdir, exports.open = _a.open, exports.readdir = _a.readdir, exports.readlink = _a.readlink, exports.rename = _a.rename, exports.rm = _a.rm, exports.rmdir = _a.rmdir, exports.stat = _a.stat, exports.symlink = _a.symlink, exports.unlink = _a.unlink;
+// export const {open} = 'fs'
+exports.IS_WINDOWS = process.platform === 'win32';
+// See https://github.com/nodejs/node/blob/d0153aee367422d0858105abec186da4dff0a0c5/deps/uv/include/uv/win.h#L691
+exports.UV_FS_O_EXLOCK = 0x10000000;
+exports.READONLY = fs.constants.O_RDONLY;
+function exists(fsPath) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return exports.stat(fsPath);
+        case 3:
+          _context.next = 10;
+          break;
+        case 5:
+          _context.prev = 5;
+          _context.t0 = _context["catch"](0);
+          if (!(_context.t0.code === 'ENOENT')) {
+            _context.next = 9;
+            break;
+          }
+          return _context.abrupt("return", false);
+        case 9:
+          throw _context.t0;
+        case 10:
+          return _context.abrupt("return", true);
+        case 11:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 5]]);
+  }));
+}
+exports.exists = exists;
+function isDirectory(fsPath) {
+  var useStat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var stats;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          if (!useStat) {
+            _context2.next = 6;
+            break;
+          }
+          _context2.next = 3;
+          return exports.stat(fsPath);
+        case 3:
+          _context2.t0 = _context2.sent;
+          _context2.next = 9;
+          break;
+        case 6:
+          _context2.next = 8;
+          return exports.lstat(fsPath);
+        case 8:
+          _context2.t0 = _context2.sent;
+        case 9:
+          stats = _context2.t0;
+          return _context2.abrupt("return", stats.isDirectory());
+        case 11:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+}
+exports.isDirectory = isDirectory;
+/**
+ * On OSX/Linux, true if path starts with '/'. On Windows, true for paths like:
+ * \, \hello, \\hello\share, C:, and C:\hello (and corresponding alternate separator cases).
+ */
+function isRooted(p) {
+  p = normalizeSeparators(p);
+  if (!p) {
+    throw new Error('isRooted() parameter "p" cannot be empty');
+  }
+  if (exports.IS_WINDOWS) {
+    return p.startsWith('\\') || /^[A-Z]:/i.test(p) // e.g. \ or \hello or \\hello
+    ; // e.g. C: or C:\hello
+  }
+  return p.startsWith('/');
+}
+exports.isRooted = isRooted;
+/**
+ * Best effort attempt to determine whether a file exists and is executable.
+ * @param filePath    file path to check
+ * @param extensions  additional file extensions to try
+ * @return if file exists and is executable, returns the file path. otherwise empty string.
+ */
+function tryGetExecutablePath(filePath, extensions) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var stats, upperExt, originalFilePath, _iterator, _step, extension, directory, upperName, _iterator2, _step2, actualName;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          stats = undefined;
+          _context3.prev = 1;
+          _context3.next = 4;
+          return exports.stat(filePath);
+        case 4:
+          stats = _context3.sent;
+          _context3.next = 10;
+          break;
+        case 7:
+          _context3.prev = 7;
+          _context3.t0 = _context3["catch"](1);
+          if (_context3.t0.code !== 'ENOENT') {
+            // eslint-disable-next-line no-console
+            console.log("Unexpected error attempting to determine if executable file exists '".concat(filePath, "': ").concat(_context3.t0));
+          }
+        case 10:
+          if (!(stats && stats.isFile())) {
+            _context3.next = 19;
+            break;
+          }
+          if (!exports.IS_WINDOWS) {
+            _context3.next = 17;
+            break;
+          }
+          // on Windows, test for valid extension
+          upperExt = path.extname(filePath).toUpperCase();
+          if (!extensions.some(function (validExt) {
+            return validExt.toUpperCase() === upperExt;
+          })) {
+            _context3.next = 15;
+            break;
+          }
+          return _context3.abrupt("return", filePath);
+        case 15:
+          _context3.next = 19;
+          break;
+        case 17:
+          if (!isUnixExecutable(stats)) {
+            _context3.next = 19;
+            break;
+          }
+          return _context3.abrupt("return", filePath);
+        case 19:
+          // try each extension
+          originalFilePath = filePath;
+          _iterator = _createForOfIteratorHelper(extensions);
+          _context3.prev = 21;
+          _iterator.s();
+        case 23:
+          if ((_step = _iterator.n()).done) {
+            _context3.next = 75;
+            break;
+          }
+          extension = _step.value;
+          filePath = originalFilePath + extension;
+          stats = undefined;
+          _context3.prev = 27;
+          _context3.next = 30;
+          return exports.stat(filePath);
+        case 30:
+          stats = _context3.sent;
+          _context3.next = 36;
+          break;
+        case 33:
+          _context3.prev = 33;
+          _context3.t1 = _context3["catch"](27);
+          if (_context3.t1.code !== 'ENOENT') {
+            // eslint-disable-next-line no-console
+            console.log("Unexpected error attempting to determine if executable file exists '".concat(filePath, "': ").concat(_context3.t1));
+          }
+        case 36:
+          if (!(stats && stats.isFile())) {
+            _context3.next = 73;
+            break;
+          }
+          if (!exports.IS_WINDOWS) {
+            _context3.next = 71;
+            break;
+          }
+          _context3.prev = 38;
+          directory = path.dirname(filePath);
+          upperName = path.basename(filePath).toUpperCase();
+          _context3.t2 = _createForOfIteratorHelper;
+          _context3.next = 44;
+          return exports.readdir(directory);
+        case 44:
+          _context3.t3 = _context3.sent;
+          _iterator2 = (0, _context3.t2)(_context3.t3);
+          _context3.prev = 46;
+          _iterator2.s();
+        case 48:
+          if ((_step2 = _iterator2.n()).done) {
+            _context3.next = 55;
+            break;
+          }
+          actualName = _step2.value;
+          if (!(upperName === actualName.toUpperCase())) {
+            _context3.next = 53;
+            break;
+          }
+          filePath = path.join(directory, actualName);
+          return _context3.abrupt("break", 55);
+        case 53:
+          _context3.next = 48;
+          break;
+        case 55:
+          _context3.next = 60;
+          break;
+        case 57:
+          _context3.prev = 57;
+          _context3.t4 = _context3["catch"](46);
+          _iterator2.e(_context3.t4);
+        case 60:
+          _context3.prev = 60;
+          _iterator2.f();
+          return _context3.finish(60);
+        case 63:
+          _context3.next = 68;
+          break;
+        case 65:
+          _context3.prev = 65;
+          _context3.t5 = _context3["catch"](38);
+          // eslint-disable-next-line no-console
+          console.log("Unexpected error attempting to determine the actual case of the file '".concat(filePath, "': ").concat(_context3.t5));
+        case 68:
+          return _context3.abrupt("return", filePath);
+        case 71:
+          if (!isUnixExecutable(stats)) {
+            _context3.next = 73;
+            break;
+          }
+          return _context3.abrupt("return", filePath);
+        case 73:
+          _context3.next = 23;
+          break;
+        case 75:
+          _context3.next = 80;
+          break;
+        case 77:
+          _context3.prev = 77;
+          _context3.t6 = _context3["catch"](21);
+          _iterator.e(_context3.t6);
+        case 80:
+          _context3.prev = 80;
+          _iterator.f();
+          return _context3.finish(80);
+        case 83:
+          return _context3.abrupt("return", '');
+        case 84:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[1, 7], [21, 77, 80, 83], [27, 33], [38, 65], [46, 57, 60, 63]]);
+  }));
+}
+exports.tryGetExecutablePath = tryGetExecutablePath;
+function normalizeSeparators(p) {
+  p = p || '';
+  if (exports.IS_WINDOWS) {
+    // convert slashes on Windows
+    p = p.replace(/\//g, '\\');
+    // remove redundant slashes
+    return p.replace(/\\\\+/g, '\\');
+  }
+  // remove redundant slashes
+  return p.replace(/\/\/+/g, '/');
+}
+// on Mac/Linux, test the execute bit
+//     R   W  X  R  W X R W X
+//   256 128 64 32 16 8 4 2 1
+function isUnixExecutable(stats) {
+  return (stats.mode & 1) > 0 || (stats.mode & 8) > 0 && stats.gid === process.getgid() || (stats.mode & 64) > 0 && stats.uid === process.getuid();
+}
+// Get the path of cmd.exe in windows
+function getCmdPath() {
+  var _a;
+  return (_a = process.env['COMSPEC']) !== null && _a !== void 0 ? _a : "cmd.exe";
+}
+exports.getCmdPath = getCmdPath;
+//# sourceMappingURL=io-util.js.map
+
+/***/ }),
+
+/***/ 8090:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createForOfIteratorHelper = (__webpack_require__(883)["default"]);
+var _regeneratorRuntime = (__webpack_require__(4633)["default"]);
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.findInPath = exports.which = exports.mkdirP = exports.rmRF = exports.mv = exports.cp = void 0;
+var assert_1 = __webpack_require__(2613);
+var path = __importStar(__webpack_require__(6928));
+var ioUtil = __importStar(__webpack_require__(2255));
+/**
+ * Copies a file or folder.
+ * Based off of shelljs - https://github.com/shelljs/shelljs/blob/9237f66c52e5daa40458f94f9565e18e8132f5a6/src/cp.js
+ *
+ * @param     source    source path
+ * @param     dest      destination path
+ * @param     options   optional. See CopyOptions.
+ */
+function cp(source, dest) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var _readCopyOptions, force, recursive, copySourceDirectory, destStat, newDest, sourceStat;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _readCopyOptions = readCopyOptions(options), force = _readCopyOptions.force, recursive = _readCopyOptions.recursive, copySourceDirectory = _readCopyOptions.copySourceDirectory;
+          _context.next = 3;
+          return ioUtil.exists(dest);
+        case 3:
+          if (!_context.sent) {
+            _context.next = 9;
+            break;
+          }
+          _context.next = 6;
+          return ioUtil.stat(dest);
+        case 6:
+          _context.t0 = _context.sent;
+          _context.next = 10;
+          break;
+        case 9:
+          _context.t0 = null;
+        case 10:
+          destStat = _context.t0;
+          if (!(destStat && destStat.isFile() && !force)) {
+            _context.next = 13;
+            break;
+          }
+          return _context.abrupt("return");
+        case 13:
+          // If dest is an existing directory, should copy inside.
+          newDest = destStat && destStat.isDirectory() && copySourceDirectory ? path.join(dest, path.basename(source)) : dest;
+          _context.next = 16;
+          return ioUtil.exists(source);
+        case 16:
+          if (_context.sent) {
+            _context.next = 18;
+            break;
+          }
+          throw new Error("no such file or directory: ".concat(source));
+        case 18:
+          _context.next = 20;
+          return ioUtil.stat(source);
+        case 20:
+          sourceStat = _context.sent;
+          if (!sourceStat.isDirectory()) {
+            _context.next = 30;
+            break;
+          }
+          if (recursive) {
+            _context.next = 26;
+            break;
+          }
+          throw new Error("Failed to copy. ".concat(source, " is a directory, but tried to copy without recursive flag."));
+        case 26:
+          _context.next = 28;
+          return cpDirRecursive(source, newDest, 0, force);
+        case 28:
+          _context.next = 34;
+          break;
+        case 30:
+          if (!(path.relative(source, newDest) === '')) {
+            _context.next = 32;
+            break;
+          }
+          throw new Error("'".concat(newDest, "' and '").concat(source, "' are the same file"));
+        case 32:
+          _context.next = 34;
+          return copyFile(source, newDest, force);
+        case 34:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+}
+exports.cp = cp;
+/**
+ * Moves a path.
+ *
+ * @param     source    source path
+ * @param     dest      destination path
+ * @param     options   optional. See MoveOptions.
+ */
+function mv(source, dest) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var destExists;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return ioUtil.exists(dest);
+        case 2:
+          if (!_context2.sent) {
+            _context2.next = 18;
+            break;
+          }
+          destExists = true;
+          _context2.next = 6;
+          return ioUtil.isDirectory(dest);
+        case 6:
+          if (!_context2.sent) {
+            _context2.next = 11;
+            break;
+          }
+          // If dest is directory copy src into dest
+          dest = path.join(dest, path.basename(source));
+          _context2.next = 10;
+          return ioUtil.exists(dest);
+        case 10:
+          destExists = _context2.sent;
+        case 11:
+          if (!destExists) {
+            _context2.next = 18;
+            break;
+          }
+          if (!(options.force == null || options.force)) {
+            _context2.next = 17;
+            break;
+          }
+          _context2.next = 15;
+          return rmRF(dest);
+        case 15:
+          _context2.next = 18;
+          break;
+        case 17:
+          throw new Error('Destination already exists');
+        case 18:
+          _context2.next = 20;
+          return mkdirP(path.dirname(dest));
+        case 20:
+          _context2.next = 22;
+          return ioUtil.rename(source, dest);
+        case 22:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+}
+exports.mv = mv;
+/**
+ * Remove a path recursively with force
+ *
+ * @param inputPath path to remove
+ */
+function rmRF(inputPath) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          if (!ioUtil.IS_WINDOWS) {
+            _context3.next = 3;
+            break;
+          }
+          if (!/[*"<>|]/.test(inputPath)) {
+            _context3.next = 3;
+            break;
+          }
+          throw new Error('File path must not contain `*`, `"`, `<`, `>` or `|` on Windows');
+        case 3:
+          _context3.prev = 3;
+          _context3.next = 6;
+          return ioUtil.rm(inputPath, {
+            force: true,
+            maxRetries: 3,
+            recursive: true,
+            retryDelay: 300
+          });
+        case 6:
+          _context3.next = 11;
+          break;
+        case 8:
+          _context3.prev = 8;
+          _context3.t0 = _context3["catch"](3);
+          throw new Error("File was unable to be removed ".concat(_context3.t0));
+        case 11:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[3, 8]]);
+  }));
+}
+exports.rmRF = rmRF;
+/**
+ * Make a directory.  Creates the full path with folders in between
+ * Will throw if it fails
+ *
+ * @param   fsPath        path to create
+ * @returns Promise<void>
+ */
+function mkdirP(fsPath) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          assert_1.ok(fsPath, 'a path argument must be provided');
+          _context4.next = 3;
+          return ioUtil.mkdir(fsPath, {
+            recursive: true
+          });
+        case 3:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4);
+  }));
+}
+exports.mkdirP = mkdirP;
+/**
+ * Returns path of a tool had the tool actually been invoked.  Resolves via paths.
+ * If you check and the tool does not exist, it will throw.
+ *
+ * @param     tool              name of the tool
+ * @param     check             whether to check if tool exists
+ * @returns   Promise<string>   path to tool
+ */
+function which(tool, check) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    var result, matches;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          if (tool) {
+            _context5.next = 2;
+            break;
+          }
+          throw new Error("parameter 'tool' is required");
+        case 2:
+          if (!check) {
+            _context5.next = 13;
+            break;
+          }
+          _context5.next = 5;
+          return which(tool, false);
+        case 5:
+          result = _context5.sent;
+          if (result) {
+            _context5.next = 12;
+            break;
+          }
+          if (!ioUtil.IS_WINDOWS) {
+            _context5.next = 11;
+            break;
+          }
+          throw new Error("Unable to locate executable file: ".concat(tool, ". Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also verify the file has a valid extension for an executable file."));
+        case 11:
+          throw new Error("Unable to locate executable file: ".concat(tool, ". Please verify either the file path exists or the file can be found within a directory specified by the PATH environment variable. Also check the file mode to verify the file is executable."));
+        case 12:
+          return _context5.abrupt("return", result);
+        case 13:
+          _context5.next = 15;
+          return findInPath(tool);
+        case 15:
+          matches = _context5.sent;
+          if (!(matches && matches.length > 0)) {
+            _context5.next = 18;
+            break;
+          }
+          return _context5.abrupt("return", matches[0]);
+        case 18:
+          return _context5.abrupt("return", '');
+        case 19:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5);
+  }));
+}
+exports.which = which;
+/**
+ * Returns a list of all occurrences of the given tool on the system path.
+ *
+ * @returns   Promise<string[]>  the paths of the tool
+ */
+function findInPath(tool) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+    var extensions, _iterator, _step, extension, filePath, directories, _iterator2, _step2, p, matches, _i, _directories, directory, _filePath;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          if (tool) {
+            _context6.next = 2;
+            break;
+          }
+          throw new Error("parameter 'tool' is required");
+        case 2:
+          // build the list of extensions to try
+          extensions = [];
+          if (ioUtil.IS_WINDOWS && process.env['PATHEXT']) {
+            _iterator = _createForOfIteratorHelper(process.env['PATHEXT'].split(path.delimiter));
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                extension = _step.value;
+                if (extension) {
+                  extensions.push(extension);
+                }
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+          }
+          // if it's rooted, return it if exists. otherwise return empty.
+          if (!ioUtil.isRooted(tool)) {
+            _context6.next = 11;
+            break;
+          }
+          _context6.next = 7;
+          return ioUtil.tryGetExecutablePath(tool, extensions);
+        case 7:
+          filePath = _context6.sent;
+          if (!filePath) {
+            _context6.next = 10;
+            break;
+          }
+          return _context6.abrupt("return", [filePath]);
+        case 10:
+          return _context6.abrupt("return", []);
+        case 11:
+          if (!tool.includes(path.sep)) {
+            _context6.next = 13;
+            break;
+          }
+          return _context6.abrupt("return", []);
+        case 13:
+          // build the list of directories
+          //
+          // Note, technically "where" checks the current directory on Windows. From a toolkit perspective,
+          // it feels like we should not do this. Checking the current directory seems like more of a use
+          // case of a shell, and the which() function exposed by the toolkit should strive for consistency
+          // across platforms.
+          directories = [];
+          if (process.env.PATH) {
+            _iterator2 = _createForOfIteratorHelper(process.env.PATH.split(path.delimiter));
+            try {
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                p = _step2.value;
+                if (p) {
+                  directories.push(p);
+                }
+              }
+            } catch (err) {
+              _iterator2.e(err);
+            } finally {
+              _iterator2.f();
+            }
+          }
+          // find all matches
+          matches = [];
+          _i = 0, _directories = directories;
+        case 17:
+          if (!(_i < _directories.length)) {
+            _context6.next = 26;
+            break;
+          }
+          directory = _directories[_i];
+          _context6.next = 21;
+          return ioUtil.tryGetExecutablePath(path.join(directory, tool), extensions);
+        case 21:
+          _filePath = _context6.sent;
+          if (_filePath) {
+            matches.push(_filePath);
+          }
+        case 23:
+          _i++;
+          _context6.next = 17;
+          break;
+        case 26:
+          return _context6.abrupt("return", matches);
+        case 27:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6);
+  }));
+}
+exports.findInPath = findInPath;
+function readCopyOptions(options) {
+  var force = options.force == null ? true : options.force;
+  var recursive = Boolean(options.recursive);
+  var copySourceDirectory = options.copySourceDirectory == null ? true : Boolean(options.copySourceDirectory);
+  return {
+    force: force,
+    recursive: recursive,
+    copySourceDirectory: copySourceDirectory
+  };
+}
+function cpDirRecursive(sourceDir, destDir, currentDepth, force) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+    var files, _iterator3, _step3, fileName, srcFile, destFile, srcFileStat;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          if (!(currentDepth >= 255)) {
+            _context7.next = 2;
+            break;
+          }
+          return _context7.abrupt("return");
+        case 2:
+          currentDepth++;
+          _context7.next = 5;
+          return mkdirP(destDir);
+        case 5:
+          _context7.next = 7;
+          return ioUtil.readdir(sourceDir);
+        case 7:
+          files = _context7.sent;
+          _iterator3 = _createForOfIteratorHelper(files);
+          _context7.prev = 9;
+          _iterator3.s();
+        case 11:
+          if ((_step3 = _iterator3.n()).done) {
+            _context7.next = 27;
+            break;
+          }
+          fileName = _step3.value;
+          srcFile = "".concat(sourceDir, "/").concat(fileName);
+          destFile = "".concat(destDir, "/").concat(fileName);
+          _context7.next = 17;
+          return ioUtil.lstat(srcFile);
+        case 17:
+          srcFileStat = _context7.sent;
+          if (!srcFileStat.isDirectory()) {
+            _context7.next = 23;
+            break;
+          }
+          _context7.next = 21;
+          return cpDirRecursive(srcFile, destFile, currentDepth, force);
+        case 21:
+          _context7.next = 25;
+          break;
+        case 23:
+          _context7.next = 25;
+          return copyFile(srcFile, destFile, force);
+        case 25:
+          _context7.next = 11;
+          break;
+        case 27:
+          _context7.next = 32;
+          break;
+        case 29:
+          _context7.prev = 29;
+          _context7.t0 = _context7["catch"](9);
+          _iterator3.e(_context7.t0);
+        case 32:
+          _context7.prev = 32;
+          _iterator3.f();
+          return _context7.finish(32);
+        case 35:
+          _context7.t1 = ioUtil;
+          _context7.t2 = destDir;
+          _context7.next = 39;
+          return ioUtil.stat(sourceDir);
+        case 39:
+          _context7.t3 = _context7.sent.mode;
+          _context7.next = 42;
+          return _context7.t1.chmod.call(_context7.t1, _context7.t2, _context7.t3);
+        case 42:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7, null, [[9, 29, 32, 35]]);
+  }));
+}
+// Buffered file copy
+function copyFile(srcFile, destFile, force) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+    var symlinkFull;
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          _context8.next = 2;
+          return ioUtil.lstat(srcFile);
+        case 2:
+          if (!_context8.sent.isSymbolicLink()) {
+            _context8.next = 24;
+            break;
+          }
+          _context8.prev = 3;
+          _context8.next = 6;
+          return ioUtil.lstat(destFile);
+        case 6:
+          _context8.next = 8;
+          return ioUtil.unlink(destFile);
+        case 8:
+          _context8.next = 17;
+          break;
+        case 10:
+          _context8.prev = 10;
+          _context8.t0 = _context8["catch"](3);
+          if (!(_context8.t0.code === 'EPERM')) {
+            _context8.next = 17;
+            break;
+          }
+          _context8.next = 15;
+          return ioUtil.chmod(destFile, '0666');
+        case 15:
+          _context8.next = 17;
+          return ioUtil.unlink(destFile);
+        case 17:
+          _context8.next = 19;
+          return ioUtil.readlink(srcFile);
+        case 19:
+          symlinkFull = _context8.sent;
+          _context8.next = 22;
+          return ioUtil.symlink(symlinkFull, destFile, ioUtil.IS_WINDOWS ? 'junction' : null);
+        case 22:
+          _context8.next = 32;
+          break;
+        case 24:
+          _context8.next = 26;
+          return ioUtil.exists(destFile);
+        case 26:
+          _context8.t1 = !_context8.sent;
+          if (_context8.t1) {
+            _context8.next = 29;
+            break;
+          }
+          _context8.t1 = force;
+        case 29:
+          if (!_context8.t1) {
+            _context8.next = 32;
+            break;
+          }
+          _context8.next = 32;
+          return ioUtil.copyFile(srcFile, destFile);
+        case 32:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8, null, [[3, 10]]);
+  }));
+}
+//# sourceMappingURL=io.js.map
 
 /***/ }),
 
@@ -2918,7 +5058,7 @@ function copy(_x, _x2) {
   return _copy.apply(this, arguments);
 }
 function _copy() {
-  _copy = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(src, dest) {
+  _copy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(src, dest) {
     var opts,
       _yield$stat$checkPath,
       srcStat,
@@ -2989,7 +5129,7 @@ function runFilter(_x3, _x4, _x5) {
   return _runFilter.apply(this, arguments);
 }
 function _runFilter() {
-  _runFilter = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(src, dest, opts) {
+  _runFilter = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(src, dest, opts) {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -3012,7 +5152,7 @@ function getStatsAndPerformCopy(_x6, _x7, _x8, _x9) {
   return _getStatsAndPerformCopy.apply(this, arguments);
 }
 function _getStatsAndPerformCopy() {
-  _getStatsAndPerformCopy = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(destStat, src, dest, opts) {
+  _getStatsAndPerformCopy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(destStat, src, dest, opts) {
     var statFn, srcStat;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
@@ -3065,7 +5205,7 @@ function onFile(_x10, _x11, _x12, _x13, _x14) {
   return _onFile.apply(this, arguments);
 }
 function _onFile() {
-  _onFile = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(srcStat, destStat, src, dest, opts) {
+  _onFile = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(srcStat, destStat, src, dest, opts) {
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
@@ -3101,7 +5241,7 @@ function copyFile(_x15, _x16, _x17, _x18) {
   return _copyFile.apply(this, arguments);
 }
 function _copyFile() {
-  _copyFile = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(srcStat, src, dest, opts) {
+  _copyFile = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(srcStat, src, dest, opts) {
     var updatedSrcStat;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
@@ -3146,7 +5286,7 @@ function onDir(_x19, _x20, _x21, _x22, _x23) {
   return _onDir.apply(this, arguments);
 }
 function _onDir() {
-  _onDir = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(srcStat, destStat, src, dest, opts) {
+  _onDir = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7(srcStat, destStat, src, dest, opts) {
     var items;
     return _regeneratorRuntime().wrap(function _callee7$(_context7) {
       while (1) switch (_context7.prev = _context7.next) {
@@ -3163,8 +5303,8 @@ function _onDir() {
         case 5:
           items = _context7.sent;
           _context7.next = 8;
-          return Promise.all(items.map( /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(item) {
+          return Promise.all(items.map(/*#__PURE__*/function () {
+            var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(item) {
               var srcItem, destItem, include, _yield$stat$checkPath2, destStat;
               return _regeneratorRuntime().wrap(function _callee6$(_context6) {
                 while (1) switch (_context6.prev = _context6.next) {
@@ -3216,7 +5356,7 @@ function onLink(_x24, _x25, _x26, _x27) {
   return _onLink.apply(this, arguments);
 }
 function _onLink() {
-  _onLink = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(destStat, src, dest, opts) {
+  _onLink = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(destStat, src, dest, opts) {
     var resolvedSrc, resolvedDest;
     return _regeneratorRuntime().wrap(function _callee8$(_context8) {
       while (1) switch (_context8.prev = _context8.next) {
@@ -3311,8 +5451,8 @@ var fs = __webpack_require__(554);
 var path = __webpack_require__(6928);
 var mkdir = __webpack_require__(169);
 var remove = __webpack_require__(3957);
-var emptyDir = u( /*#__PURE__*/function () {
-  var _emptyDir = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dir) {
+var emptyDir = u(/*#__PURE__*/function () {
+  var _emptyDir = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(dir) {
     var items;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -3380,7 +5520,7 @@ function createFile(_x) {
   return _createFile.apply(this, arguments);
 }
 function _createFile() {
-  _createFile = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(file) {
+  _createFile = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(file) {
     var stats, dir, dirStats;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -3529,7 +5669,7 @@ function createLink(_x, _x2) {
   return _createLink.apply(this, arguments);
 }
 function _createLink() {
-  _createLink = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, dstpath) {
+  _createLink = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, dstpath) {
     var dstStat, srcStat, dir, dirExists;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -3650,7 +5790,7 @@ function symlinkPaths(_x, _x2) {
   return _symlinkPaths.apply(this, arguments);
 }
 function _symlinkPaths() {
-  _symlinkPaths = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, dstpath) {
+  _symlinkPaths = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, dstpath) {
     var dstdir, relativeToDst, exists;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -3761,7 +5901,7 @@ function symlinkType(_x, _x2) {
   return _symlinkType.apply(this, arguments);
 }
 function _symlinkType() {
-  _symlinkType = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, type) {
+  _symlinkType = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, type) {
     var stats;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -3839,7 +5979,7 @@ function createSymlink(_x, _x2, _x3) {
   return _createSymlink.apply(this, arguments);
 }
 function _createSymlink() {
-  _createSymlink = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, dstpath, type) {
+  _createSymlink = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(srcpath, dstpath, type) {
     var stats, _yield$Promise$all, _yield$Promise$all2, srcStat, dstStat, relative, toType, dir;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -4137,7 +6277,7 @@ function outputJson(_x, _x2) {
   return _outputJson.apply(this, arguments);
 }
 function _outputJson() {
-  _outputJson = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(file, data) {
+  _outputJson = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(file, data) {
     var options,
       str,
       _args = arguments;
@@ -4203,7 +6343,7 @@ var getMode = function getMode(options) {
   return _objectSpread(_objectSpread({}, defaults), options).mode;
 };
 module.exports.makeDir = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dir, options) {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(dir, options) {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -4355,7 +6495,7 @@ function move(_x, _x2) {
   return _move.apply(this, arguments);
 }
 function _move() {
-  _move = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(src, dest) {
+  _move = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(src, dest) {
     var opts,
       overwrite,
       _yield$stat$checkPath,
@@ -4403,7 +6543,7 @@ function doRename(_x3, _x4, _x5, _x6) {
   return _doRename.apply(this, arguments);
 }
 function _doRename() {
-  _doRename = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(src, dest, overwrite, isChangingCase) {
+  _doRename = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(src, dest, overwrite, isChangingCase) {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -4459,7 +6599,7 @@ function moveAcrossDevice(_x7, _x8, _x9) {
   return _moveAcrossDevice.apply(this, arguments);
 }
 function _moveAcrossDevice() {
-  _moveAcrossDevice = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(src, dest, overwrite) {
+  _moveAcrossDevice = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(src, dest, overwrite) {
     var opts;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
@@ -4502,7 +6642,7 @@ function outputFile(_x, _x2) {
   return _outputFile.apply(this, arguments);
 }
 function _outputFile() {
-  _outputFile = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(file, data) {
+  _outputFile = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(file, data) {
     var encoding,
       dir,
       _args = arguments;
@@ -4661,7 +6801,7 @@ function checkPaths(_x, _x2, _x3, _x4) {
   return _checkPaths.apply(this, arguments);
 }
 function _checkPaths() {
-  _checkPaths = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(src, dest, funcName, opts) {
+  _checkPaths = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(src, dest, funcName, opts) {
     var _yield$getStats, srcStat, destStat, srcBaseName, destBaseName;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -4765,7 +6905,7 @@ function checkParentPaths(_x5, _x6, _x7, _x8) {
   return _checkParentPaths.apply(this, arguments);
 }
 function _checkParentPaths() {
-  _checkParentPaths = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(src, srcStat, dest, funcName) {
+  _checkParentPaths = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(src, srcStat, dest, funcName) {
     var srcParent, destParent, destStat;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
@@ -4879,7 +7019,7 @@ function utimesMillis(_x, _x2, _x3) {
   return _utimesMillis.apply(this, arguments);
 }
 function _utimesMillis() {
-  _utimesMillis = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(path, atime, mtime) {
+  _utimesMillis = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(path, atime, mtime) {
     var fd, closeErr;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -5750,7 +7890,7 @@ function _readFile(_x) {
   return _readFile2.apply(this, arguments);
 }
 function _readFile2() {
-  _readFile2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(file) {
+  _readFile2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(file) {
     var options,
       fs,
       shouldThrow,
@@ -5825,7 +7965,7 @@ function _writeFile(_x2, _x3) {
   return _writeFile2.apply(this, arguments);
 }
 function _writeFile2() {
-  _writeFile2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(file, obj) {
+  _writeFile2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(file, obj) {
     var options,
       fs,
       str,
@@ -6568,19 +8708,19 @@ function memoize(func, resolver) {
   if (typeof func != 'function' || resolver && typeof resolver != 'function') {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
-  var memoized = function memoized() {
+  var _memoized = function memoized() {
     var args = arguments,
       key = resolver ? resolver.apply(this, args) : args[0],
-      cache = memoized.cache;
+      cache = _memoized.cache;
     if (cache.has(key)) {
       return cache.get(key);
     }
     var result = func.apply(this, args);
-    memoized.cache = cache.set(key, result);
+    _memoized.cache = cache.set(key, result);
     return result;
   };
-  memoized.cache = new (memoize.Cache || MapCache)();
-  return memoized;
+  _memoized.cache = new (memoize.Cache || MapCache)();
+  return _memoized;
 }
 
 // Assign cache to `_.memoize`.
@@ -7272,7 +9412,7 @@ module.exports.getGlobalDispatcher = getGlobalDispatcher;
 if (util.nodeMajor > 16 || util.nodeMajor === 16 && util.nodeMinor >= 8) {
   var fetchImpl = null;
   module.exports.fetch = /*#__PURE__*/function () {
-    var _fetch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resource) {
+    var _fetch = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(resource) {
       var _args = arguments;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
@@ -7435,7 +9575,7 @@ var Agent = /*#__PURE__*/function (_DispatcherBase) {
     _this[kMaxRedirections] = maxRedirections;
     _this[kFactory] = factory;
     _this[kClients] = new Map();
-    _this[kFinalizer] = new FinalizationRegistry( /* istanbul ignore next: gc is undeterministic */function (key) {
+    _this[kFinalizer] = new FinalizationRegistry(/* istanbul ignore next: gc is undeterministic */function (key) {
       var ref = _this[kClients].get(key);
       if (ref !== undefined && ref.deref() === undefined) {
         _this[kClients]["delete"](key);
@@ -7500,7 +9640,7 @@ var Agent = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kClose,
     value: function () {
-      var _value = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _value = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var closePromises, _iterator2, _step2, ref, client;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -7537,7 +9677,7 @@ var Agent = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kDestroy,
     value: function () {
-      var _value2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(err) {
+      var _value2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(err) {
         var destroyPromises, _iterator3, _step3, ref, client;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
@@ -8032,6 +10172,7 @@ module.exports = pipeline;
 
 var _classCallCheck = (__webpack_require__(7383)["default"]);
 var _createClass = (__webpack_require__(4579)["default"]);
+var _assertThisInitialized = (__webpack_require__(2475)["default"]);
 var _callSuper = (__webpack_require__(8336)["default"]);
 var _inherits = (__webpack_require__(9511)["default"]);
 var Readable = __webpack_require__(5455);
@@ -8100,8 +10241,8 @@ var RequestHandler = /*#__PURE__*/function (_AsyncResource) {
         _this.onError(err);
       });
     }
-    addSignal(_this, signal);
-    return _this;
+    addSignal(_assertThisInitialized(_this), signal);
+    return _assertThisInitialized(_this);
   }
   _inherits(RequestHandler, _AsyncResource);
   return _createClass(RequestHandler, [{
@@ -8246,6 +10387,7 @@ module.exports.RequestHandler = RequestHandler;
 
 var _classCallCheck = (__webpack_require__(7383)["default"]);
 var _createClass = (__webpack_require__(4579)["default"]);
+var _assertThisInitialized = (__webpack_require__(2475)["default"]);
 var _callSuper = (__webpack_require__(8336)["default"]);
 var _inherits = (__webpack_require__(9511)["default"]);
 var _require = __webpack_require__(2203),
@@ -8316,8 +10458,8 @@ var StreamHandler = /*#__PURE__*/function (_AsyncResource) {
         _this.onError(err);
       });
     }
-    addSignal(_this, signal);
-    return _this;
+    addSignal(_assertThisInitialized(_this), signal);
+    return _assertThisInitialized(_this);
   }
   _inherits(StreamHandler, _AsyncResource);
   return _createClass(StreamHandler, [{
@@ -8633,8 +10775,7 @@ var _asyncToGenerator = (__webpack_require__(9293)["default"]);
 var _classCallCheck = (__webpack_require__(7383)["default"]);
 var _createClass = (__webpack_require__(4579)["default"]);
 var _callSuper = (__webpack_require__(8336)["default"]);
-var _get = (__webpack_require__(2395)["default"]);
-var _getPrototypeOf = (__webpack_require__(3072)["default"]);
+var _superPropGet = (__webpack_require__(9901)["default"]);
 var _inherits = (__webpack_require__(9511)["default"]);
 var assert = __webpack_require__(2613);
 var _require = __webpack_require__(2203),
@@ -8696,12 +10837,11 @@ module.exports = /*#__PURE__*/function (_Readable) {
       if (err) {
         this[kAbort]();
       }
-      return _get(_getPrototypeOf(BodyReadable.prototype), "destroy", this).call(this, err);
+      return _superPropGet(BodyReadable, "destroy", this, 3)([err]);
     }
   }, {
     key: "emit",
     value: function emit(ev) {
-      var _get2;
       if (ev === 'data') {
         // Node < 16.7
         this._readableState.dataEmitted = true;
@@ -8712,19 +10852,18 @@ module.exports = /*#__PURE__*/function (_Readable) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
       }
-      return (_get2 = _get(_getPrototypeOf(BodyReadable.prototype), "emit", this)).call.apply(_get2, [this, ev].concat(args));
+      return _superPropGet(BodyReadable, "emit", this, 3)([ev].concat(args));
     }
   }, {
     key: "on",
     value: function on(ev) {
-      var _get3;
       if (ev === 'data' || ev === 'readable') {
         this[kReading] = true;
       }
       for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
         args[_key2 - 1] = arguments[_key2];
       }
-      return (_get3 = _get(_getPrototypeOf(BodyReadable.prototype), "on", this)).call.apply(_get3, [this, ev].concat(args));
+      return _superPropGet(BodyReadable, "on", this, 3)([ev].concat(args));
     }
   }, {
     key: "addListener",
@@ -8737,11 +10876,10 @@ module.exports = /*#__PURE__*/function (_Readable) {
   }, {
     key: "off",
     value: function off(ev) {
-      var _get4;
       for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
         args[_key4 - 1] = arguments[_key4];
       }
-      var ret = (_get4 = _get(_getPrototypeOf(BodyReadable.prototype), "off", this)).call.apply(_get4, [this, ev].concat(args));
+      var ret = _superPropGet(BodyReadable, "off", this, 3)([ev].concat(args));
       if (ev === 'data' || ev === 'readable') {
         this[kReading] = this.listenerCount('data') > 0 || this.listenerCount('readable') > 0;
       }
@@ -8760,16 +10898,16 @@ module.exports = /*#__PURE__*/function (_Readable) {
     value: function push(chunk) {
       if (this[kConsume] && chunk !== null && this.readableLength === 0) {
         consumePush(this[kConsume], chunk);
-        return this[kReading] ? _get(_getPrototypeOf(BodyReadable.prototype), "push", this).call(this, chunk) : true;
+        return this[kReading] ? _superPropGet(BodyReadable, "push", this, 3)([chunk]) : true;
       }
-      return _get(_getPrototypeOf(BodyReadable.prototype), "push", this).call(this, chunk);
+      return _superPropGet(BodyReadable, "push", this, 3)([chunk]);
     }
 
     // https://fetch.spec.whatwg.org/#dom-body-text
   }, {
     key: "text",
     value: function () {
-      var _text = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _text = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -8788,7 +10926,7 @@ module.exports = /*#__PURE__*/function (_Readable) {
   }, {
     key: "json",
     value: function () {
-      var _json = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _json = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -8807,7 +10945,7 @@ module.exports = /*#__PURE__*/function (_Readable) {
   }, {
     key: "blob",
     value: function () {
-      var _blob = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _blob = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
@@ -8826,7 +10964,7 @@ module.exports = /*#__PURE__*/function (_Readable) {
   }, {
     key: "arrayBuffer",
     value: function () {
-      var _arrayBuffer = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var _arrayBuffer = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
@@ -8845,7 +10983,7 @@ module.exports = /*#__PURE__*/function (_Readable) {
   }, {
     key: "formData",
     value: function () {
-      var _formData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      var _formData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
@@ -8938,7 +11076,7 @@ function consume(_x, _x2) {
   return _consume.apply(this, arguments);
 }
 function _consume() {
-  _consume = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(stream, type) {
+  _consume = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(stream, type) {
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
@@ -9083,7 +11221,7 @@ function getResolveErrorBodyCallback(_x) {
   return _getResolveErrorBodyCallback.apply(this, arguments);
 }
 function _getResolveErrorBodyCallback() {
-  _getResolveErrorBodyCallback = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref) {
+  _getResolveErrorBodyCallback = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref) {
     var callback, body, contentType, statusCode, statusMessage, headers, chunks, limit, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, chunk, payload, _payload;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -9490,7 +11628,7 @@ var Cache = /*#__PURE__*/function () {
   return _createClass(Cache, [{
     key: "match",
     value: function () {
-      var _match = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(request) {
+      var _match = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(request) {
         var options,
           p,
           _args = arguments;
@@ -9529,7 +11667,7 @@ var Cache = /*#__PURE__*/function () {
   }, {
     key: "matchAll",
     value: function () {
-      var _matchAll = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _matchAll = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var request,
           options,
           r,
@@ -9653,7 +11791,7 @@ var Cache = /*#__PURE__*/function () {
   }, {
     key: "add",
     value: function () {
-      var _add = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(request) {
+      var _add = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(request) {
         var requests,
           responseArrayPromise,
           _args3 = arguments;
@@ -9687,7 +11825,7 @@ var Cache = /*#__PURE__*/function () {
   }, {
     key: "addAll",
     value: function () {
-      var _addAll = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(requests) {
+      var _addAll = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(requests) {
         var responsePromises,
           requestList,
           _iterator3,
@@ -9943,7 +12081,7 @@ var Cache = /*#__PURE__*/function () {
   }, {
     key: "put",
     value: function () {
-      var _put = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(request, response) {
+      var _put = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(request, response) {
         var innerRequest,
           innerResponse,
           fieldValues,
@@ -10116,7 +12254,7 @@ var Cache = /*#__PURE__*/function () {
   }, {
     key: "delete",
     value: function () {
-      var _delete2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(request) {
+      var _delete2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(request) {
         var options,
           r,
           operations,
@@ -10202,7 +12340,7 @@ var Cache = /*#__PURE__*/function () {
   }, {
     key: "keys",
     value: (function () {
-      var _keys = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      var _keys = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var request,
           options,
           r,
@@ -10633,7 +12771,7 @@ var CacheStorage = /*#__PURE__*/function () {
   return _createClass(CacheStorage, [{
     key: "match",
     value: function () {
-      var _match = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(request) {
+      var _match = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(request) {
         var options,
           cacheList,
           cache,
@@ -10728,7 +12866,7 @@ var CacheStorage = /*#__PURE__*/function () {
   }, {
     key: "has",
     value: (function () {
-      var _has = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(cacheName) {
+      var _has = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(cacheName) {
         var _args2 = arguments;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
@@ -10762,7 +12900,7 @@ var CacheStorage = /*#__PURE__*/function () {
   }, {
     key: "open",
     value: (function () {
-      var _open = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(cacheName) {
+      var _open = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(cacheName) {
         var _cache2,
           cache,
           _args3 = arguments;
@@ -10811,7 +12949,7 @@ var CacheStorage = /*#__PURE__*/function () {
   }, {
     key: "delete",
     value: (function () {
-      var _delete2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(cacheName) {
+      var _delete2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(cacheName) {
         var _args4 = arguments;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
@@ -10841,7 +12979,7 @@ var CacheStorage = /*#__PURE__*/function () {
   }, {
     key: "keys",
     value: (function () {
-      var _keys = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      var _keys = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         var keys;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
@@ -11320,7 +13458,7 @@ var Client = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kClose,
     value: function () {
-      var _value = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _value = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _this2 = this;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -11346,7 +13484,7 @@ var Client = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kDestroy,
     value: function () {
-      var _value2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(err) {
+      var _value2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(err) {
         var _this3 = this;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
@@ -11438,7 +13576,7 @@ function lazyllhttp() {
   return _lazyllhttp.apply(this, arguments);
 }
 function _lazyllhttp() {
-  _lazyllhttp = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+  _lazyllhttp = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
     var llhttpWasmData, mod;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
@@ -12058,7 +14196,7 @@ function connect(_x2) {
   return _connect.apply(this, arguments);
 }
 function _connect() {
-  _connect = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(client) {
+  _connect = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(client) {
     var _client$kUrl, host, hostname, protocol, port, idx, ip, socket, isH2, session, request;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
@@ -12843,17 +14981,17 @@ function writeStream(_ref3) {
     }
     var err = new RequestAbortedError();
     queueMicrotask(function () {
-      return onFinished(err);
+      return _onFinished(err);
     });
   };
-  var onFinished = function onFinished(err) {
+  var _onFinished = function onFinished(err) {
     if (finished) {
       return;
     }
     finished = true;
     assert(socket.destroyed || socket[kWriting] && client[kRunning] <= 1);
-    socket.off('drain', onDrain).off('error', onFinished);
-    body.removeListener('data', onData).removeListener('end', onFinished).removeListener('error', onFinished).removeListener('close', onAbort);
+    socket.off('drain', onDrain).off('error', _onFinished);
+    body.removeListener('data', onData).removeListener('end', _onFinished).removeListener('error', _onFinished).removeListener('close', onAbort);
     if (!err) {
       try {
         writer.end();
@@ -12868,17 +15006,17 @@ function writeStream(_ref3) {
       util.destroy(body);
     }
   };
-  body.on('data', onData).on('end', onFinished).on('error', onFinished).on('close', onAbort);
+  body.on('data', onData).on('end', _onFinished).on('error', _onFinished).on('close', onAbort);
   if (body.resume) {
     body.resume();
   }
-  socket.on('drain', onDrain).on('error', onFinished);
+  socket.on('drain', onDrain).on('error', _onFinished);
 }
 function writeBlob(_x3) {
   return _writeBlob.apply(this, arguments);
 }
 function _writeBlob() {
-  _writeBlob = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(_ref4) {
+  _writeBlob = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(_ref4) {
     var h2stream, body, client, request, socket, contentLength, header, expectsPayload, isH2, buffer;
     return _regeneratorRuntime().wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
@@ -12933,7 +15071,7 @@ function writeIterable(_x4) {
   return _writeIterable.apply(this, arguments);
 }
 function _writeIterable() {
-  _writeIterable = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(_ref5) {
+  _writeIterable = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(_ref5) {
     var h2stream, body, client, request, socket, contentLength, header, expectsPayload, callback, onDrain, waitForDrain, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, chunk, res, writer, _iteratorAbruptCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, _chunk;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
@@ -14404,7 +16542,7 @@ var UndiciError = /*#__PURE__*/function (_Error) {
   }
   _inherits(UndiciError, _Error);
   return _createClass(UndiciError);
-}( /*#__PURE__*/_wrapNativeSuper(Error));
+}(/*#__PURE__*/_wrapNativeSuper(Error));
 var ConnectTimeoutError = /*#__PURE__*/function (_UndiciError) {
   function ConnectTimeoutError(message) {
     var _this2;
@@ -14647,7 +16785,7 @@ var HTTPParserError = /*#__PURE__*/function (_Error2) {
   }
   _inherits(HTTPParserError, _Error2);
   return _createClass(HTTPParserError);
-}( /*#__PURE__*/_wrapNativeSuper(Error));
+}(/*#__PURE__*/_wrapNativeSuper(Error));
 var ResponseExceededMaxSizeError = /*#__PURE__*/function (_UndiciError17) {
   function ResponseExceededMaxSizeError(message) {
     var _this19;
@@ -15554,7 +17692,7 @@ function convertIterableToBuffer(_x) {
   return _convertIterableToBuffer.apply(this, arguments);
 }
 function _convertIterableToBuffer() {
-  _convertIterableToBuffer = _wrapAsyncGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(iterable) {
+  _convertIterableToBuffer = _wrapAsyncGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(iterable) {
     var _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, chunk;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -15625,7 +17763,7 @@ function ReadableStreamFrom(iterable) {
   var iterator;
   return new ReadableStream({
     start: function start() {
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -15638,7 +17776,7 @@ function ReadableStreamFrom(iterable) {
       }))();
     },
     pull: function pull(controller) {
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var _yield$iterator$next, done, value, buf;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
@@ -15666,7 +17804,7 @@ function ReadableStreamFrom(iterable) {
       }))();
     },
     cancel: function cancel(reason) {
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
@@ -16104,7 +18242,7 @@ function extractBody(object) {
     //    up stream.
     stream = new ReadableStream({
       pull: function pull(controller) {
-        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
           return _regeneratorRuntime().wrap(function _callee$(_context) {
             while (1) switch (_context.prev = _context.next) {
               case 0:
@@ -16228,7 +18366,7 @@ function extractBody(object) {
     // Set source to object.
     source = object;
     action = /*#__PURE__*/function () {
-      var _ref = _wrapAsyncGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _ref = _wrapAsyncGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _i, _blobParts, part;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
@@ -16309,7 +18447,7 @@ function extractBody(object) {
     var iterator;
     stream = new ReadableStream({
       start: function start() {
-        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
           return _regeneratorRuntime().wrap(function _callee3$(_context3) {
             while (1) switch (_context3.prev = _context3.next) {
               case 0:
@@ -16322,7 +18460,7 @@ function extractBody(object) {
         }))();
       },
       pull: function pull(controller) {
-        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
           var _yield$iterator$next, value, done;
           return _regeneratorRuntime().wrap(function _callee4$(_context4) {
             while (1) switch (_context4.prev = _context4.next) {
@@ -16355,7 +18493,7 @@ function extractBody(object) {
         }))();
       },
       cancel: function cancel(reason) {
-        return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
           return _regeneratorRuntime().wrap(function _callee5$(_context5) {
             while (1) switch (_context5.prev = _context5.next) {
               case 0:
@@ -16440,7 +18578,7 @@ function consumeBody(_x) {
   return _consumeBody.apply(this, arguments);
 }
 function _consumeBody() {
-  _consumeBody = _wrapAsyncGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(body) {
+  _consumeBody = _wrapAsyncGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(body) {
     var stream;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
@@ -16533,7 +18671,7 @@ function bodyMixinMethods(instance) {
     },
     formData: function formData() {
       var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
         var contentType, headers, _iterator4, _step4, _step4$value, key, value, responseFormData, busboy, busboyResolve, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, chunk, entries, text, streamingDecoder, _iteratorAbruptCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, _chunk3, formData, _iterator5, _step5, _step5$value, name, _value;
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
@@ -16789,7 +18927,7 @@ function specConsumeBody(_x2, _x3, _x4) {
   return _specConsumeBody.apply(this, arguments);
 } // https://fetch.spec.whatwg.org/#body-unusable
 function _specConsumeBody() {
-  _specConsumeBody = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(object, convertBytesToJSValue, instance) {
+  _specConsumeBody = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8(object, convertBytesToJSValue, instance) {
     var promise, errorSteps, successSteps;
     return _regeneratorRuntime().wrap(function _callee8$(_context8) {
       while (1) switch (_context8.prev = _context8.next) {
@@ -19567,7 +21705,7 @@ function mainFetch(_x2) {
 } // https://fetch.spec.whatwg.org/#concept-scheme-fetch
 // given a fetch params fetchParams
 function _mainFetch() {
-  _mainFetch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(fetchParams) {
+  _mainFetch = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(fetchParams) {
     var recursive,
       request,
       response,
@@ -19635,7 +21773,7 @@ function _mainFetch() {
             break;
           }
           _context2.next = 11;
-          return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+          return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
             var currentURL;
             return _regeneratorRuntime().wrap(function _callee$(_context) {
               while (1) switch (_context.prev = _context.next) {
@@ -20094,7 +22232,7 @@ function httpFetch(_x3) {
   return _httpFetch.apply(this, arguments);
 } // https://fetch.spec.whatwg.org/#http-redirect-fetch
 function _httpFetch() {
-  _httpFetch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(fetchParams) {
+  _httpFetch = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3(fetchParams) {
     var request, response, actualResponse, timingInfo;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
@@ -20340,7 +22478,7 @@ function httpNetworkOrCacheFetch(_x4) {
   return _httpNetworkOrCacheFetch.apply(this, arguments);
 } // https://fetch.spec.whatwg.org/#http-network-fetch
 function _httpNetworkOrCacheFetch() {
-  _httpNetworkOrCacheFetch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(fetchParams) {
+  _httpNetworkOrCacheFetch = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4(fetchParams) {
     var isAuthenticationFetch,
       isNewConnectionFetch,
       request,
@@ -20641,7 +22779,7 @@ function httpNetworkFetch(_x5) {
   return _httpNetworkFetch.apply(this, arguments);
 }
 function _httpNetworkFetch() {
-  _httpNetworkFetch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(fetchParams) {
+  _httpNetworkFetch = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee12(fetchParams) {
     var includeCredentials,
       forceNewConnection,
       request,
@@ -20671,7 +22809,7 @@ function _httpNetworkFetch() {
       while (1) switch (_context12.prev = _context12.next) {
         case 0:
           _dispatch = function _dispatch3() {
-            _dispatch = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(_ref5) {
+            _dispatch = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11(_ref5) {
               var body, url, agent;
               return _regeneratorRuntime().wrap(function _callee11$(_context11) {
                 while (1) switch (_context11.prev = _context11.next) {
@@ -20994,7 +23132,7 @@ function _httpNetworkFetch() {
             // 2. Otherwise, if body is non-null:
             //    1. Let processBodyChunk given bytes be these steps:
             processBodyChunk = /*#__PURE__*/function () {
-              var _ref = _wrapAsyncGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(bytes) {
+              var _ref = _wrapAsyncGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee5(bytes) {
                 var _fetchParams$processR;
                 return _regeneratorRuntime().wrap(function _callee5$(_context5) {
                   while (1) switch (_context5.prev = _context5.next) {
@@ -21047,7 +23185,7 @@ function _httpNetworkFetch() {
               }
             }; // 4. Incrementally read request’s body given processBodyChunk, processEndOfBody,
             // processBodyError, and fetchParams’s task destination.
-            requestBody = _wrapAsyncGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+            requestBody = _wrapAsyncGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
               var _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, bytes;
               return _regeneratorRuntime().wrap(function _callee6$(_context6) {
                 while (1) switch (_context6.prev = _context6.next) {
@@ -21184,7 +23322,7 @@ function _httpNetworkFetch() {
           }
           stream = new ReadableStream({
             start: function start(controller) {
-              return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+              return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
                 return _regeneratorRuntime().wrap(function _callee7$(_context7) {
                   while (1) switch (_context7.prev = _context7.next) {
                     case 0:
@@ -21197,7 +23335,7 @@ function _httpNetworkFetch() {
               }))();
             },
             pull: function pull(controller) {
-              return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+              return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
                 return _regeneratorRuntime().wrap(function _callee8$(_context8) {
                   while (1) switch (_context8.prev = _context8.next) {
                     case 0:
@@ -21211,7 +23349,7 @@ function _httpNetworkFetch() {
               }))();
             },
             cancel: function cancel(reason) {
-              return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+              return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
                 return _regeneratorRuntime().wrap(function _callee9$(_context9) {
                   while (1) switch (_context9.prev = _context9.next) {
                     case 0:
@@ -21253,7 +23391,7 @@ function _httpNetworkFetch() {
 
           //    1. Run these steps, but abort when fetchParams is canceled:
           fetchParams.controller.on('terminated', onAborted);
-          fetchParams.controller.resume = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+          fetchParams.controller.resume = /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
             var _bytes$byteLength, _bytes, bytes, isFailure, _yield$fetchParams$co, done, value;
             return _regeneratorRuntime().wrap(function _callee10$(_context10) {
               while (1) switch (_context10.prev = _context10.next) {
@@ -23565,7 +25703,7 @@ function bytesMatch(bytes, metadataList) {
 // https://w3c.github.io/webappsec-subresource-integrity/#grammardef-hash-with-options
 // https://www.w3.org/TR/CSP2/#source-list-syntax
 // https://www.rfc-editor.org/rfc/rfc5234#appendix-B.1
-var parseHashWithOptions = /*#__PURE__*/_wrapRegExp(/(sha256|sha384|sha512)\x2D(([A-Za-z0-9+/]+|[A-Za-z0-9_-]+)={0,2}(?:\s|$)( +[!-~]*)?)?/i, {
+var parseHashWithOptions = /*#__PURE__*/_wrapRegExp(/(sha256|sha384|sha512)-(([A-Za-z0-9+/]+|[A-Za-z0-9_-]+)={0,2}(?:\s|$)( +[!-~]*)?)?/i, {
   algo: 1,
   hash: 3
 });
@@ -23906,7 +26044,7 @@ function fullyReadBody(_x, _x2, _x3) {
 }
 /** @type {ReadableStream} */
 function _fullyReadBody() {
-  _fullyReadBody = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(body, processBody, processBodyError) {
+  _fullyReadBody = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(body, processBody, processBodyError) {
     var successSteps, errorSteps, reader, result;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -24019,7 +26157,7 @@ function readAllBytes(_x4) {
  * @param {URL} url
  */
 function _readAllBytes() {
-  _readAllBytes = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(reader) {
+  _readAllBytes = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(reader) {
     var bytes, byteLength, _yield$reader$read, done, chunk;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
@@ -25394,7 +27532,7 @@ var FileReader = /*#__PURE__*/function (_EventTarget) {
       }
     }
   }]);
-}( /*#__PURE__*/_wrapNativeSuper(EventTarget)); // https://w3c.github.io/FileAPI/#dom-filereader-empty
+}(/*#__PURE__*/_wrapNativeSuper(EventTarget)); // https://w3c.github.io/FileAPI/#dom-filereader-empty
 FileReader.EMPTY = FileReader.prototype.EMPTY = 0;
 // https://w3c.github.io/FileAPI/#dom-filereader-loading
 FileReader.LOADING = FileReader.prototype.LOADING = 1;
@@ -25489,7 +27627,7 @@ var ProgressEvent = /*#__PURE__*/function (_Event) {
       return this[kState].total;
     }
   }]);
-}( /*#__PURE__*/_wrapNativeSuper(Event));
+}(/*#__PURE__*/_wrapNativeSuper(Event));
 webidl.converters.ProgressEventInit = webidl.dictionaryConverter([{
   key: 'lengthComputable',
   converter: webidl.converters["boolean"],
@@ -25624,7 +27762,7 @@ function readOperation(fr, blob, type, encodingName) {
   // reading the body would then reject the promise, instead
   // of throwing an error.
   ;
-  _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var _loop, _ret;
     return _regeneratorRuntime().wrap(function _callee$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
@@ -26136,7 +28274,7 @@ var BodyAsyncIterable = /*#__PURE__*/function () {
     key: Symbol.asyncIterator,
     value: function value() {
       var _this = this;
-      return _wrapAsyncGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _wrapAsyncGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -27043,7 +29181,7 @@ var MockAgent = /*#__PURE__*/function (_Dispatcher) {
   }, {
     key: "close",
     value: function () {
-      var _close = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _close = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -27255,7 +29393,7 @@ var MockClient = /*#__PURE__*/function (_Client, _Symbols$kConnected) {
   }, {
     key: kClose,
     value: function () {
-      var _value = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _value = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -27633,7 +29771,7 @@ var MockPool = /*#__PURE__*/function (_Pool, _Symbols$kConnected) {
   }, {
     key: kClose,
     value: function () {
-      var _value = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _value = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -27937,7 +30075,7 @@ function getResponse(_x) {
  * Mock dispatch function used to simulate undici dispatches
  */
 function _getResponse() {
-  _getResponse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(body) {
+  _getResponse = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(body) {
     var buffers, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _iterator, _step, data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
@@ -28544,7 +30682,7 @@ var PoolBase = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kClose,
     value: function () {
-      var _value = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _value = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var _this2 = this;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -28574,7 +30712,7 @@ var PoolBase = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kDestroy,
     value: function () {
-      var _value2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(err) {
+      var _value2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2(err) {
         var item;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
@@ -28925,7 +31063,7 @@ var ProxyAgent = /*#__PURE__*/function (_DispatcherBase) {
     });
     _this[kAgent] = new Agent(_objectSpread(_objectSpread({}, opts), {}, {
       connect: function () {
-        var _connect = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(opts, callback) {
+        var _connect = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(opts, callback) {
           var requestedHost, _yield$_this$kClient$, socket, statusCode, servername;
           return _regeneratorRuntime().wrap(function _callee$(_context) {
             while (1) switch (_context.prev = _context.next) {
@@ -29006,7 +31144,7 @@ var ProxyAgent = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kClose,
     value: function () {
-      var _value = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _value = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -29029,7 +31167,7 @@ var ProxyAgent = /*#__PURE__*/function (_DispatcherBase) {
   }, {
     key: kDestroy,
     value: function () {
-      var _value2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _value2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
@@ -29657,7 +31795,7 @@ var MessageEvent = /*#__PURE__*/function (_Event) {
       });
     }
   }]);
-}( /*#__PURE__*/_wrapNativeSuper(Event));
+}(/*#__PURE__*/_wrapNativeSuper(Event));
 /**
  * @see https://websockets.spec.whatwg.org/#the-closeevent-interface
  */
@@ -29697,7 +31835,7 @@ var CloseEvent = /*#__PURE__*/function (_Event2) {
       return _classPrivateFieldGet(_eventInit2, this).reason;
     }
   }]);
-}( /*#__PURE__*/_wrapNativeSuper(Event)); // https://html.spec.whatwg.org/multipage/webappapis.html#the-errorevent-interface
+}(/*#__PURE__*/_wrapNativeSuper(Event)); // https://html.spec.whatwg.org/multipage/webappapis.html#the-errorevent-interface
 var _eventInit3 = /*#__PURE__*/new WeakMap();
 var ErrorEvent = /*#__PURE__*/function (_Event3) {
   function ErrorEvent(type, eventInitDict) {
@@ -29746,7 +31884,7 @@ var ErrorEvent = /*#__PURE__*/function (_Event3) {
       return _classPrivateFieldGet(_eventInit3, this).error;
     }
   }]);
-}( /*#__PURE__*/_wrapNativeSuper(Event));
+}(/*#__PURE__*/_wrapNativeSuper(Event));
 Object.defineProperties(MessageEvent.prototype, _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty({}, Symbol.toStringTag, {
   value: 'MessageEvent',
   configurable: true
@@ -31002,7 +33140,7 @@ var WebSocket = /*#__PURE__*/function (_EventTarget) {
       }
     }
   }]);
-}( /*#__PURE__*/_wrapNativeSuper(EventTarget)); // https://websockets.spec.whatwg.org/#dom-websocket-connecting
+}(/*#__PURE__*/_wrapNativeSuper(EventTarget)); // https://websockets.spec.whatwg.org/#dom-websocket-connecting
 function _onConnectionEstablished(response) {
   // processResponse is called when the "response’s header list has been received and initialized."
   // once this happens, the connection is open
@@ -31169,323 +33307,6 @@ exports.fromPromise = function (fn) {
 
 /***/ }),
 
-/***/ 3730:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  NIL: () => (/* reexport */ nil),
-  parse: () => (/* reexport */ esm_node_parse),
-  stringify: () => (/* reexport */ esm_node_stringify),
-  v1: () => (/* reexport */ esm_node_v1),
-  v3: () => (/* reexport */ esm_node_v3),
-  v4: () => (/* reexport */ esm_node_v4),
-  v5: () => (/* reexport */ esm_node_v5),
-  validate: () => (/* reexport */ esm_node_validate),
-  version: () => (/* reexport */ esm_node_version)
-});
-
-// EXTERNAL MODULE: external "crypto"
-var external_crypto_ = __webpack_require__(6982);
-var external_crypto_default = /*#__PURE__*/__webpack_require__.n(external_crypto_);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/rng.js
-
-var rnds8Pool = new Uint8Array(256); // # of random values to pre-allocate
-
-var poolPtr = rnds8Pool.length;
-function rng() {
-  if (poolPtr > rnds8Pool.length - 16) {
-    external_crypto_default().randomFillSync(rnds8Pool);
-    poolPtr = 0;
-  }
-  return rnds8Pool.slice(poolPtr, poolPtr += 16);
-}
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/regex.js
-/* harmony default export */ const regex = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/validate.js
-
-function validate(uuid) {
-  return typeof uuid === 'string' && regex.test(uuid);
-}
-/* harmony default export */ const esm_node_validate = (validate);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/stringify.js
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-
-var byteToHex = [];
-for (var i = 0; i < 256; ++i) {
-  byteToHex.push((i + 0x100).toString(16).substr(1));
-}
-function stringify(arr) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  // Note: Be careful editing this code!  It's been tuned for performance
-  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
-  // of the following:
-  // - One or more input array values don't map to a hex octet (leading to
-  // "undefined" in the uuid)
-  // - Invalid input values for the RFC `version` or `variant` fields
-
-  if (!esm_node_validate(uuid)) {
-    throw TypeError('Stringified UUID is invalid');
-  }
-  return uuid;
-}
-/* harmony default export */ const esm_node_stringify = (stringify);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/v1.js
-
- // **`v1()` - Generate time-based UUID**
-//
-// Inspired by https://github.com/LiosK/UUID.js
-// and http://docs.python.org/library/uuid.html
-
-var _nodeId;
-var _clockseq; // Previous uuid creation time
-
-var _lastMSecs = 0;
-var _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
-
-function v1(options, buf, offset) {
-  var i = buf && offset || 0;
-  var b = buf || new Array(16);
-  options = options || {};
-  var node = options.node || _nodeId;
-  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
-  // specified.  We do this lazily to minimize issues related to insufficient
-  // system entropy.  See #189
-
-  if (node == null || clockseq == null) {
-    var seedBytes = options.random || (options.rng || rng)();
-    if (node == null) {
-      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
-      node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
-    }
-    if (clockseq == null) {
-      // Per 4.2.2, randomize (14 bit) clockseq
-      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
-    }
-  } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
-  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
-  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
-  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
-
-  var msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
-  // cycle to simulate higher resolution clock
-
-  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
-
-  var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
-
-  if (dt < 0 && options.clockseq === undefined) {
-    clockseq = clockseq + 1 & 0x3fff;
-  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
-  // time interval
-
-  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
-    nsecs = 0;
-  } // Per 4.2.1.2 Throw error if too many uuids are requested
-
-  if (nsecs >= 10000) {
-    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
-  }
-  _lastMSecs = msecs;
-  _lastNSecs = nsecs;
-  _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
-
-  msecs += 12219292800000; // `time_low`
-
-  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
-  b[i++] = tl >>> 24 & 0xff;
-  b[i++] = tl >>> 16 & 0xff;
-  b[i++] = tl >>> 8 & 0xff;
-  b[i++] = tl & 0xff; // `time_mid`
-
-  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
-  b[i++] = tmh >>> 8 & 0xff;
-  b[i++] = tmh & 0xff; // `time_high_and_version`
-
-  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
-
-  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
-
-  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
-
-  b[i++] = clockseq & 0xff; // `node`
-
-  for (var n = 0; n < 6; ++n) {
-    b[i + n] = node[n];
-  }
-  return buf || esm_node_stringify(b);
-}
-/* harmony default export */ const esm_node_v1 = (v1);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/parse.js
-
-function parse(uuid) {
-  if (!esm_node_validate(uuid)) {
-    throw TypeError('Invalid UUID');
-  }
-  var v;
-  var arr = new Uint8Array(16); // Parse ########-....-....-....-............
-
-  arr[0] = (v = parseInt(uuid.slice(0, 8), 16)) >>> 24;
-  arr[1] = v >>> 16 & 0xff;
-  arr[2] = v >>> 8 & 0xff;
-  arr[3] = v & 0xff; // Parse ........-####-....-....-............
-
-  arr[4] = (v = parseInt(uuid.slice(9, 13), 16)) >>> 8;
-  arr[5] = v & 0xff; // Parse ........-....-####-....-............
-
-  arr[6] = (v = parseInt(uuid.slice(14, 18), 16)) >>> 8;
-  arr[7] = v & 0xff; // Parse ........-....-....-####-............
-
-  arr[8] = (v = parseInt(uuid.slice(19, 23), 16)) >>> 8;
-  arr[9] = v & 0xff; // Parse ........-....-....-....-############
-  // (Use "/" to avoid 32-bit truncation when bit-shifting high-order bytes)
-
-  arr[10] = (v = parseInt(uuid.slice(24, 36), 16)) / 0x10000000000 & 0xff;
-  arr[11] = v / 0x100000000 & 0xff;
-  arr[12] = v >>> 24 & 0xff;
-  arr[13] = v >>> 16 & 0xff;
-  arr[14] = v >>> 8 & 0xff;
-  arr[15] = v & 0xff;
-  return arr;
-}
-/* harmony default export */ const esm_node_parse = (parse);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/v35.js
-
-
-function stringToBytes(str) {
-  str = unescape(encodeURIComponent(str)); // UTF8 escape
-
-  var bytes = [];
-  for (var i = 0; i < str.length; ++i) {
-    bytes.push(str.charCodeAt(i));
-  }
-  return bytes;
-}
-var DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
-var URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
-/* harmony default export */ function v35(name, version, hashfunc) {
-  function generateUUID(value, namespace, buf, offset) {
-    if (typeof value === 'string') {
-      value = stringToBytes(value);
-    }
-    if (typeof namespace === 'string') {
-      namespace = esm_node_parse(namespace);
-    }
-    if (namespace.length !== 16) {
-      throw TypeError('Namespace must be array-like (16 iterable integer values, 0-255)');
-    } // Compute hash of namespace and value, Per 4.3
-    // Future: Use spread syntax when supported on all platforms, e.g. `bytes =
-    // hashfunc([...namespace, ... value])`
-
-    var bytes = new Uint8Array(16 + value.length);
-    bytes.set(namespace);
-    bytes.set(value, namespace.length);
-    bytes = hashfunc(bytes);
-    bytes[6] = bytes[6] & 0x0f | version;
-    bytes[8] = bytes[8] & 0x3f | 0x80;
-    if (buf) {
-      offset = offset || 0;
-      for (var i = 0; i < 16; ++i) {
-        buf[offset + i] = bytes[i];
-      }
-      return buf;
-    }
-    return esm_node_stringify(bytes);
-  } // Function#name is not settable on some platforms (#270)
-
-  try {
-    generateUUID.name = name; // eslint-disable-next-line no-empty
-  } catch (err) {} // For CommonJS default export support
-
-  generateUUID.DNS = DNS;
-  generateUUID.URL = URL;
-  return generateUUID;
-}
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/md5.js
-
-function md5(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === 'string') {
-    bytes = Buffer.from(bytes, 'utf8');
-  }
-  return external_crypto_default().createHash('md5').update(bytes).digest();
-}
-/* harmony default export */ const esm_node_md5 = (md5);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/v3.js
-
-
-var v3 = v35('v3', 0x30, esm_node_md5);
-/* harmony default export */ const esm_node_v3 = (v3);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/v4.js
-
-
-function v4(options, buf, offset) {
-  options = options || {};
-  var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    offset = offset || 0;
-    for (var i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-    return buf;
-  }
-  return esm_node_stringify(rnds);
-}
-/* harmony default export */ const esm_node_v4 = (v4);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/sha1.js
-
-function sha1(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === 'string') {
-    bytes = Buffer.from(bytes, 'utf8');
-  }
-  return external_crypto_default().createHash('sha1').update(bytes).digest();
-}
-/* harmony default export */ const esm_node_sha1 = (sha1);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/v5.js
-
-
-var v5 = v35('v5', 0x50, esm_node_sha1);
-/* harmony default export */ const esm_node_v5 = (v5);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/nil.js
-/* harmony default export */ const nil = ('00000000-0000-0000-0000-000000000000');
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/version.js
-
-function version(uuid) {
-  if (!esm_node_validate(uuid)) {
-    throw TypeError('Invalid UUID');
-  }
-  return parseInt(uuid.substr(14, 1), 16);
-}
-/* harmony default export */ const esm_node_version = (version);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-node/index.js
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
 /***/ 2613:
 /***/ ((module) => {
 
@@ -31507,6 +33328,14 @@ module.exports = require("async_hooks");
 
 "use strict";
 module.exports = require("buffer");
+
+/***/ }),
+
+/***/ 5317:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("child_process");
 
 /***/ }),
 
@@ -31667,6 +33496,14 @@ module.exports = require("stream/web");
 
 "use strict";
 module.exports = require("string_decoder");
+
+/***/ }),
+
+/***/ 3557:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("timers");
 
 /***/ }),
 
@@ -32096,13 +33933,13 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 
 var superPropBase = __webpack_require__(9552);
 function _get() {
-  return (module.exports = _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) {
+  return module.exports = _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) {
     var p = superPropBase(e, t);
     if (p) {
       var n = Object.getOwnPropertyDescriptor(p, t);
       return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value;
     }
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _get.apply(null, arguments);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _get.apply(null, arguments);
 }
 module.exports = _get, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -32112,9 +33949,9 @@ module.exports = _get, module.exports.__esModule = true, module.exports["default
 /***/ ((module) => {
 
 function _getPrototypeOf(t) {
-  return (module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+  return module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
     return t.__proto__ || Object.getPrototypeOf(t);
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _getPrototypeOf(t);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _getPrototypeOf(t);
 }
 module.exports = _getPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -32272,8 +34109,8 @@ function _objectWithoutProperties(e, t) {
     r,
     i = objectWithoutPropertiesLoose(e, t);
   if (Object.getOwnPropertySymbols) {
-    var n = Object.getOwnPropertySymbols(e);
-    for (r = 0; r < n.length; r++) o = n[r], t.indexOf(o) >= 0 || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+    var s = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
   }
   return i;
 }
@@ -32288,7 +34125,7 @@ function _objectWithoutPropertiesLoose(r, e) {
   if (null == r) return {};
   var t = {};
   for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (e.indexOf(n) >= 0) continue;
+    if (e.includes(n)) continue;
     t[n] = r[n];
   }
   return t;
@@ -32625,9 +34462,9 @@ module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.e
 /***/ ((module) => {
 
 function _setPrototypeOf(t, e) {
-  return (module.exports = _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+  return module.exports = _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
     return t.__proto__ = e, t;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _setPrototypeOf(t, e);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _setPrototypeOf(t, e);
 }
 module.exports = _setPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -32656,6 +34493,21 @@ function _superPropBase(t, o) {
   return t;
 }
 module.exports = _superPropBase, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 9901:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var get = __webpack_require__(2395);
+var getPrototypeOf = __webpack_require__(3072);
+function _superPropertyGet(t, e, o, r) {
+  var p = get(getPrototypeOf(1 & r ? t.prototype : t), e, o);
+  return 2 & r && "function" == typeof p ? function (t) {
+    return p.apply(o, t);
+  } : p;
+}
+module.exports = _superPropertyGet, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -32724,11 +34576,11 @@ module.exports = toPropertyKey, module.exports.__esModule = true, module.exports
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -32833,7 +34685,7 @@ var isNativeFunction = __webpack_require__(691);
 var construct = __webpack_require__(9646);
 function _wrapNativeSuper(t) {
   var r = "function" == typeof Map ? new Map() : void 0;
-  return (module.exports = _wrapNativeSuper = function _wrapNativeSuper(t) {
+  return module.exports = _wrapNativeSuper = function _wrapNativeSuper(t) {
     if (null === t || !isNativeFunction(t)) return t;
     if ("function" != typeof t) throw new TypeError("Super expression must either be null or a function");
     if (void 0 !== r) {
@@ -32851,7 +34703,7 @@ function _wrapNativeSuper(t) {
         configurable: !0
       }
     }), setPrototypeOf(Wrapper, t);
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _wrapNativeSuper(t);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _wrapNativeSuper(t);
 }
 module.exports = _wrapNativeSuper, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -34885,7 +36737,7 @@ module.exports = parseParams;
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"coverage-badges-cli","version":"2.0.0","description":"Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).","homepage":"https://jaywcjlove.github.io/coverage-badges-cli/","funding":"https://jaywcjlove.github.io/#/sponsor","license":"MIT","bin":{"coverage-badges":"bin/cli","coverage-badges-cli":"bin/cli"},"scripts":{"prepare":"husky && npm run package","package":"ncc build src/action.ts","make-badges":"node bin/cli","watch":"tsbb watch","build":"tsbb build","test":"tsbb test","coverage":"tsbb test --coverage"},"files":["bin","lib","src"],"repository":{"type":"git","url":"https://github.com/jaywcjlove/coverage-badges-cli"},"keywords":["coverage","coverage-badges","coverage-badges-cli","badges"],"jest":{"coverageReporters":["lcov","json-summary"]},"engines":{"node":">=v20.11.0","npm":">=10.2.4"},"lint-staged":{"*.ts?(x)":["npm run package"]},"dependencies":{"@types/fs-extra":"~11.0.0","@types/minimist":"~1.2.2","badgen":"~3.2.2","fs-extra":"~11.2.0","lodash.get":"^4.4.2","mini-svg-data-uri":"^1.4.4","minimist":"~1.2.5"},"devDependencies":{"@actions/core":"^1.10.0","@kkt/ncc":"^1.0.15","@types/lodash.get":"^4.4.9","husky":"^9.0.11","lint-staged":"^15.2.2","tsbb":"^4.1.3"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"coverage-badges-cli","version":"2.1.0","description":"Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).","homepage":"https://jaywcjlove.github.io/coverage-badges-cli/","funding":"https://jaywcjlove.github.io/#/sponsor","license":"MIT","bin":{"coverage-badges":"bin/cli","coverage-badges-cli":"bin/cli"},"scripts":{"prepare":"husky && npm run package","package":"ncc build src/action.ts","make-badges":"node bin/cli","watch":"tsbb watch","build":"tsbb build","test":"tsbb test","coverage":"tsbb test --coverage"},"files":["bin","lib","src"],"repository":{"type":"git","url":"https://github.com/jaywcjlove/coverage-badges-cli"},"keywords":["coverage","coverage-badges","coverage-badges-cli","badges"],"jest":{"coverageReporters":["lcov","json-summary"]},"engines":{"node":">=v20.11.0","npm":">=10.2.4"},"lint-staged":{"*.ts?(x)":["npm run package"]},"dependencies":{"@types/fs-extra":"~11.0.0","@types/minimist":"~1.2.2","badgen":"~3.2.3","fs-extra":"~11.2.0","lodash.get":"^4.4.2","mini-svg-data-uri":"^1.4.4","minimist":"~1.2.5"},"devDependencies":{"@actions/core":"^1.10.0","@kkt/ncc":"^1.0.15","@types/lodash.get":"^4.4.9","husky":"^9.0.11","lint-staged":"^15.2.2","tsbb":"^4.1.3"}}');
 
 /***/ })
 
@@ -34945,26 +36797,13 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"coverage-badges-cli","version
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
+;// ./node_modules/@babel/runtime/helpers/esm/typeof.js
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -34975,7 +36814,7 @@ function _typeof(o) {
   }, _typeof(o);
 }
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js
+;// ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js
 
 function _regeneratorRuntime() {
   "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
@@ -35280,7 +37119,7 @@ function _regeneratorRuntime() {
   }, e;
 }
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+;// ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 function asyncGeneratorStep(n, t, e, r, o, a, c) {
   try {
     var i = n[a](c),
@@ -35315,6 +37154,87 @@ var lib = __webpack_require__(9184);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __webpack_require__(3716);
+;// ./node_modules/@babel/runtime/helpers/esm/toPrimitive.js
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js
+
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
+
+function ownKeys(e, r) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread2(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+    });
+  }
+  return e;
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.includes(n)) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js
+
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o,
+    r,
+    i = _objectWithoutPropertiesLoose(e, t);
+  if (Object.getOwnPropertySymbols) {
+    var s = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+  }
+  return i;
+}
+
 // EXTERNAL MODULE: ./node_modules/badgen/dist/index.js
 var dist = __webpack_require__(572);
 // EXTERNAL MODULE: external "fs"
@@ -35325,11 +37245,11 @@ var mini_svg_data_uri_default = /*#__PURE__*/__webpack_require__.n(mini_svg_data
 // EXTERNAL MODULE: ./node_modules/lodash.get/index.js
 var lodash_get = __webpack_require__(7935);
 var lodash_get_default = /*#__PURE__*/__webpack_require__.n(lodash_get);
-;// CONCATENATED MODULE: ./src/badges.ts
-// Copied from `badgen` because it's not exported
-var getIconString=function getIconString(path){return (0,external_fs_.readFileSync)(path,'utf8');};function badge(option,summary){var _ref=option||{},_ref$label=_ref.label,label=_ref$label===void 0?'coverage':_ref$label,_ref$style=_ref.style,style=_ref$style===void 0?'classic':_ref$style,_ref$jsonPath=_ref.jsonPath,jsonPath=_ref$jsonPath===void 0?'total.statements.pct':_ref$jsonPath;var pct=summary;pct=lodash_get_default()(summary,jsonPath,0);if(!isNaN(Number(pct))){pct=Number(pct);}if(typeof pct!=='number'){throw new Error("".concat(jsonPath," evaluates to ").concat(JSON.stringify(pct)," and is not a suitable path in the JSON coverage data"));}var colorData={'#49c31a':[100],'#97c40f':[99.99,90],'#a0a127':[89.99,80],'#cba317':[79.99,60],'#ce0000':[59.99,0]};var color=Object.keys(colorData).find(function(value,idx){if(colorData[value].length===1&&pct>=colorData[value][0]){return true;}if(colorData[value].length===2&&pct<=colorData[value][0]&&pct>=colorData[value][1]){return true;}return false;});var badgenArgs={style:style,label:label,status:"".concat(pct<0?'Unknown':"".concat(pct,"%")),color:(color||'e5e5e5').replace(/^#/,'')};if(option.icon){var svgString=getIconString(option.icon);var svgDataUri=mini_svg_data_uri_default()(svgString);badgenArgs.icon=svgDataUri;}return (0,dist.badgen)(badgenArgs);}
-;// CONCATENATED MODULE: ./src/action.ts
-;_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(){var _require,version,output,source,label,jsonPath,style,sourceData,svgStr;return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:_context.prev=0;_require=__webpack_require__(8330),version=_require.version;(0,core.info)("coverage-badges-cli v\x1B[32;1m".concat(version,"\x1B[0m"));output=external_path_default().resolve(process.cwd(),(0,core.getInput)('output')||'coverage/badges.svg');source=external_path_default().resolve(process.cwd(),(0,core.getInput)('source')||'coverage/coverage-summary.json');label=(0,core.getInput)('label')||'coverage';jsonPath=(0,core.getInput)('jsonPath')||'total.statements.pct';style=(0,core.getInput)('style')||'classic';lib_default().ensureDirSync(external_path_default().dirname(output));if(lib_default().existsSync(source)){_context.next=12;break;}(0,core.setFailed)("File \x1B[31m".concat(source,"\x1B[0m does not exist.\n please specify the file directory\n\x1B[35mnpm\x1B[0m coverage-badges-cli \x1B[33m--source\x1B[0m coverage/coverage-summary.json"));return _context.abrupt("return");case 12:(0,core.info)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("Output Path: \x1B[32;1m".concat(output,"\x1B[0m"));sourceData=lib_default().readJSONSync(source);(0,core.startGroup)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("".concat(JSON.stringify(sourceData,null,2)));(0,core.endGroup)();svgStr=badge({label:label,style:style,jsonPath:jsonPath},sourceData);(0,core.setOutput)('svg',svgStr);(0,core.startGroup)("SVG String: \x1B[32;1m".concat(output,"\x1B[0m"));(0,core.info)("".concat(svgStr));(0,core.endGroup)();lib_default().writeFileSync(output,svgStr);(0,core.info)("\nCreate Coverage Badges: \x1B[32;1m".concat(external_path_default().relative(process.cwd(),output),"\x1B[0m\n"));_context.next=30;break;case 27:_context.prev=27;_context.t0=_context["catch"](0);(0,core.setFailed)(_context.t0.message);case 30:case"end":return _context.stop();}},_callee,null,[[0,27]]);}))();
+;// ./src/badges.ts
+var _excluded=["label","style","jsonPath","color"];// Copied from `badgen` because it's not exported
+var getIconString=function getIconString(path){return (0,external_fs_.readFileSync)(path,'utf8');};var defaultColorData={'#49c31a':[100],'#97c40f':[99.99,90],'#a0a127':[89.99,80],'#cba317':[79.99,60],'#ce0000':[59.99,0]};function badge(option,summary){var _ref=option||{},_ref$label=_ref.label,label=_ref$label===void 0?'coverage':_ref$label,_ref$style=_ref.style,style=_ref$style===void 0?'classic':_ref$style,_ref$jsonPath=_ref.jsonPath,jsonPath=_ref$jsonPath===void 0?'total.statements.pct':_ref$jsonPath,optionColor=_ref.color,otherOption=_objectWithoutProperties(_ref,_excluded);var pct=summary;pct=lodash_get_default()(summary,jsonPath,0);if(!isNaN(Number(pct))){pct=Number(pct);}if(typeof pct!=='number'){throw new Error("".concat(jsonPath," evaluates to ").concat(JSON.stringify(pct)," and is not a suitable path in the JSON coverage data"));}var colorData=defaultColorData;var color=Object.keys(colorData).find(function(value,idx){if(colorData[value].length===1&&pct>=colorData[value][0]){return true;}if(colorData[value].length===2&&pct<=colorData[value][0]&&pct>=colorData[value][1]){return true;}return false;});var badgenArgs=_objectSpread2(_objectSpread2({},otherOption),{},{style:style,label:label,status:"".concat(pct<0?'Unknown':"".concat(pct,"%")),color:(color||'e5e5e5').replace(/^#/,'')});if(optionColor){badgenArgs.color=optionColor.replace(/^#/,'');}if(option.icon){var svgString=getIconString(option.icon);var svgDataUri=mini_svg_data_uri_default()(svgString);badgenArgs.icon=svgDataUri;}console.log("badgenArgs",badgenArgs);return (0,dist.badgen)(badgenArgs);}
+;// ./src/action.ts
+;_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(){var _require,version,output,source,label,labelColor,color,scale,jsonPath,style,sourceData,svgStr;return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:_context.prev=0;_require=__webpack_require__(8330),version=_require.version;(0,core.info)("coverage-badges-cli v\x1B[32;1m".concat(version,"\x1B[0m"));output=external_path_default().resolve(process.cwd(),(0,core.getInput)('output')||'coverage/badges.svg');source=external_path_default().resolve(process.cwd(),(0,core.getInput)('source')||'coverage/coverage-summary.json');label=(0,core.getInput)('label')||'coverage';labelColor=(0,core.getInput)('labelColor')||'555';color=(0,core.getInput)('color');scale=Number((0,core.getInput)('scale')||1)||1;jsonPath=(0,core.getInput)('jsonPath')||'total.statements.pct';style=(0,core.getInput)('style')||'classic';lib_default().ensureDirSync(external_path_default().dirname(output));if(lib_default().existsSync(source)){_context.next=15;break;}(0,core.setFailed)("File \x1B[31m".concat(source,"\x1B[0m does not exist.\n please specify the file directory\n\x1B[35mnpm\x1B[0m coverage-badges-cli \x1B[33m--source\x1B[0m coverage/coverage-summary.json"));return _context.abrupt("return");case 15:(0,core.info)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("Output Path: \x1B[32;1m".concat(output,"\x1B[0m"));sourceData=lib_default().readJSONSync(source);(0,core.startGroup)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("".concat(JSON.stringify(sourceData,null,2)));(0,core.endGroup)();svgStr=badge({label:label,labelColor:labelColor,color:color,style:style,jsonPath:jsonPath,scale:scale},sourceData);(0,core.setOutput)('svg',svgStr);(0,core.startGroup)("SVG String: \x1B[32;1m".concat(output,"\x1B[0m"));(0,core.info)("".concat(svgStr));(0,core.endGroup)();lib_default().writeFileSync(output,svgStr);(0,core.info)("\nCreate Coverage Badges: \x1B[32;1m".concat(external_path_default().relative(process.cwd(),output),"\x1B[0m\n"));_context.next=33;break;case 30:_context.prev=30;_context.t0=_context["catch"](0);(0,core.setFailed)(_context.t0.message);case 33:case"end":return _context.stop();}},_callee,null,[[0,30]]);}))();
 })();
 
 module.exports = __webpack_exports__;

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.27% </span>
+                <span class="strong">83.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/22</span>
+                <span class='fraction'>26/31</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.27% </span>
+                <span class="strong">83.87% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/22</span>
+                <span class='fraction'>26/31</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -118,7 +118,20 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,6 +167,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,9 +179,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -182,6 +204,8 @@ export interface RunArgvs extends ParsedArgs, Partial&lt;BadgeOption&gt; {
   version?: string;
   output?: string;
   jsonPath?: string;
+  /// &lt;Color RGB&gt; or &lt;Color Name&gt; (default: '555')
+  labelColor?: string;
 }
 &nbsp;
 export default function run() {
@@ -208,6 +232,7 @@ export default function run() {
 <span class="cstat-no" title="statement not covered" >    console.log(`\n coverage-badges-cli v${version}\n`);</span>
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
+  console.log("argvs: ", argvs);  
   create(argvs);
 }
 &nbsp;
@@ -215,11 +240,18 @@ export default function run() {
 export function cliHelp() {
   console.log('\n  Usage: coverage-badges [options] [--help|h]');
   console.log('\n  Options:\n');
-  console.log('    --version, -v ', 'Show version number');
-  console.log('    --help, -h    ', 'Displays help information.');
-  console.log('    --output, -o  ', 'Output directory.');
-  console.log('    --source, -s  ', 'The path of the target file "coverage-summary.json".');
-  console.log('    --style       ', 'Badges style: flat, flat-square.');
+  console.log('    --version, -v  ','Show version number');
+  console.log('    --help, -h     ','Displays help information.');
+  console.log('    --output, -o   ','Output directory.');
+  console.log('    --source, -s   ','The path of the target file "coverage-summary.json".');
+  console.log('    --style        ','Badges style: flat, flat-square.');
+  console.log('    --type         ','Coverage type: lines, statements, functions, branches.');
+  console.log('    --scale        ','Set badge scale (default: 1)');
+  console.log('    --icon         ','Path to icon file');
+  console.log('    --iconWidth    ','Set this if icon is not square (default: 13)');
+  console.log('    --label        ','The left label of the badge, usually static (default `coverage`).');
+  console.log('    --labelColor   ','&lt;Color RGB&gt; or &lt;Color Name&gt; (default: "555")');
+  console.log('    --color        ','&lt;Color RGB&gt; or &lt;Color Name&gt; (default: "")');
 }
 &nbsp;
 export function exampleHelp() {
@@ -227,6 +259,7 @@ export function exampleHelp() {
   console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--output\x1b[0m coverage/badges.svg');
   console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--style\x1b[0m plastic');
   console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json');
+  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--labelColor\x1b[0m ADF');
   console.log('\n');
 }</pre></td></tr></table></pre>
 
@@ -235,7 +268,7 @@ export function exampleHelp() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-25T16:17:34.638Z
+                at 2024-10-04T12:04:16.433Z
             </div>
         <script src="prettify.js"></script>
         <script>
