@@ -54,6 +54,7 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 - `output` - Output image path.
 - `label` - The left label of the badge, usually static (default `coverage`).
 - `labelColor` - \<Color RGB> or \<Color Name> (default: `555`).
+- `color` - \<Color RGB> or \<Color Name> (default: '')
 - `scale` - Set badge scale (default: `1`).
 - `style` - Badges style: `flat`, `classic` (default `classic`).
 - ~~`type`~~ - (No longer supported after v1.2.0) Coverage report type: `lines`, `statements`, `functions`, `branches` (default `statements`)
