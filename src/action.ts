@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { setFailed, getInput, setOutput, info, startGroup, endGroup } from '@actions/core';
+import { setFailed, getInput, getBooleanInput, setOutput, info, startGroup, endGroup } from '@actions/core';
 import { badge, BadgeOption } from './badges';
 
 ;(async () => {
@@ -10,6 +10,8 @@ import { badge, BadgeOption } from './badges';
     const output = path.resolve(process.cwd(), getInput('output') || 'coverage/badges.svg');
     const source = path.resolve(process.cwd(), getInput('source') || 'coverage/coverage-summary.json');
     const label = getInput('label') || 'coverage';
+    const labelColor = getInput('labelColor') || '555';
+    const scale = Number(getInput('scale') || 1) || 1;
     const jsonPath = getInput('jsonPath') || 'total.statements.pct';
     const style = (getInput('style') || 'classic') as BadgeOption['style'];
     fs.ensureDirSync(path.dirname(output));
@@ -25,7 +27,7 @@ import { badge, BadgeOption } from './badges';
     info(`${JSON.stringify(sourceData, null, 2)}`);
     endGroup();
     
-    const svgStr = badge({ label, style, jsonPath } as BadgeOption, sourceData);
+    const svgStr = badge({ label, labelColor, style, jsonPath, scale } as BadgeOption, sourceData);
 
     setOutput('svg', svgStr);
 

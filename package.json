@@ -51,7 +51,7 @@
   "dependencies": {
     "@types/fs-extra": "~11.0.0",
     "@types/minimist": "~1.2.2",
-    "badgen": "~3.2.2",
+    "badgen": "~3.2.3",
     "fs-extra": "~11.2.0",
     "lodash.get": "^4.4.2",
     "mini-svg-data-uri": "^1.4.4",

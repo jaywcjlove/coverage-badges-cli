@@ -53,6 +53,8 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 - `source` - The path of the target file "coverage-summary.json".
 - `output` - Output image path.
 - `label` - The left label of the badge, usually static (default `coverage`).
+- `labelColor` - \<Color RGB> or \<Color Name> (default: `555`).
+- `scale` - Set badge scale (default: `1`).
 - `style` - Badges style: `flat`, `classic` (default `classic`).
 - ~~`type`~~ - (No longer supported after v1.2.0) Coverage report type: `lines`, `statements`, `functions`, `branches` (default `statements`)
 - `jsonPath` - Path to the coverage percentage number to be used in the badge (default `total.statements.pct`)
@@ -123,16 +125,18 @@ Options:
   --source, -s   The path of the target file "coverage-summary.json".
   --style        Badges style: flat, flat-square.
   --type         Coverage type: lines, statements, functions, branches.
+  --scale        Set badge scale (default: 1)
   --icon         Path to icon file
+  --iconWidth    Set this if icon is not square (default: 13)
   --label        The left label of the badge, usually static (default `coverage`).
+  --labelColor   <Color RGB> or <Color Name> (default: '555')
 
 Example:
 
   npm coverage-badges-cli --output coverage/badges.svg
   npm coverage-badges-cli --style plastic
   npm coverage-badges-cli --source coverage/coverage-summary.json
-  npm coverage-badges-cli --type lines
-  npm coverage-badges-cli --icon my-icon.svg
+  npm coverage-badges-cli --labelColor ADF
 ```
 
 ## Development

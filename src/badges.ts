@@ -19,16 +19,24 @@ export interface BadgenOptions {
   scale?: number;
 }
 
-export interface BadgeOption extends BadgenOptions {
-}
+export interface BadgeOption extends BadgenOptions {}
 
 const getIconString = (path: string) => {
   return readFileSync(path, 'utf8');
 }
 
+type ColorData = Record<string, number[]>;
+
+const defaultColorData: ColorData = {
+  '#49c31a': [100],
+  '#97c40f': [99.99, 90],
+  '#a0a127': [89.99, 80],
+  '#cba317': [79.99, 60],
+  '#ce0000': [59.99, 0],
+}
 
 export function badge(option: BadgeOption, summary: object) {
-  const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct' } = option || {}
+  const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct', ...otherOption } = (option || {}) as BadgenOptions
   let pct: any = summary;
   pct = get(summary, jsonPath, 0);
 
@@ -39,13 +47,7 @@ export function badge(option: BadgeOption, summary: object) {
   if (typeof pct !== 'number') {
     throw new Error(`${jsonPath} evaluates to ${JSON.stringify(pct)} and is not a suitable path in the JSON coverage data`);
   }
-  const colorData = {
-    '#49c31a': [100],
-    '#97c40f': [99.99, 90],
-    '#a0a127': [89.99, 80],
-    '#cba317': [79.99, 60],
-    '#ce0000': [59.99, 0],
-  }
+  const colorData = defaultColorData
   const color = Object.keys(colorData).find((value: keyof typeof colorData, idx) => {
     if (colorData[value].length === 1 && pct >= colorData[value][0]) {
       return true
@@ -57,6 +59,7 @@ export function badge(option: BadgeOption, summary: object) {
   });
 
   const badgenArgs: BadgenOptions = {
+    ...otherOption,
     style,
     label,
     status: `${pct < 0 ? 'Unknown' : `${pct}%`}`,
@@ -70,5 +73,6 @@ export function badge(option: BadgeOption, summary: object) {
     badgenArgs.icon = svgDataUri;
   }
 
+  console.log("badgenArgs", badgenArgs)
   return badgen(badgenArgs);
 }

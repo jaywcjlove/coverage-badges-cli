@@ -7,6 +7,8 @@ export interface RunArgvs extends ParsedArgs, Partial<BadgeOption> {
   version?: string;
   output?: string;
   jsonPath?: string;
+  /// <Color RGB> or <Color Name> (default: '555')
+  labelColor?: string;
 }
 
 export default function run() {
@@ -33,6 +35,7 @@ export default function run() {
     console.log(`\n coverage-badges-cli v${version}\n`);
     return;
   }
+  console.log("argvs: ", argvs);  
   create(argvs);
 }
 
@@ -52,5 +55,6 @@ export function exampleHelp() {
   console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--output\x1b[0m coverage/badges.svg');
   console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--style\x1b[0m plastic');
   console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json');
+  console.log('    \x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--labelColor\x1b[0m ADF');
   console.log('\n');
 }

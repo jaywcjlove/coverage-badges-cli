@@ -85,6 +85,14 @@ it('test badge case - custom label', async () => {
   expect(str.indexOf(`<text x="50" y="138" textLength="715">${customLabel}</text>`) > 0).toBeTruthy();
 });
 
+it('test badge case - label color', async () => {
+  const customLabel = "Custon Label";
+  const str = badge({ style: 'flat', status: '85%', labelColor: "ADF", label: customLabel }, mockSummary as any);
+  console.log("str", str)
+  expect(str.indexOf(`<text x="50" y="138" textLength="715">${customLabel}</text>`) > 0).toBeTruthy();
+  expect(str.indexOf(`<rect fill="#ADF" width="815" height="200"/>`) > 0).toBeTruthy();
+});
+
 it('test badge case - custom icon', async () => {
   const customIcon = "./test/sample-logo.svg";
   const processedIconString = `<image x="40" y="35" width="130" height="132" xlink:href="data:image/svg+xml,%3csvg xmlns=&apos;http://www.w3.org/2000/svg&apos; xml:space=&apos;preserve&apos; baseProfile=&apos;tiny&apos; overflow=&apos;visible&apos; version=&apos;1.2&apos; viewBox=&apos;0 0 256 257.5&apos;%3e%3ccircle cx=&apos;128&apos; cy=&apos;128.8&apos; r=&apos;120&apos; fill=&apos;none&apos; stroke=&apos;black&apos; stroke-miterlimit=&apos;10&apos; stroke-width=&apos;14&apos;/%3e%3c/svg%3e"/>`;
