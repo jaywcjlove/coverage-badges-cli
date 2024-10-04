@@ -29,7 +29,6 @@ inputs:
 
   color:
     description: "<Color RGB> or <Color Name> (default: '555')"
-    default: "555"
     required: false
 
   labelColor:
