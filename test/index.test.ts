@@ -88,9 +88,15 @@ it('test badge case - custom label', async () => {
 it('test badge case - label color', async () => {
   const customLabel = "Custon Label";
   const str = badge({ style: 'flat', status: '85%', labelColor: "ADF", label: customLabel }, mockSummary as any);
-  console.log("str", str)
   expect(str.indexOf(`<text x="50" y="138" textLength="715">${customLabel}</text>`) > 0).toBeTruthy();
   expect(str.indexOf(`<rect fill="#ADF" width="815" height="200"/>`) > 0).toBeTruthy();
+});
+
+it('test badge case - color', async () => {
+  const customLabel = "Custon Label";
+  const str = badge({ style: 'flat', status: '85%', color: "ADF", label: customLabel }, mockSummary as any);
+  expect(str.indexOf(`<text x="50" y="138" textLength="715">${customLabel}</text>`) > 0).toBeTruthy();
+  expect(str.indexOf(`<rect fill="#ADF" x="815" width="360" height="200"/>`) > 0).toBeTruthy();
 });
 
 it('test badge case - custom icon', async () => {

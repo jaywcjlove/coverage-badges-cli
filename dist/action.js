@@ -37154,6 +37154,87 @@ var lib = __webpack_require__(9184);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __webpack_require__(3716);
+;// ./node_modules/@babel/runtime/helpers/esm/toPrimitive.js
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js
+
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
+
+function ownKeys(e, r) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread2(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+    });
+  }
+  return e;
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.includes(n)) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js
+
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o,
+    r,
+    i = _objectWithoutPropertiesLoose(e, t);
+  if (Object.getOwnPropertySymbols) {
+    var s = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+  }
+  return i;
+}
+
 // EXTERNAL MODULE: ./node_modules/badgen/dist/index.js
 var dist = __webpack_require__(572);
 // EXTERNAL MODULE: external "fs"
@@ -37165,10 +37246,10 @@ var mini_svg_data_uri_default = /*#__PURE__*/__webpack_require__.n(mini_svg_data
 var lodash_get = __webpack_require__(7935);
 var lodash_get_default = /*#__PURE__*/__webpack_require__.n(lodash_get);
 ;// ./src/badges.ts
-// Copied from `badgen` because it's not exported
-var getIconString=function getIconString(path){return (0,external_fs_.readFileSync)(path,'utf8');};var defaultColorData={'#49c31a':[100],'#97c40f':[99.99,90],'#a0a127':[89.99,80],'#cba317':[79.99,60],'#ce0000':[59.99,0]};function badge(option,summary){var _ref=option||{},_ref$label=_ref.label,label=_ref$label===void 0?'coverage':_ref$label,_ref$style=_ref.style,style=_ref$style===void 0?'classic':_ref$style,_ref$jsonPath=_ref.jsonPath,jsonPath=_ref$jsonPath===void 0?'total.statements.pct':_ref$jsonPath;var pct=summary;pct=lodash_get_default()(summary,jsonPath,0);if(!isNaN(Number(pct))){pct=Number(pct);}if(typeof pct!=='number'){throw new Error("".concat(jsonPath," evaluates to ").concat(JSON.stringify(pct)," and is not a suitable path in the JSON coverage data"));}var colorData=defaultColorData;var color=Object.keys(colorData).find(function(value,idx){if(colorData[value].length===1&&pct>=colorData[value][0]){return true;}if(colorData[value].length===2&&pct<=colorData[value][0]&&pct>=colorData[value][1]){return true;}return false;});var badgenArgs={style:style,label:label,status:"".concat(pct<0?'Unknown':"".concat(pct,"%")),color:(color||'e5e5e5').replace(/^#/,'')};if(option.icon){var svgString=getIconString(option.icon);var svgDataUri=mini_svg_data_uri_default()(svgString);badgenArgs.icon=svgDataUri;}return (0,dist.badgen)(badgenArgs);}
+var _excluded=["label","style","jsonPath"];// Copied from `badgen` because it's not exported
+var getIconString=function getIconString(path){return (0,external_fs_.readFileSync)(path,'utf8');};var defaultColorData={'#49c31a':[100],'#97c40f':[99.99,90],'#a0a127':[89.99,80],'#cba317':[79.99,60],'#ce0000':[59.99,0]};function badge(option,summary){var _ref=option||{},_ref$label=_ref.label,label=_ref$label===void 0?'coverage':_ref$label,_ref$style=_ref.style,style=_ref$style===void 0?'classic':_ref$style,_ref$jsonPath=_ref.jsonPath,jsonPath=_ref$jsonPath===void 0?'total.statements.pct':_ref$jsonPath,otherOption=_objectWithoutProperties(_ref,_excluded);var pct=summary;pct=lodash_get_default()(summary,jsonPath,0);if(!isNaN(Number(pct))){pct=Number(pct);}if(typeof pct!=='number'){throw new Error("".concat(jsonPath," evaluates to ").concat(JSON.stringify(pct)," and is not a suitable path in the JSON coverage data"));}var colorData=defaultColorData;var color=Object.keys(colorData).find(function(value,idx){if(colorData[value].length===1&&pct>=colorData[value][0]){return true;}if(colorData[value].length===2&&pct<=colorData[value][0]&&pct>=colorData[value][1]){return true;}return false;});var badgenArgs=_objectSpread2(_objectSpread2({},otherOption),{},{style:style,label:label,status:"".concat(pct<0?'Unknown':"".concat(pct,"%")),color:(color||'e5e5e5').replace(/^#/,'')});if(option.icon){var svgString=getIconString(option.icon);var svgDataUri=mini_svg_data_uri_default()(svgString);badgenArgs.icon=svgDataUri;}console.log("badgenArgs",badgenArgs);return (0,dist.badgen)(badgenArgs);}
 ;// ./src/action.ts
-;_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(){var _require,version,output,source,label,jsonPath,style,sourceData,svgStr;return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:_context.prev=0;_require=__webpack_require__(8330),version=_require.version;(0,core.info)("coverage-badges-cli v\x1B[32;1m".concat(version,"\x1B[0m"));output=external_path_default().resolve(process.cwd(),(0,core.getInput)('output')||'coverage/badges.svg');source=external_path_default().resolve(process.cwd(),(0,core.getInput)('source')||'coverage/coverage-summary.json');label=(0,core.getInput)('label')||'coverage';jsonPath=(0,core.getInput)('jsonPath')||'total.statements.pct';style=(0,core.getInput)('style')||'classic';lib_default().ensureDirSync(external_path_default().dirname(output));if(lib_default().existsSync(source)){_context.next=12;break;}(0,core.setFailed)("File \x1B[31m".concat(source,"\x1B[0m does not exist.\n please specify the file directory\n\x1B[35mnpm\x1B[0m coverage-badges-cli \x1B[33m--source\x1B[0m coverage/coverage-summary.json"));return _context.abrupt("return");case 12:(0,core.info)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("Output Path: \x1B[32;1m".concat(output,"\x1B[0m"));sourceData=lib_default().readJSONSync(source);(0,core.startGroup)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("".concat(JSON.stringify(sourceData,null,2)));(0,core.endGroup)();svgStr=badge({label:label,style:style,jsonPath:jsonPath},sourceData);(0,core.setOutput)('svg',svgStr);(0,core.startGroup)("SVG String: \x1B[32;1m".concat(output,"\x1B[0m"));(0,core.info)("".concat(svgStr));(0,core.endGroup)();lib_default().writeFileSync(output,svgStr);(0,core.info)("\nCreate Coverage Badges: \x1B[32;1m".concat(external_path_default().relative(process.cwd(),output),"\x1B[0m\n"));_context.next=30;break;case 27:_context.prev=27;_context.t0=_context["catch"](0);(0,core.setFailed)(_context.t0.message);case 30:case"end":return _context.stop();}},_callee,null,[[0,27]]);}))();
+;_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(){var _require,version,output,source,label,labelColor,scale,jsonPath,style,sourceData,svgStr;return _regeneratorRuntime().wrap(function _callee$(_context){while(1)switch(_context.prev=_context.next){case 0:_context.prev=0;_require=__webpack_require__(8330),version=_require.version;(0,core.info)("coverage-badges-cli v\x1B[32;1m".concat(version,"\x1B[0m"));output=external_path_default().resolve(process.cwd(),(0,core.getInput)('output')||'coverage/badges.svg');source=external_path_default().resolve(process.cwd(),(0,core.getInput)('source')||'coverage/coverage-summary.json');label=(0,core.getInput)('label')||'coverage';labelColor=(0,core.getInput)('labelColor')||'555';scale=Number((0,core.getInput)('scale')||1)||1;jsonPath=(0,core.getInput)('jsonPath')||'total.statements.pct';style=(0,core.getInput)('style')||'classic';lib_default().ensureDirSync(external_path_default().dirname(output));if(lib_default().existsSync(source)){_context.next=14;break;}(0,core.setFailed)("File \x1B[31m".concat(source,"\x1B[0m does not exist.\n please specify the file directory\n\x1B[35mnpm\x1B[0m coverage-badges-cli \x1B[33m--source\x1B[0m coverage/coverage-summary.json"));return _context.abrupt("return");case 14:(0,core.info)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("Output Path: \x1B[32;1m".concat(output,"\x1B[0m"));sourceData=lib_default().readJSONSync(source);(0,core.startGroup)("Source Path: \x1B[32;1m".concat(source,"\x1B[0m"));(0,core.info)("".concat(JSON.stringify(sourceData,null,2)));(0,core.endGroup)();svgStr=badge({label:label,labelColor:labelColor,style:style,jsonPath:jsonPath,scale:scale},sourceData);(0,core.setOutput)('svg',svgStr);(0,core.startGroup)("SVG String: \x1B[32;1m".concat(output,"\x1B[0m"));(0,core.info)("".concat(svgStr));(0,core.endGroup)();lib_default().writeFileSync(output,svgStr);(0,core.info)("\nCreate Coverage Badges: \x1B[32;1m".concat(external_path_default().relative(process.cwd(),output),"\x1B[0m\n"));_context.next=32;break;case 29:_context.prev=29;_context.t0=_context["catch"](0);(0,core.setFailed)(_context.t0.message);case 32:case"end":return _context.stop();}},_callee,null,[[0,29]]);}))();
 })();
 
 module.exports = __webpack_exports__;

@@ -43,11 +43,18 @@ export default function run() {
 export function cliHelp() {
   console.log('\n  Usage: coverage-badges [options] [--help|h]');
   console.log('\n  Options:\n');
-  console.log('    --version, -v ', 'Show version number');
-  console.log('    --help, -h    ', 'Displays help information.');
-  console.log('    --output, -o  ', 'Output directory.');
-  console.log('    --source, -s  ', 'The path of the target file "coverage-summary.json".');
-  console.log('    --style       ', 'Badges style: flat, flat-square.');
+  console.log('    --version, -v  ','Show version number');
+  console.log('    --help, -h     ','Displays help information.');
+  console.log('    --output, -o   ','Output directory.');
+  console.log('    --source, -s   ','The path of the target file "coverage-summary.json".');
+  console.log('    --style        ','Badges style: flat, flat-square.');
+  console.log('    --type         ','Coverage type: lines, statements, functions, branches.');
+  console.log('    --scale        ','Set badge scale (default: 1)');
+  console.log('    --icon         ','Path to icon file');
+  console.log('    --iconWidth    ','Set this if icon is not square (default: 13)');
+  console.log('    --label        ','The left label of the badge, usually static (default `coverage`).');
+  console.log('    --labelColor   ','<Color RGB> or <Color Name> (default: "555")');
+  console.log('    --color        ','<Color RGB> or <Color Name> (default: "")');
 }
 
 export function exampleHelp() {

@@ -36,7 +36,7 @@ const defaultColorData: ColorData = {
 }
 
 export function badge(option: BadgeOption, summary: object) {
-  const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct', ...otherOption } = (option || {}) as BadgenOptions
+  const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct', color: optionColor, ...otherOption } = (option || {}) as BadgenOptions
   let pct: any = summary;
   pct = get(summary, jsonPath, 0);
 
@@ -65,6 +65,10 @@ export function badge(option: BadgeOption, summary: object) {
     status: `${pct < 0 ? 'Unknown' : `${pct}%`}`,
     color: (color || 'e5e5e5').replace(/^#/, ''),
   };
+
+  if (optionColor) {
+    badgenArgs.color = optionColor.replace(/^#/, '');
+  }
 
   if(option.icon) {
     const svgString = getIconString(option.icon) as string;

@@ -130,6 +130,7 @@ Options:
   --iconWidth    Set this if icon is not square (default: 13)
   --label        The left label of the badge, usually static (default `coverage`).
   --labelColor   <Color RGB> or <Color Name> (default: '555')
+  --color        <Color RGB> or <Color Name> (default: '')
 
 Example:
 

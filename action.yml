@@ -27,8 +27,13 @@ inputs:
     default: "1"
     required: false
 
+  color:
+    description: "<Color RGB> or <Color Name> (default: '555')"
+    default: "555"
+    required: false
+
   labelColor:
-    description: '<Color RGB> or <Color Name> (default: '555')'
+    description: "<Color RGB> or <Color Name> (default: '')"
     default: "555"
     required: false
 
