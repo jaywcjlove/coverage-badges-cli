@@ -8,6 +8,7 @@ import { cliHelp, exampleHelp } from '../src';
 const mockSummary = {
   total: {
     lines: {
+      strData: "string value",
       total: 60,
       covered: 30,
       skipped: 2,
@@ -106,6 +107,30 @@ it('test badge case - custom icon', async () => {
   const str = badge({ style: 'flat', status: '85%', icon: customIcon }, mockSummary as any);
   expect(str.indexOf(processedIconString) > 0).toBeTruthy();
 });
+
+it('test badge case - arbitrary data - string', async () => {
+  const str = badge({ jsonPath: 'total.lines.strData', arbitrary: true, status: '100%' }, mockSummary as any);
+  const expected1 = "<text x=\"60\" y=\"148\" textLength=\"503\" fill=\"#000\" opacity=\"0.25\">coverage</text>";
+  const expected2 = "<text x=\"658\" y=\"148\" textLength=\"652\" fill=\"#000\" opacity=\"0.25\">string value</text>";
+  const expected3 = "<text x=\"648\" y=\"138\" textLength=\"652\">string value</text>";
+
+  expect(str.indexOf((expected1)) > 0).toBeTruthy()
+  expect(str.indexOf((expected2)) > 0).toBeTruthy()
+  expect(str.indexOf((expected3)) > 0).toBeTruthy()
+})
+
+it('test badge case - arbitrary numeric data - no percentage sign at the end', () => {
+  const str = badge({ jsonPath: 'total.lines.covered', arbitrary: true, status: '100%' }, mockSummary as any);
+  const expected = "<text x=\"648\" y=\"138\" textLength=\"140\">30</text>";
+
+  expect(str.indexOf((expected)) > 0).toBeTruthy()
+})
+
+it('test badge case - arbitrary data - should fail', async () => {
+  const badFn = () => badge({ jsonPath: 'total.lines.strData', status: '100%' }, mockSummary as any);
+
+  expect(badFn).toThrow(("total.lines.strData evaluates to \"string value\" and is not a suitable path in the JSON coverage data"))
+})
 
 console.log = jest.fn();
 it('test create case', async () => {

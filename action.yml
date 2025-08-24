@@ -41,6 +41,11 @@ inputs:
     default: total.lines.pct
     required: false
 
+  arbitrary:
+    description: 'Allow jsonPath to point to non-number values. Works in conjunction with jsonPath'
+    default: 'false'
+    required: false
+
 outputs:
   svg:
     description: 'svg image string'

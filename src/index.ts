@@ -55,6 +55,8 @@ export function cliHelp() {
   console.log('    --label        ','The left label of the badge, usually static (default `coverage`).');
   console.log('    --labelColor   ','<Color RGB> or <Color Name> (default: "555")');
   console.log('    --color        ','<Color RGB> or <Color Name> (default: "")');
+  console.log('    --jsonPath     ','Path to the coverage percentage number to be used in the badge.');
+  console.log('    --arbitrary    ','Allow jsonPath to point to non-number values. Works in conjunction with jsonPath (default false).');
 }
 
 export function exampleHelp() {
