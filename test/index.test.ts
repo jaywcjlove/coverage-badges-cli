@@ -109,10 +109,11 @@ it('test badge case - custom icon', async () => {
 
 console.log = jest.fn();
 it('test create case', async () => {
+  const expectedPath = `coverage2${path.sep}coverage-summary.json`
   const str = create({ style: 'flat', status: '85%', _: [], source: 'coverage2/coverage-summary.json', output: 'coverage2/svg.svg' });
 
   // @ts-ignore
-  expect(console.log.mock.calls[0][0]).toBe('\x1b[31mErr Source Path:\x1b[0m coverage2/coverage-summary.json\n');
+  expect(console.log.mock.calls[0][0]).toBe(`\x1b[31mErr Source Path:\x1b[0m ${expectedPath}\n`);
   // @ts-ignore
   expect(console.log.mock.calls[0][1]).toBe('> please specify the file directory\n');
   expect(str).toBeUndefined();
