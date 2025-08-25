@@ -100,6 +100,7 @@
           <li><code>style</code> - Badges style: <code>flat</code>, <code>classic</code> (default <code>classic</code>).</li>
           <li><del><code>type</code></del> - (No longer supported after v1.2.0) Coverage report type: <code>lines</code>, <code>statements</code>, <code>functions</code>, <code>branches</code> (default <code>statements</code>)</li>
           <li><code>jsonPath</code> - Path to the coverage percentage number to be used in the badge (default <code>total.statements.pct</code>)</li>
+          <li><code>arbitrary</code> - Allow <code>jsonPath</code> to point to non-number values. Works in conjunction with <code>jsonPath</code></li>
           <li><code>icon</code> - Path to icon file</li>
         </ul>
         <pre class="language-yml"><code class="language-yml code-highlight"><span class="code-line line-number" line="1"><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Create Coverage Badges
@@ -204,13 +205,15 @@ jobs:
 </span><span class="code-line line-number" line="14">  <span class="token parameter variable">--label</span>        The left label of the badge, usually static <span class="token punctuation">(</span>default <span class="token variable"><span class="token variable">`</span>coverage<span class="token variable">`</span></span><span class="token punctuation">)</span>.
 </span><span class="code-line line-number" line="15">  <span class="token parameter variable">--labelColor</span>   <span class="token operator">&#x3C;</span>Color RGB<span class="token operator">></span> or <span class="token operator">&#x3C;</span>Color Name<span class="token operator">></span> <span class="token punctuation">(</span>default: <span class="token string">'555'</span><span class="token punctuation">)</span>
 </span><span class="code-line line-number" line="16">  <span class="token parameter variable">--color</span>        <span class="token operator">&#x3C;</span>Color RGB<span class="token operator">></span> or <span class="token operator">&#x3C;</span>Color Name<span class="token operator">></span> <span class="token punctuation">(</span>default: <span class="token string">''</span><span class="token punctuation">)</span>
-</span><span class="code-line line-number" line="17">
-</span><span class="code-line line-number" line="18">Example:
+</span><span class="code-line line-number" line="17">  <span class="token parameter variable">--jsonPath</span>     Path to the coverage percentage number to be used <span class="token keyword">in</span> the badge.
+</span><span class="code-line line-number" line="18">  <span class="token parameter variable">--arbitrary</span>    Allow jsonPath to point to non-number values. Works <span class="token keyword">in</span> conjunction with jsonPath.
 </span><span class="code-line line-number" line="19">
-</span><span class="code-line line-number" line="20">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--output</span> coverage/badges.svg
-</span><span class="code-line line-number" line="21">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--style</span> plastic
-</span><span class="code-line line-number" line="22">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--source</span> coverage/coverage-summary.json
-</span><span class="code-line line-number" line="23">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--labelColor</span> ADF
+</span><span class="code-line line-number" line="20">Example:
+</span><span class="code-line line-number" line="21">
+</span><span class="code-line line-number" line="22">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--output</span> coverage/badges.svg
+</span><span class="code-line line-number" line="23">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--style</span> plastic
+</span><span class="code-line line-number" line="24">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--source</span> coverage/coverage-summary.json
+</span><span class="code-line line-number" line="25">  <span class="token function">npm</span> coverage-badges-cli <span class="token parameter variable">--labelColor</span> ADF
 </span></code><input type="hidden" value="Usage: coverage-badges [options] [--help|h]
 
 Options:
@@ -227,6 +230,8 @@ Options:
   --label        The left label of the badge, usually static (default &#x60;coverage&#x60;).
   --labelColor   <Color RGB> or <Color Name> (default: &#x27;555&#x27;)
   --color        <Color RGB> or <Color Name> (default: &#x27;&#x27;)
+  --jsonPath     Path to the coverage percentage number to be used in the badge.
+  --arbitrary    Allow jsonPath to point to non-number values. Works in conjunction with jsonPath.
 
 Example:
 

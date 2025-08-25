@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -106,7 +106,9 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -127,27 +129,29 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import path from 'path';
 import fs from 'fs-extra';
@@ -166,6 +170,7 @@ import { badge, BadgeOption } from './badges';
     const scale = <span class="cstat-no" title="statement not covered" >Number(getInput('scale') || 1) || 1;</span>
     const jsonPath = <span class="cstat-no" title="statement not covered" >getInput('jsonPath') || 'total.statements.pct';</span>
     const style = <span class="cstat-no" title="statement not covered" >(getInput('style') || 'classic') as BadgeOption['style'];</span>
+    const arbitrary = <span class="cstat-no" title="statement not covered" >(getInput('arbitrary') || "f").trim().toLowerCase()[0] === "t";</span>
 <span class="cstat-no" title="statement not covered" >    fs.ensureDirSync(path.dirname(output));</span>
 <span class="cstat-no" title="statement not covered" >    if (!fs.existsSync(source)) {</span>
 <span class="cstat-no" title="statement not covered" >      setFailed(`File \x1b[31m${source}\x1b[0m does not exist.\n please specify the file directory\n\x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json`);</span>
@@ -179,7 +184,7 @@ import { badge, BadgeOption } from './badges';
 <span class="cstat-no" title="statement not covered" >    info(`${JSON.stringify(sourceData, null, 2)}`);</span>
 <span class="cstat-no" title="statement not covered" >    endGroup();</span>
     
-    const svgStr = <span class="cstat-no" title="statement not covered" >badge({ label, labelColor, color, style, jsonPath, scale } as BadgeOption, sourceData);</span>
+    const svgStr = <span class="cstat-no" title="statement not covered" >badge({ label, labelColor, color, style, jsonPath, scale, arbitrary } as BadgeOption, sourceData);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    setOutput('svg', svgStr);</span>
 &nbsp;
@@ -192,14 +197,15 @@ import { badge, BadgeOption } from './badges';
   } catch (error) {
 <span class="cstat-no" title="statement not covered" >    setFailed(error.message);</span>
   }
-})();</pre></td></tr></table></pre>
+})();
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-24T05:21:49.472Z
+                at 2025-08-25T04:33:53.537Z
             </div>
         <script src="prettify.js"></script>
         <script>
