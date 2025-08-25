@@ -15,6 +15,7 @@ import { badge, BadgeOption } from './badges';
     const scale = Number(getInput('scale') || 1) || 1;
     const jsonPath = getInput('jsonPath') || 'total.statements.pct';
     const style = (getInput('style') || 'classic') as BadgeOption['style'];
+    const arbitrary = (getInput('arbitrary') || "f").trim().toLowerCase()[0] === "t";
     fs.ensureDirSync(path.dirname(output));
     if (!fs.existsSync(source)) {
       setFailed(`File \x1b[31m${source}\x1b[0m does not exist.\n please specify the file directory\n\x1b[35mnpm\x1b[0m coverage-badges-cli \x1b[33m--source\x1b[0m coverage/coverage-summary.json`);
@@ -28,7 +29,7 @@ import { badge, BadgeOption } from './badges';
     info(`${JSON.stringify(sourceData, null, 2)}`);
     endGroup();
     
-    const svgStr = badge({ label, labelColor, color, style, jsonPath, scale } as BadgeOption, sourceData);
+    const svgStr = badge({ label, labelColor, color, style, jsonPath, scale, arbitrary } as BadgeOption, sourceData);
 
     setOutput('svg', svgStr);
 

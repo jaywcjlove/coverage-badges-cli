@@ -17,6 +17,7 @@ export interface BadgenOptions {
   icon?: string;
   iconWidth?: number;
   scale?: number;
+  arbitrary?: boolean;
 }
 
 export interface BadgeOption extends BadgenOptions {}
@@ -36,15 +37,15 @@ const defaultColorData: ColorData = {
 }
 
 export function badge(option: BadgeOption, summary: object) {
-  const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct', color: optionColor, ...otherOption } = (option || {}) as BadgenOptions
+  const { label = 'coverage', style = 'classic', jsonPath = 'total.statements.pct', color: optionColor, arbitrary, ...otherOption } = (option || {}) as BadgenOptions
   let pct: any = summary;
   pct = get(summary, jsonPath, 0);
 
-  if (!isNaN(Number(pct))) {
+  if (!arbitrary && !isNaN(Number(pct))) {
     pct = Number(pct);
   }
 
-  if (typeof pct !== 'number') {
+  if (!arbitrary && typeof pct !== 'number') {
     throw new Error(`${jsonPath} evaluates to ${JSON.stringify(pct)} and is not a suitable path in the JSON coverage data`);
   }
   const colorData = defaultColorData
@@ -58,11 +59,12 @@ export function badge(option: BadgeOption, summary: object) {
     return false;
   });
 
+  const suffix = arbitrary ? "" : "%"
   const badgenArgs: BadgenOptions = {
     ...otherOption,
     style,
     label,
-    status: `${pct < 0 ? 'Unknown' : `${pct}%`}`,
+    status: `${pct < 0 ? 'Unknown' : `${pct}${suffix}`}`,
     color: (color || 'e5e5e5').replace(/^#/, ''),
   };
 

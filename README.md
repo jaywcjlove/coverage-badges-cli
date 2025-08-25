@@ -59,6 +59,7 @@ You can add `![Coverage](./coverage/badges.svg)` to your README.md after the bad
 - `style` - Badges style: `flat`, `classic` (default `classic`).
 - ~~`type`~~ - (No longer supported after v1.2.0) Coverage report type: `lines`, `statements`, `functions`, `branches` (default `statements`)
 - `jsonPath` - Path to the coverage percentage number to be used in the badge (default `total.statements.pct`)
+- `arbitrary` - Allow `jsonPath` to point to non-number values. Works in conjunction with `jsonPath`
 - `icon` - Path to icon file
 
 ```yml
@@ -132,6 +133,8 @@ Options:
   --label        The left label of the badge, usually static (default `coverage`).
   --labelColor   <Color RGB> or <Color Name> (default: '555')
   --color        <Color RGB> or <Color Name> (default: '')
+  --jsonPath     Path to the coverage percentage number to be used in the badge.
+  --arbitrary    Allow jsonPath to point to non-number values. Works in conjunction with jsonPath.
 
 Example:
 
