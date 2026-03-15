@@ -1,6 +1,6 @@
 {
   "name": "coverage-badges-cli",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Create coverage badges from coverage reports. Using GitHub Actions and GitHub Workflow CPU time (no 3rd parties servers).",
   "homepage": "https://jaywcjlove.github.io/coverage-badges-cli/",
   "funding": "https://jaywcjlove.github.io/#/sponsor",
@@ -58,7 +58,7 @@
     "minimist": "~1.2.5"
   },
   "devDependencies": {
-    "@actions/core": "^1.10.0",
+    "@actions/core": "^1.11.1",
     "@kkt/ncc": "^1.0.15",
     "@types/lodash.get": "^4.4.9",
     "husky": "^9.0.11",
